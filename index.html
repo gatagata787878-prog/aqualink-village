@@ -101,10 +101,10 @@ body{display:flex;flex-direction:column;}
 
 .village{
   background:linear-gradient(to bottom,
-    #C0C5CA 0%, #C8CDD2 35%,
-    #D8D2C5 50%, #D0CCBE 60%,
-    #5C544C 65%, #5C544C 100%);
-  min-height:330px;
+    #87CEEB 0%, #98D8E8 35%,
+    #B8E0EC 50%,
+    #7BC85C 60%, #5BA84C 100%);
+  min-height:380px;
   position:relative;
   border-bottom:3px solid var(--woodbg);
   padding:14px 12px 4px;
@@ -112,62 +112,106 @@ body{display:flex;flex-direction:column;}
 }
 .village:before{
   content:"";position:absolute;
-  left:0;right:0;top:65%;height:2px;
-  background:#3A352F;
-  z-index:1;
+  left:0;right:0;top:55%;height:45%;
+  background:
+    linear-gradient(to bottom,#7BC85C 0%,#5BA84C 50%,#3D8A38 100%);
+  z-index:0;
 }
 .village:after{
   content:"";position:absolute;
-  left:0;right:0;bottom:14px;height:1px;
-  background:repeating-linear-gradient(90deg,transparent 0,transparent 10px,#D4C8B0 10px,#D4C8B0 18px);
-  z-index:1;
-}
-.cloud{
-  position:absolute;background:#FAF6EE;border-radius:14px;
-  box-shadow:
-    -10px 4px 0 -2px #FAF6EE, 12px 4px 0 -2px #FAF6EE,
-    0 -6px 0 -3px #FAF6EE;
-  width:24px;height:10px;z-index:1;opacity:.7;
-}
-.sun{
-  position:absolute;top:14px;right:18px;
-  width:32px;height:32px;background:#E8DCC8;
-  border-radius:50%;border:2px solid #C8B898;
-  z-index:1;opacity:.5;
+  left:-10%;right:-10%;bottom:-20px;height:40%;
+  background:
+    radial-gradient(ellipse at 20% 100%, #6B8C5C 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, #6B8C5C 0%, transparent 60%);
+  z-index:0;
 }
 
-.skybuilding{
+.mountain{
   position:absolute;z-index:1;
-  background:#8A8278;
-  border:1px solid #5C544C;
+  bottom:38%;
 }
-.skybuilding-windows{
-  position:absolute;inset:3px 2px 2px 2px;
-  background-image:radial-gradient(#B0AFA8 1px, transparent 1.5px);
-  background-size:5px 5px;
-  opacity:.85;
-}
+.mountain svg{display:block;}
 
-.tokyo-station{
+.cloud{
+  position:absolute;background:#FFFFFF;border-radius:20px;
+  box-shadow:
+    -10px 4px 0 -2px #FFFFFF, 12px 4px 0 -2px #FFFFFF,
+    -16px -2px 0 -3px #FFFFFF, 14px -3px 0 -2px #FFFFFF;
+  width:30px;height:12px;z-index:2;opacity:.95;
+}
+.sun{display:none;}
+
+.tree{
   position:absolute;z-index:2;
-  bottom:35%;width:48px;
+  bottom:8px;width:40px;height:60px;
 }
-.tokyo-station svg{width:100%;height:auto;display:block;}
+.tree svg{width:100%;height:100%;display:block;}
 
-.gingko{
-  position:absolute;z-index:2;
-  width:14px;height:32px;
-  bottom:14px;
+.skybuilding{display:none;}
+.tokyo-station{display:none;}
+.gingko{display:none;}
+.taxi{display:none;}
+
+.hq-stage{
+  position:relative;width:200px;height:200px;
+  margin:0 auto -20px;z-index:3;
+  animation:floatIsland 5s ease-in-out infinite;
 }
-.gingko svg{width:100%;height:100%;display:block;}
-
-.taxi{
-  position:absolute;z-index:2;
-  width:18px;height:8px;
-  bottom:7px;
+@keyframes floatIsland{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
 }
-.taxi svg{width:100%;height:100%;display:block;}
+.hq-stage svg{
+  width:100%;height:100%;display:block;
+  filter:drop-shadow(3px 6px 0 rgba(0,0,0,.18));
+}
+.hq-banner{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  background:#FFF8E1;color:#5C3A1F;
+  font-weight:900;font-size:11px;
+  padding:5px 14px;border:2.5px solid #5C3A1F;
+  border-radius:10px;white-space:nowrap;z-index:4;
+  box-shadow:0 3px 0 #8A6048, 0 4px 0 0 #5C3A1F;
+}
+.hq-banner i{font-size:11px;color:#A85050;margin-right:3px;}
 
+.party-stage{
+  display:flex;justify-content:space-around;align-items:flex-end;
+  position:relative;z-index:3;padding:6px 4px 12px;
+}
+.npc{
+  position:relative;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  transition:transform .12s;
+}
+.npc:active{transform:translateY(-3px) scale(.97);}
+.npc svg{
+  width:80px;height:108px;display:block;
+  filter:drop-shadow(2px 4px 0 rgba(0,0,0,.2));
+}
+.npc-platform{
+  position:absolute;bottom:38px;left:50%;
+  transform:translateX(-50%);
+  width:64px;height:14px;
+  border-radius:50%;
+  z-index:-1;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.2));
+}
+.npc[data-dept="sales"] .npc-platform{background:radial-gradient(ellipse,#7AB5DC 0%,#5C8AB5 100%);}
+.npc[data-dept="install"] .npc-platform{background:radial-gradient(ellipse,#E8B848 0%,#A88828 100%);}
+.npc[data-dept="mainte"] .npc-platform{background:radial-gradient(ellipse,#C95858 0%,#9C3838 100%);}
+.npc-tag{
+  background:#FFF8E1;color:#3D2010;
+  font-weight:900;font-size:11px;
+  padding:4px 11px;border:2.5px solid #5C3A1F;
+  border-radius:10px;
+  margin-top:5px;white-space:nowrap;
+  box-shadow:0 3px 0 #8A6048;
+  display:flex;align-items:center;gap:5px;
+}
+.npc-tag .lv{
+  font-size:10px;color:#A85050;font-weight:900;
+}
 .flower{display:none;}
 
 .hq-stage{
@@ -908,6 +952,110 @@ body{display:flex;flex-direction:column;}
   font-size:9px;padding:1px 5px;border-radius:99px;
   margin-left:4px;font-weight:900;
 }
+
+/* ── 経営パラメータ ── */
+.biz-param-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.biz-param{
+  background:var(--paper);border:2px solid var(--woodbg);
+  border-radius:10px;padding:8px 6px;text-align:center;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.biz-param-icon{font-size:18px;margin-bottom:2px;}
+.biz-param-val{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:900;color:var(--ink2);}
+.biz-param-lbl{font-size:10px;color:var(--ink3);margin-top:2px;}
+.biz-param.up{border-color:#1A6B2A;}
+.biz-param.up .biz-param-val{color:#1A6B2A;}
+.biz-param.down{border-color:#A82020;}
+.biz-param.down .biz-param-val{color:#A82020;}
+
+/* ── 会社ステータス ── */
+.stat-row{
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;
+  font-size:11px;
+}
+.stat-name{width:60px;font-weight:700;color:var(--ink2);}
+.stat-bar{flex:1;height:8px;background:var(--bg2);border-radius:99px;overflow:hidden;border:1px solid var(--woodbg);}
+.stat-bar-fill{height:100%;border-radius:99px;transition:width .4s;}
+.stat-val{width:30px;text-align:right;font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:900;color:var(--ink2);}
+
+/* ── 危機アラート ── */
+.crisis-card{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:10px;
+  border:2px solid;margin-bottom:6px;
+  font-size:11px;
+}
+.crisis-icon{font-size:22px;flex-shrink:0;}
+.crisis-info{flex:1;}
+.crisis-name{font-weight:900;font-size:12px;margin-bottom:2px;}
+.crisis-desc{font-size:10px;opacity:0.85;line-height:1.4;}
+.crisis-tag{font-weight:900;font-size:10px;padding:2px 8px;border-radius:99px;}
+
+/* ── 称号 ── */
+.badges-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+}
+.badge-item{
+  background:var(--paper);border:2px solid var(--woodbg);
+  border-radius:8px;padding:6px 4px;text-align:center;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.badge-item.unlocked{
+  background:linear-gradient(to bottom, #FCE9C8, #FCD96A);
+  border-color:#A88828;
+}
+.badge-item.locked{opacity:.4;}
+.badge-icon{font-size:18px;color:var(--woodbg);}
+.badge-item.unlocked .badge-icon{color:#A85050;}
+.badge-name{font-size:9px;font-weight:700;color:var(--ink2);margin-top:2px;line-height:1.2;}
+
+/* ── KGI判定タグ ── */
+.kgi-grade{
+  display:inline-block;font-weight:900;font-size:11px;
+  padding:2px 8px;border-radius:5px;color:#fff;
+  margin-left:4px;
+}
+.kgi-grade.S{background:#1A6B2A;}
+.kgi-grade.A{background:#5BA84C;}
+.kgi-grade.B{background:#D4A020;}
+.kgi-grade.C{background:#D46820;}
+.kgi-grade.D{background:#A82020;}
+
+/* ── 月次レポート ── */
+.report-header{
+  background:var(--paper);border-bottom:3px solid var(--woodbg);
+  padding:14px;font-size:14px;font-weight:900;color:var(--ink2);
+  display:flex;align-items:center;gap:6px;
+}
+.report-card{
+  background:var(--paper);border:2px solid var(--woodbg);
+  border-radius:14px;margin:10px 14px;padding:12px;
+  box-shadow:0 3px 0 var(--shadow);
+}
+.report-month{font-size:12px;font-weight:900;color:var(--ink2);margin-bottom:6px;}
+.report-grade{
+  display:inline-block;font-weight:900;font-size:24px;
+  padding:4px 14px;border-radius:8px;color:#fff;margin:6px 0;
+}
+.report-grade.S{background:#1A6B2A;}
+.report-grade.A{background:#5BA84C;}
+.report-grade.B{background:#D4A020;}
+.report-grade.C{background:#D46820;}
+.report-grade.D{background:#A82020;}
+.report-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--woodbg);}
+.report-section-h{font-size:11px;font-weight:900;color:var(--ink2);margin-bottom:6px;}
+.report-row{display:flex;justify-content:space-between;font-size:11px;color:var(--ink2);margin-bottom:4px;line-height:1.5;}
+.report-row.delta-up{color:#1A6B2A;}
+.report-row.delta-down{color:#A82020;}
+.report-event{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 8px;border-radius:6px;margin-bottom:4px;
+  font-size:11px;
+}
+.report-event.good{background:#E8F5DC;border-left:3px solid #5BA84C;}
+.report-event.bad{background:#FCE0DC;border-left:3px solid #A82020;}
 </style>
 </head>
 <body>
@@ -923,70 +1071,94 @@ body{display:flex;flex-direction:column;}
 
 <div class="page active" id="page-home">
   <div class="village">
-    <div class="sun"></div>
     <div class="cloud" style="top:24px;left:24px;"></div>
-    <div class="cloud" style="top:42px;left:200px;"></div>
+    <div class="cloud" style="top:42px;right:18px;"></div>
+    <div class="cloud" style="top:80px;left:58%;"></div>
 
-    <div class="skybuilding" style="left:0;top:32%;width:42px;height:33%;">
-      <div class="skybuilding-windows"></div>
+    <div class="mountain" style="left:-10px;bottom:34%;">
+      <svg width="130" height="60" viewBox="0 0 130 60">
+        <polygon points="0,60 30,15 50,40 70,5 95,35 130,60" fill="#7A8AA0" opacity="0.5"/>
+        <polygon points="20,60 45,25 60,45 130,60" fill="#5C6B85" opacity="0.4"/>
+      </svg>
     </div>
-    <div class="skybuilding" style="left:48px;top:24%;width:48px;height:41%;background:#7A7268;">
-      <div class="skybuilding-windows"></div>
-    </div>
-    <div class="skybuilding" style="right:0;top:34%;width:36px;height:31%;background:#9C9588;">
-      <div class="skybuilding-windows"></div>
+    <div class="mountain" style="right:-10px;bottom:34%;">
+      <svg width="120" height="50" viewBox="0 0 120 50">
+        <polygon points="0,50 25,12 50,30 75,8 110,35 120,50" fill="#7A8AA0" opacity="0.55"/>
+      </svg>
     </div>
 
-    <div class="tokyo-station" style="right:18px;bottom:35%;">
-      <svg viewBox="0 0 60 50" preserveAspectRatio="xMidYEnd meet">
-        <rect x="2" y="22" width="56" height="28" fill="#9C5848" stroke="#5C2A20" stroke-width="0.6"/>
-        <polygon points="0,22 60,22 30,10" fill="#7A4030" stroke="#5C2A20" stroke-width="0.6"/>
-        <rect x="28" y="14" width="4" height="8" fill="#5C2A20"/>
-        <g fill="#D4C8B0" stroke="#5C2A20" stroke-width="0.4">
-          <rect x="6" y="26" width="4" height="5"/><rect x="13" y="26" width="4" height="5"/>
-          <rect x="22" y="26" width="4" height="5"/><rect x="34" y="26" width="4" height="5"/>
-          <rect x="43" y="26" width="4" height="5"/><rect x="50" y="26" width="4" height="5"/>
-          <rect x="6" y="34" width="4" height="5"/><rect x="13" y="34" width="4" height="5"/>
-          <rect x="22" y="34" width="4" height="5"/><rect x="34" y="34" width="4" height="5"/>
-          <rect x="43" y="34" width="4" height="5"/><rect x="50" y="34" width="4" height="5"/>
-        </g>
-        <rect x="27" y="42" width="6" height="8" fill="#3D2A1C"/>
+    <div class="tree" style="left:8px;bottom:6px;">
+      <svg viewBox="0 0 40 60">
+        <rect x="17" y="40" width="6" height="14" fill="#6B4A2A"/>
+        <rect x="17" y="40" width="3" height="14" fill="#5C3A1F"/>
+        <rect x="6" y="14" width="28" height="28" fill="#5BA84C" stroke="#3D8A38" stroke-width="1"/>
+        <rect x="6" y="14" width="28" height="6" fill="#7BC85C"/>
+        <rect x="10" y="20" width="3" height="3" fill="#7BC85C" opacity="0.6"/>
+        <rect x="20" y="24" width="3" height="3" fill="#7BC85C" opacity="0.6"/>
+        <rect x="26" y="32" width="3" height="3" fill="#7BC85C" opacity="0.6"/>
+        <rect x="14" y="34" width="3" height="3" fill="#3D8A38"/>
+        <rect x="22" y="18" width="3" height="3" fill="#3D8A38"/>
+      </svg>
+    </div>
+    <div class="tree" style="left:38px;bottom:18px;width:32px;height:48px;">
+      <svg viewBox="0 0 40 60">
+        <rect x="17" y="40" width="6" height="14" fill="#6B4A2A"/>
+        <rect x="17" y="40" width="3" height="14" fill="#5C3A1F"/>
+        <rect x="6" y="14" width="28" height="28" fill="#5BA84C" stroke="#3D8A38" stroke-width="1"/>
+        <rect x="6" y="14" width="28" height="6" fill="#7BC85C"/>
+        <rect x="14" y="34" width="3" height="3" fill="#3D8A38"/>
+      </svg>
+    </div>
+    <div class="tree" style="right:8px;bottom:6px;">
+      <svg viewBox="0 0 40 60">
+        <rect x="17" y="40" width="6" height="14" fill="#6B4A2A"/>
+        <rect x="17" y="40" width="3" height="14" fill="#5C3A1F"/>
+        <rect x="6" y="14" width="28" height="28" fill="#5BA84C" stroke="#3D8A38" stroke-width="1"/>
+        <rect x="6" y="14" width="28" height="6" fill="#7BC85C"/>
+        <rect x="10" y="20" width="3" height="3" fill="#7BC85C" opacity="0.6"/>
+        <rect x="22" y="28" width="3" height="3" fill="#3D8A38"/>
+      </svg>
+    </div>
+    <div class="tree" style="right:42px;bottom:20px;width:30px;height:46px;">
+      <svg viewBox="0 0 40 60">
+        <rect x="17" y="40" width="6" height="14" fill="#6B4A2A"/>
+        <rect x="6" y="14" width="28" height="28" fill="#5BA84C" stroke="#3D8A38" stroke-width="1"/>
+        <rect x="6" y="14" width="28" height="6" fill="#7BC85C"/>
       </svg>
     </div>
 
     <div class="hq-stage">
       <div class="hq-banner" id="hq-banner"><i class="ti ti-building"></i>本社 Lv.1</div>
-      <svg id="hq-svg" viewBox="0 0 80 90"></svg>
-    </div>
-
-    <div class="gingko" style="left:8%;bottom:14px;">
-      <svg viewBox="0 0 14 32"><rect x="6" y="14" width="2" height="18" fill="#5C3A2C"/><ellipse cx="7" cy="13" rx="6" ry="8" fill="#A8A878"/><ellipse cx="5" cy="10" rx="3" ry="4" fill="#9C9C68"/></svg>
-    </div>
-    <div class="gingko" style="right:8%;bottom:14px;">
-      <svg viewBox="0 0 14 32"><rect x="6" y="14" width="2" height="18" fill="#5C3A2C"/><ellipse cx="7" cy="13" rx="6" ry="8" fill="#A8A878"/><ellipse cx="9" cy="10" rx="3" ry="4" fill="#9C9C68"/></svg>
-    </div>
-
-    <div class="taxi" style="left:30%;bottom:7px;">
-      <svg viewBox="0 0 18 8"><rect x="0" y="2" width="18" height="4" rx="0.6" fill="#3D352B"/><rect x="3" y="0.5" width="11" height="2.5" fill="#5C544C"/><circle cx="4" cy="6.5" r="1.2" fill="#1A1612"/><circle cx="14" cy="6.5" r="1.2" fill="#1A1612"/></svg>
-    </div>
-    <div class="taxi" style="right:24%;bottom:7px;">
-      <svg viewBox="0 0 18 8"><rect x="0" y="2" width="18" height="4" rx="0.6" fill="#5C544C"/><rect x="3" y="0.5" width="11" height="2.5" fill="#7A7268"/><circle cx="4" cy="6.5" r="1.2" fill="#1A1612"/><circle cx="14" cy="6.5" r="1.2" fill="#1A1612"/></svg>
+      <svg id="hq-svg" viewBox="0 0 200 200"></svg>
     </div>
 
     <div class="party-stage">
-      <div class="npc" onclick="openDept('sales')">
+      <div class="npc" data-dept="sales" onclick="openDept('sales')">
+        <div class="npc-platform"></div>
         <svg id="npc-sales-svg" viewBox="0 0 60 80"></svg>
         <div class="npc-tag">営業部 <span class="lv">Lv.<span id="npc-sales-lv">1</span></span></div>
       </div>
-      <div class="npc" onclick="openDept('install')">
+      <div class="npc" data-dept="install" onclick="openDept('install')">
+        <div class="npc-platform"></div>
         <svg id="npc-install-svg" viewBox="0 0 60 80"></svg>
         <div class="npc-tag">設置部 <span class="lv">Lv.<span id="npc-install-lv">1</span></span></div>
       </div>
-      <div class="npc" onclick="openDept('mainte')">
+      <div class="npc" data-dept="mainte" onclick="openDept('mainte')">
+        <div class="npc-platform"></div>
         <svg id="npc-mainte-svg" viewBox="0 0 60 80"></svg>
         <div class="npc-tag">メンテ部 <span class="lv">Lv.<span id="npc-mainte-lv">1</span></span></div>
       </div>
     </div>
+  </div>
+
+  <div class="panel" id="biz-params-panel">
+    <div class="panel-h"><i class="ti ti-businessplan"></i>経営パラメータ</div>
+    <div class="panel-body" id="biz-params-list"></div>
+  </div>
+
+  <div class="panel" id="crisis-panel" style="display:none;">
+    <div class="panel-h"><i class="ti ti-alert-triangle"></i>経営アラート</div>
+    <div class="panel-body" id="crisis-list"></div>
   </div>
 
   <div class="panel">
@@ -994,13 +1166,24 @@ body{display:flex;flex-direction:column;}
     <div class="panel-body" id="hq-kgi-list"></div>
   </div>
 
+  <div class="panel" id="company-stats-panel">
+    <div class="panel-h"><i class="ti ti-chart-radar"></i>会社ステータス</div>
+    <div class="panel-body" id="company-stats-list"></div>
+  </div>
+
   <div class="panel">
     <div class="panel-h"><i class="ti ti-bulb"></i>今月の経営課題</div>
     <div class="panel-body" id="mission-list"></div>
   </div>
 
+  <div class="panel" id="badges-panel">
+    <div class="panel-h"><i class="ti ti-award"></i>獲得した称号</div>
+    <div class="panel-body" id="badges-list"></div>
+  </div>
+
   <div class="home-actions">
     <button class="act-btn" onclick="goPage('input')"><i class="ti ti-clipboard-check"></i>今月の経営会議を始める</button>
+    <button class="act-btn alt" onclick="goPage('report')"><i class="ti ti-file-text"></i>月次レポートを見る</button>
   </div>
 </div>
 
@@ -1068,6 +1251,14 @@ body{display:flex;flex-direction:column;}
   <div style="padding:0 12px 16px;">
     <button class="act-btn" onclick="commitMonth()"><i class="ti ti-device-floppy"></i>月次決算を確定する</button>
   </div>
+</div>
+
+<div class="page" id="page-report">
+  <div class="det-back" onclick="goPage('home')"><i class="ti ti-arrow-left"></i>会社トップへ</div>
+  <div class="report-header">
+    <i class="ti ti-file-text"></i> 月次経営レポート
+  </div>
+  <div id="report-content"></div>
 </div>
 
 <div class="page" id="page-history">
@@ -1223,8 +1414,47 @@ const RANK_TITLES = [
 ];
 
 const HQ_RANK_TITLES = [
-  '創業期の会社', '小さな専門会社', '現場で頑張る会社', '数字を見始めた会社', '部門管理が始まった会社',
-  '改善が回り始めた会社', '利益が残る会社', '社員に還元できる会社', '次世代に承継できる会社', '100年続くアクアリンク'
+  '創業期の会社', '小さな専門会社', '現場で頑張る会社', '部門管理が始まった会社',
+  '改善が回り始めた会社', '利益が残る会社', '仕組みで成長する会社', '100年続くアクアリンク'
+];
+
+// 12種の会社称号
+const COMPANY_BADGES = [
+  {id:'first_input', name:'数字文化の第一歩', desc:'初回月次入力を完了', icon:'ti-flag-3'},
+  {id:'three_months', name:'数字を見る会社', desc:'3ヶ月連続で月次入力', icon:'ti-calendar-check'},
+  {id:'three_quests', name:'改善が回る会社', desc:'改善クエストを3件完了', icon:'ti-tools'},
+  {id:'profit_achieve', name:'利益を残す会社', desc:'実質純増利益を達成', icon:'ti-coin'},
+  {id:'reward_increase', name:'仲間に報いる会社', desc:'社員還元原資が増加', icon:'ti-heart-handshake'},
+  {id:'three_kgi', name:'三位一体経営', desc:'3部門KGIを同時達成', icon:'ti-stars'},
+  {id:'no_quality_cancel', name:'信頼を守る会社', desc:'品質解約0件を達成', icon:'ti-shield-check'},
+  {id:'on_time', name:'約束を守る会社', desc:'納期遵守率を達成', icon:'ti-clock-check'},
+  {id:'low_purchase', name:'仕入規律の会社', desc:'純仕入割合7.5%以下', icon:'ti-package'},
+  {id:'product_profit', name:'既存顧客から利益を作る会社', desc:'商品利益達成', icon:'ti-box'},
+  {id:'no_handover_issue', name:'連携できる会社', desc:'引継ぎ不備0件', icon:'ti-link'},
+  {id:'twelve_months', name:'100年企業への道', desc:'12ヶ月連続改善', icon:'ti-crown'},
+];
+
+// 良いイベント
+const GOOD_EVENTS = [
+  {id:'sales_rush', name:'新規契約ラッシュ', desc:'営業部の頑張りで新規契約が大量発生！', cond:(d)=>d.sales_net>=500000&&d.sales_won>=20, icon:'ti-trending-up', color:'#1A6B2A'},
+  {id:'high_profit', name:'高利益受注', desc:'値引き少なく高粗利での受注に成功！', cond:(d)=>d.sales_gross>=45&&d.sales_disc<=5, icon:'ti-coin', color:'#D4A020'},
+  {id:'quality_month', name:'高品質施工月間', desc:'クレーム0で完璧な施工を達成！', cond:(d)=>d.inst_complaint30===0&&d.inst_revisit===0, icon:'ti-shield-check', color:'#1A6B2A'},
+  {id:'no_cancel', name:'解約防止成功', desc:'品質解約0件で顧客信頼を獲得！', cond:(d)=>d.mt_quality_cancel===0&&d.mt_cancel_cnt<=5, icon:'ti-heart', color:'#A85050'},
+  {id:'good_purchase', name:'仕入管理成功', desc:'純仕入割合7.5%以下の優秀な管理！', cond:(d)=>d.mt_purchase_pct<=7.5&&d.mt_purchase_pct>0, icon:'ti-package', color:'#5B7AA8'},
+  {id:'product_party', name:'商品利益祭り', desc:'メンテ部からの商品提案で利益拡大！', cond:(d)=>d.mt_profit>=1500000, icon:'ti-gift', color:'#D4A020'},
+  {id:'reward_chance', name:'社員還元チャンス', desc:'社員に還元できる原資が増加！', cond:(d)=>d.hq_reward>=2000000, icon:'ti-heart-handshake', color:'#A85050'},
+];
+
+// 悪いイベント
+const BAD_EVENTS = [
+  {id:'no_contract', name:'契約書未回収アラート', desc:'契約書回収が低下しています', cond:(d)=>d.inst_contract!==undefined&&d.inst_contract<90, icon:'ti-alert-triangle', color:'#D4A020'},
+  {id:'install_delay', name:'設置遅延トラブル', desc:'再訪問が増加しています', cond:(d)=>d.inst_revisit>=3, icon:'ti-clock-x', color:'#D46820'},
+  {id:'rework', name:'手戻り発生', desc:'追加発注・再訪問が増えています', cond:(d)=>d.inst_addorder>=2||d.inst_revisit>=3, icon:'ti-refresh-alert', color:'#D46820'},
+  {id:'quality_cancel', name:'品質解約発生', desc:'防げた可能性のある解約が発生！', cond:(d)=>d.mt_quality_cancel>=1, icon:'ti-mood-sad', color:'#A82020'},
+  {id:'over_purchase', name:'仕入割合オーバー', desc:'純仕入割合が7.5%を超えています', cond:(d)=>d.mt_purchase_pct>7.5, icon:'ti-package-off', color:'#A82020'},
+  {id:'unpaid_risk', name:'未納リスク増加', desc:'未納2ヶ月以上が増えています', cond:(d)=>d.mt_unpaid_2m>=5, icon:'ti-cash-off', color:'#D46820'},
+  {id:'bond_miss', name:'部門連携ミス', desc:'メンテからの指摘が増えています', cond:(d)=>d.inst_handback>=2, icon:'ti-link-off', color:'#D46820'},
+  {id:'low_satisfy', name:'お客様満足度低下', desc:'満足度が下がっています', cond:(d)=>d.inst_satisfy!==undefined&&d.inst_satisfy<70, icon:'ti-mood-cry', color:'#D46820'},
 ];
 
 const QUEST_TEMPLATES = [
@@ -1379,6 +1609,24 @@ let ST = {
   quests: [],
   bonds_claimed: {},
   badges: [],
+  // 新規パラメータ
+  funds: 1000,           // 経営資金（万円）
+  reputation: 50,        // 会社評判 0-100
+  satisfaction: 50,      // 社員満足度 0-100
+  stats: {               // 会社ステータス 0-100
+    sales_power: 0,    // 売上力
+    profit_power: 0,   // 利益力
+    quality_power: 0,  // 品質力
+    site_power: 0,     // 現場力
+    collect_power: 0,  // 回収力
+    bond_power: 0,     // 連携力
+    reward_power: 0,   // 還元力
+  },
+  monthly_kgi_status: {},  // KGI連続未達カウンター {kgi_id: 連続未達月数}
+  consecutive_input: 0,    // 連続入力月数
+  last_input_month: null,
+  events: [],              // 発生イベント履歴
+  reports: [],             // 月次レポート履歴
 };
 
 try {
@@ -1389,6 +1637,14 @@ try {
     if (!ST.quests) ST.quests = [];
     if (!ST.bonds_claimed) ST.bonds_claimed = {};
     if (!ST.badges) ST.badges = [];
+    if (typeof ST.funds !== 'number') ST.funds = 1000;
+    if (typeof ST.reputation !== 'number') ST.reputation = 50;
+    if (typeof ST.satisfaction !== 'number') ST.satisfaction = 50;
+    if (!ST.stats) ST.stats = {sales_power:0,profit_power:0,quality_power:0,site_power:0,collect_power:0,bond_power:0,reward_power:0};
+    if (!ST.monthly_kgi_status) ST.monthly_kgi_status = {};
+    if (typeof ST.consecutive_input !== 'number') ST.consecutive_input = 0;
+    if (!ST.events) ST.events = [];
+    if (!ST.reports) ST.reports = [];
   }
 } catch(e) {}
 
@@ -1461,262 +1717,1012 @@ function xpRange(xp) {
 
 function hqLevel() {
   const totalXp = ST.xp.sales + ST.xp.install + ST.xp.mainte;
-  if (totalXp < 200) return 1;
-  if (totalXp < 600) return 2;
-  if (totalXp < 1500) return 3;
-  if (totalXp < 3000) return 4;
-  if (totalXp < 5000) return 5;
-  if (totalXp < 8000) return 6;
-  if (totalXp < 12000) return 7;
+  if (totalXp < 150) return 1;
+  if (totalXp < 400) return 2;
+  if (totalXp < 900) return 3;
+  if (totalXp < 1600) return 4;
+  if (totalXp < 2600) return 5;
+  if (totalXp < 4000) return 6;
+  if (totalXp < 6000) return 7;
   return 8;
 }
 
+// KGI判定 S/A/B/C/D
+function gradeKgi(actual, target, invert) {
+  if (actual === undefined || actual === null || actual === '') return null;
+  let pct;
+  if (invert) {
+    if (actual <= target) return {grade:'S', pct:100, color:'#1A6B2A'};
+    pct = Math.max(0, 100 - ((actual - target) / Math.max(target, 1)) * 100);
+  } else {
+    pct = (actual / target) * 100;
+  }
+  pct = Math.round(pct);
+  if (pct >= 100) return {grade:'S', pct, color:'#1A6B2A'};
+  if (pct >= 80) return {grade:'A', pct, color:'#5BA84C'};
+  if (pct >= 60) return {grade:'B', pct, color:'#D4A020'};
+  if (pct >= 40) return {grade:'C', pct, color:'#D46820'};
+  return {grade:'D', pct:Math.max(0,pct), color:'#A82020'};
+}
+
+// 経営危機判定（連続未達月数で）
+function getCrisisLevel(consecutiveMonths) {
+  if (consecutiveMonths >= 4) return {level:'force', label:'強制改善', color:'#7A0E0E', bg:'#FCD9D9'};
+  if (consecutiveMonths >= 3) return {level:'danger', label:'危機', color:'#A82020', bg:'#FCD9D9'};
+  if (consecutiveMonths >= 2) return {level:'warn', label:'警戒', color:'#D46820', bg:'#FCE9C8'};
+  if (consecutiveMonths >= 1) return {level:'caution', label:'注意', color:'#D4A020', bg:'#FCF6C8'};
+  return null;
+}
+
+// 会社ステータス7種を計算（直近データから）
+function computeCompanyStats() {
+  const m = ST.input_month;
+  const md = ST.data[m] || {};
+  const stats = {sales_power:0, profit_power:0, quality_power:0, site_power:0, collect_power:0, bond_power:0, reward_power:0};
+
+  function pct(actual, target, invert) {
+    if (actual === undefined || actual === '' || actual === null) return null;
+    if (invert) return actual <= target ? 100 : Math.max(0, 100 - ((actual-target)/Math.max(target,1))*100);
+    return Math.min(100, (actual/target)*100);
+  }
+  function avg(...nums) {
+    const valid = nums.filter(n => n !== null);
+    if (!valid.length) return 0;
+    return Math.round(valid.reduce((a,b)=>a+b,0)/valid.length);
+  }
+
+  // 売上力：新規月額純増・受注金額・商品売上
+  stats.sales_power = avg(
+    pct(md.sales_net, 500000),
+    pct(md.sales_won_amt, 8000000),
+    pct(md.mt_product_sales, 800000)
+  );
+  // 利益力：粗利率・実質純増利益・商品利益
+  stats.profit_power = avg(
+    pct(md.sales_gross, 45),
+    pct(md.hq_profit, 10000000),
+    pct(md.mt_profit, 1500000)
+  );
+  // 品質力：30日以内クレーム・品質解約・お客様満足度
+  stats.quality_power = avg(
+    pct(md.inst_complaint30, 0, true),
+    pct(md.mt_quality_cancel, 0, true),
+    pct(md.inst_satisfy, 90)
+  );
+  // 現場力：再訪問件数・追加発注件数
+  stats.site_power = avg(
+    pct(md.inst_revisit, 0, true),
+    pct(md.inst_addorder, 0, true),
+    pct(md.inst_done, 25)
+  );
+  // 回収力：契約書回収率・未納
+  stats.collect_power = avg(
+    pct(md.inst_contract, 100),
+    pct(md.mt_unpaid_2m, 5, true)
+  );
+  // 連携力：メンテからの指摘数・3ヶ月以内クレーム
+  stats.bond_power = avg(
+    pct(md.inst_handback, 0, true),
+    pct(md.sales_complaint3m, 0, true),
+    pct(md.inst_photo, 100)
+  );
+  // 還元力：社員還元原資
+  stats.reward_power = avg(
+    pct(md.hq_reward, 2000000)
+  );
+
+  return stats;
+}
+
+// 経営資金変動を計算（実質純増利益に応じて増減）
+function computeFundsDelta(monthData) {
+  let delta = 0;
+  const profit = monthData.hq_profit || 0;
+  // 利益が出ていれば資金増、赤字なら減
+  delta += Math.round((profit - 5000000) / 100000);
+  // 解約金額が大きいと減
+  if (monthData.mt_cancel_amt > 200000) delta -= Math.round((monthData.mt_cancel_amt - 200000)/50000);
+  // 仕入割合超過
+  if (monthData.mt_purchase_pct > 7.5) delta -= 30;
+  // 未納増加
+  if (monthData.mt_unpaid_2m > 5) delta -= 10;
+  // 商品利益
+  if (monthData.mt_profit > 1500000) delta += 20;
+  return delta;
+}
+
+// 評判変動
+function computeReputationDelta(monthData) {
+  let delta = 0;
+  if (monthData.inst_complaint30 === 0) delta += 5;
+  if (monthData.inst_complaint30 > 0) delta -= monthData.inst_complaint30 * 3;
+  if (monthData.mt_quality_cancel === 0) delta += 3;
+  if (monthData.mt_quality_cancel > 0) delta -= monthData.mt_quality_cancel * 5;
+  if (monthData.inst_satisfy >= 90) delta += 3;
+  if (monthData.sales_complaint3m > 0) delta -= monthData.sales_complaint3m * 2;
+  return delta;
+}
+
+// 社員満足度変動
+function computeSatisfactionDelta(monthData) {
+  let delta = 0;
+  if (monthData.hq_reward >= 2000000) delta += 5;
+  if (monthData.hq_profit >= 10000000) delta += 3;
+  if (monthData.inst_complaint30 === 0) delta += 2;
+  if (monthData.mt_quality_cancel > 0) delta -= 3;
+  if (monthData.inst_revisit > 3) delta -= 2;
+  return delta;
+}
+
+// 連続入力月数を計算
+function computeConsecutiveMonths() {
+  const months = Object.keys(ST.data).sort().reverse();
+  let count = 0;
+  let prev = null;
+  for (const m of months) {
+    const md = ST.data[m];
+    if (!md || Object.keys(md).length === 0) break;
+    if (prev) {
+      const [py, pmm] = prev.split('-').map(Number);
+      const [cy, cmm] = m.split('-').map(Number);
+      const diff = (py * 12 + pmm) - (cy * 12 + cmm);
+      if (diff !== 1) break;
+    }
+    count++;
+    prev = m;
+  }
+  return count;
+}
+
+// 月次決算処理：パラメータ変動・イベント発生・称号獲得・レポート生成
+function processMonthlyClose(month) {
+  const md = ST.data[month] || {};
+  if (Object.keys(md).length === 0) return null;
+
+  const result = {month, events:[], badges:[], xpGain:0, fundsDelta:0, repDelta:0, satDelta:0};
+
+  // 連続入力カウンター更新
+  ST.consecutive_input = computeConsecutiveMonths();
+
+  // 連続入力ボーナスXP
+  let inputBonus = 0;
+  if (ST.consecutive_input === 3) inputBonus = 300;
+  else if (ST.consecutive_input === 6) inputBonus = 600;
+  else if (ST.consecutive_input === 12) inputBonus = 1500;
+  if (inputBonus > 0) {
+    ST.xp.sales += Math.floor(inputBonus / 3);
+    ST.xp.install += Math.floor(inputBonus / 3);
+    ST.xp.mainte += Math.floor(inputBonus / 3);
+    result.xpGain += inputBonus;
+    result.events.push({type:'good', name:`${ST.consecutive_input}ヶ月連続入力ボーナス`, desc:`+${inputBonus} XP`});
+  }
+
+  // パラメータ変動
+  result.fundsDelta = computeFundsDelta(md);
+  result.repDelta = computeReputationDelta(md);
+  result.satDelta = computeSatisfactionDelta(md);
+  ST.funds = Math.max(0, ST.funds + result.fundsDelta);
+  ST.reputation = Math.max(0, Math.min(100, ST.reputation + result.repDelta));
+  ST.satisfaction = Math.max(0, Math.min(100, ST.satisfaction + result.satDelta));
+
+  // KGI連続未達カウンター更新
+  const kgiList = [
+    {id:'sales_net', target:500000, invert:false},
+    {id:'sales_gross', target:45, invert:false},
+    {id:'inst_complaint30', target:0, invert:true},
+    {id:'inst_costdiff', target:0, invert:false},
+    {id:'mt_cancel_amt', target:200000, invert:true},
+    {id:'mt_purchase_pct', target:7.5, invert:true},
+    {id:'mt_profit', target:1500000, invert:false},
+    {id:'hq_profit', target:10000000, invert:false},
+    {id:'hq_reward', target:2000000, invert:false},
+  ];
+  for (const kgi of kgiList) {
+    const v = md[kgi.id];
+    if (v === undefined || v === '' || v === null) continue;
+    const g = gradeKgi(v, kgi.target, kgi.invert);
+    if (g && (g.grade === 'C' || g.grade === 'D' || g.grade === 'B')) {
+      ST.monthly_kgi_status[kgi.id] = (ST.monthly_kgi_status[kgi.id] || 0) + 1;
+    } else if (g && (g.grade === 'A' || g.grade === 'S')) {
+      ST.monthly_kgi_status[kgi.id] = 0;
+    }
+  }
+
+  // イベント発生判定
+  for (const ev of GOOD_EVENTS) {
+    try {
+      if (ev.cond(md)) {
+        result.events.push({type:'good', name:ev.name, desc:ev.desc, icon:ev.icon, color:ev.color});
+      }
+    } catch(e){}
+  }
+  for (const ev of BAD_EVENTS) {
+    try {
+      if (ev.cond(md)) {
+        result.events.push({type:'bad', name:ev.name, desc:ev.desc, icon:ev.icon, color:ev.color});
+      }
+    } catch(e){}
+  }
+
+  // 称号獲得判定
+  function award(badgeId) {
+    if (!ST.badges.includes(badgeId)) {
+      ST.badges.push(badgeId);
+      const b = COMPANY_BADGES.find(x=>x.id===badgeId);
+      if (b) result.badges.push(b);
+    }
+  }
+
+  if (ST.consecutive_input >= 1) award('first_input');
+  if (ST.consecutive_input >= 3) award('three_months');
+  if (ST.consecutive_input >= 12) award('twelve_months');
+  if (md.hq_profit !== undefined && md.hq_profit >= 10000000) award('profit_achieve');
+  if (md.hq_reward !== undefined && md.hq_reward >= 2000000) award('reward_increase');
+  if (md.mt_quality_cancel === 0) award('no_quality_cancel');
+  if (md.mt_purchase_pct !== undefined && md.mt_purchase_pct <= 7.5 && md.mt_purchase_pct > 0) award('low_purchase');
+  if (md.mt_profit !== undefined && md.mt_profit >= 1500000) award('product_profit');
+  if (md.inst_handback === 0 && md.sales_complaint3m === 0) award('no_handover_issue');
+  if (md.inst_complaint30 === 0 && md.inst_revisit === 0) award('on_time');
+
+  const salesKgi = (md.sales_net >= 500000) && (md.sales_gross >= 45);
+  const instKgi = (md.inst_complaint30 === 0) && (md.inst_costdiff !== undefined && md.inst_costdiff >= 0);
+  const mainteKgi = (md.mt_cancel_amt !== undefined && md.mt_cancel_amt <= 200000) && (md.mt_purchase_pct <= 7.5) && (md.mt_profit >= 1500000);
+  if (salesKgi && instKgi && mainteKgi) award('three_kgi');
+
+  const completedQuests = ST.quests.filter(q => q.status === 'achieved').length;
+  if (completedQuests >= 3) award('three_quests');
+
+  // ステータス再計算
+  ST.stats = computeCompanyStats();
+
+  // レポート生成
+  const report = generateMonthlyReport(month, md, result);
+  result.report = report;
+
+  // レポート履歴に保存
+  ST.reports = ST.reports.filter(r => r.month !== month);
+  ST.reports.unshift(report);
+  if (ST.reports.length > 24) ST.reports = ST.reports.slice(0, 24);
+
+  ST.last_input_month = month;
+  save();
+  return result;
+}
+
+// 月次レポート生成
+function generateMonthlyReport(month, md, result) {
+  // 総合評価
+  const stats = ST.stats;
+  const avgScore = (stats.sales_power + stats.profit_power + stats.quality_power + stats.site_power + stats.collect_power + stats.bond_power + stats.reward_power) / 7;
+  let totalGrade = 'D';
+  if (avgScore >= 85) totalGrade = 'S';
+  else if (avgScore >= 70) totalGrade = 'A';
+  else if (avgScore >= 50) totalGrade = 'B';
+  else if (avgScore >= 30) totalGrade = 'C';
+
+  // 一番良かった/悪かった数字
+  const kgiResults = [];
+  const kgiList = [
+    {id:'sales_net', name:'新規月額純増', target:500000, invert:false},
+    {id:'sales_gross', name:'粗利率', target:45, invert:false},
+    {id:'inst_complaint30', name:'30日以内クレーム', target:0, invert:true},
+    {id:'mt_cancel_amt', name:'解約金額', target:200000, invert:true},
+    {id:'mt_purchase_pct', name:'純仕入割合', target:7.5, invert:true},
+    {id:'mt_profit', name:'商品利益', target:1500000, invert:false},
+    {id:'hq_profit', name:'実質純増利益', target:10000000, invert:false},
+    {id:'hq_reward', name:'社員還元原資', target:2000000, invert:false},
+  ];
+  for (const k of kgiList) {
+    const v = md[k.id];
+    if (v === undefined || v === '' || v === null) continue;
+    const g = gradeKgi(v, k.target, k.invert);
+    if (g) kgiResults.push({name:k.name, pct:g.pct, grade:g.grade});
+  }
+  kgiResults.sort((a,b) => b.pct - a.pct);
+
+  return {
+    month,
+    totalGrade,
+    avgScore: Math.round(avgScore),
+    bestKgi: kgiResults[0] || null,
+    worstKgi: kgiResults[kgiResults.length-1] || null,
+    kgiResults,
+    events: result.events,
+    badges: result.badges,
+    xpGain: result.xpGain,
+    fundsDelta: result.fundsDelta,
+    repDelta: result.repDelta,
+    satDelta: result.satDelta,
+  };
+}
+
 function makeNpcSvg(dept, lv) {
-  const head = `
-    <ellipse cx="30" cy="78" rx="14" ry="2" fill="rgba(0,0,0,0.18)"/>
-    <rect x="26" y="20" width="8" height="3" rx="0.5" fill="#D4B89C"/>
-    <rect x="26" y="20" width="8" height="1" fill="#E8C8A8"/>
-    <rect x="20" y="23" width="20" height="14" rx="2" fill="#E8CCA8" stroke="#A07858" stroke-width="0.5"/>
-    <ellipse cx="25" cy="29" rx="1.5" ry="1.8" fill="#3D352B"/>
-    <circle cx="25.3" cy="28.6" r="0.4" fill="#fff"/>
-    <ellipse cx="35" cy="29" rx="1.5" ry="1.8" fill="#3D352B"/>
-    <circle cx="35.3" cy="28.6" r="0.4" fill="#fff"/>
-    <path d="M 27 33 Q 30 35 33 33" stroke="#7A5A48" stroke-width="0.6" fill="none" stroke-linecap="round"/>
-    <rect x="27" y="37" width="6" height="2.5" fill="#E8CCA8"/>
+  // レベル帯
+  const tier = lv >= 9 ? 5 : lv >= 7 ? 4 : lv >= 5 ? 3 : lv >= 3 ? 2 : 1;
+
+  // 共通：影、頭、首、顔、髪
+  const shadow = `<ellipse cx="30" cy="78" rx="14" ry="2" fill="rgba(0,0,0,0.22)"/>`;
+
+  const skinGrad = `
+    <defs>
+      <radialGradient id="skin-${dept}-${lv}" cx="40%" cy="35%" r="50%">
+        <stop offset="0%" stop-color="#F5DCC2"/>
+        <stop offset="60%" stop-color="#E8C8A8"/>
+        <stop offset="100%" stop-color="#C8A888"/>
+      </radialGradient>
+    </defs>
   `;
 
-  let hair = '', body = '', shoe = '', aura = '';
+  // 頭・首・顔（共通、tierで微変化）
+  const headHeight = 14;
+  const head = `
+    <rect x="26" y="20" width="8" height="3" fill="#D4B89C" stroke="#A07858" stroke-width="0.3"/>
+    <rect x="20" y="23" width="20" height="${headHeight}" rx="2" fill="url(#skin-${dept}-${lv})" stroke="#A07858" stroke-width="0.5"/>
+    <ellipse cx="20" cy="30" rx="1" ry="1.5" fill="url(#skin-${dept}-${lv})" stroke="#A07858" stroke-width="0.3"/>
+    <ellipse cx="40" cy="30" rx="1" ry="1.5" fill="url(#skin-${dept}-${lv})" stroke="#A07858" stroke-width="0.3"/>
+    <ellipse cx="25" cy="29" rx="1.4" ry="1.7" fill="#FFF" stroke="#3D2010" stroke-width="0.2"/>
+    <circle cx="25.2" cy="29.3" r="1" fill="#3D2010"/>
+    <circle cx="25.4" cy="28.8" r="0.3" fill="#FFF"/>
+    <ellipse cx="35" cy="29" rx="1.4" ry="1.7" fill="#FFF" stroke="#3D2010" stroke-width="0.2"/>
+    <circle cx="35.2" cy="29.3" r="1" fill="#3D2010"/>
+    <circle cx="35.4" cy="28.8" r="0.3" fill="#FFF"/>
+    <path d="M 23 26.5 L 25.5 26 M 35 26 L 37 26.5" stroke="#5C3A1F" stroke-width="0.6" stroke-linecap="round"/>
+    <path d="M 27 33.5 Q 30 35.5 33 33.5" stroke="#7A4040" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+    <ellipse cx="22" cy="32" rx="1.5" ry="1" fill="#E8A8A0" opacity="0.4"/>
+    <ellipse cx="38" cy="32" rx="1.5" ry="1" fill="#E8A8A0" opacity="0.4"/>
+    <rect x="27" y="37" width="6" height="2.5" fill="url(#skin-${dept}-${lv})" stroke="#A07858" stroke-width="0.3"/>
+  `;
+
+  // 髪（部門別＋tier別）
+  let hair = '';
+  if (dept === 'sales') {
+    if (tier >= 4) {
+      // ビジネス七三 きっちり
+      hair = `
+        <defs><linearGradient id="h-s-${lv}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3D2814"/><stop offset="100%" stop-color="#1F1408"/></linearGradient></defs>
+        <path d="M 19 24 Q 19 14 30 13 Q 41 14 41 24 L 41 28 Q 38 22 32 22 L 28 23 Q 22 22 19 28 Z" fill="url(#h-s-${lv})" stroke="#0F0804" stroke-width="0.4"/>
+        <path d="M 28 14 Q 30 17 28 22" stroke="#0F0804" stroke-width="0.4" fill="none"/>
+      `;
+    } else if (tier >= 2) {
+      hair = `<path d="M 19 24 Q 19 16 30 14 Q 41 16 41 24 L 41 28 Q 38 22 30 23 Q 22 22 19 28 Z" fill="#3D2F22" stroke="#1F1408" stroke-width="0.4"/>`;
+    } else {
+      hair = `<path d="M 19 25 Q 19 17 30 16 Q 41 17 41 25 L 41 28 Q 38 23 30 24 Q 22 23 19 28 Z" fill="#5C4632" stroke="#3D2F22" stroke-width="0.4"/>`;
+    }
+  } else if (dept === 'install') {
+    // 短髪・茶髪
+    if (tier >= 4) {
+      hair = `
+        <path d="M 19 25 Q 19 16 30 14 Q 41 16 41 25 L 41 27 Q 38 22 30 23 Q 22 22 19 27 Z" fill="#5C4632" stroke="#3D2F22" stroke-width="0.4"/>
+        <path d="M 22 23 L 26 21 M 28 21 L 32 21 M 34 21 L 37 23" stroke="#3D2F22" stroke-width="0.4" fill="none"/>
+      `;
+    } else {
+      hair = `
+        <path d="M 19 25 Q 19 17 30 15 Q 41 17 41 25 L 41 27 Q 38 23 30 24 Q 22 23 19 27 Z" fill="#7A5A38" stroke="#5C4632" stroke-width="0.4"/>
+        <path d="M 22 24 L 25 22 M 28 22 L 31 22 M 33 22 L 37 24" stroke="#5C4632" stroke-width="0.3" fill="none"/>
+      `;
+    }
+  } else {
+    // メンテ：黒髪
+    hair = `<path d="M 18 26 Q 18 13 30 12 Q 42 13 42 26 L 42 30 Q 42 26 39 25 L 33 25 Q 31 23 30 24 Q 29 23 27 25 L 21 25 Q 18 26 18 30 Z" fill="#2A1F18" stroke="#1A1208" stroke-width="0.4"/>`;
+  }
+
+  // 体（胴体・腕・道具）
+  let body = '';
+  let leftHand = '', rightHand = '', leftItem = '', rightItem = '';
+  let belt = '';
 
   if (dept === 'sales') {
-    hair = `<path d="M 19 24 Q 19 16 30 14 Q 41 16 41 24 L 41 28 Q 38 22 30 23 Q 22 22 19 28 Z" fill="#3D2F22" stroke="#2A1F18" stroke-width="0.4"/>`;
+    // スーツの色（tierで濃淡）
+    const suitColors = {
+      1: ['#7A8AA0','#5C6B85'],
+      2: ['#5C6B85','#3D4A60'],
+      3: ['#4A5870','#2A3548'],
+      4: ['#3D4A60','#1F2A40'],
+      5: ['#2A3548','#0F1828']
+    };
+    const [sLight, sDark] = suitColors[tier];
+    const tieColor = tier >= 4 ? '#9C2020' : tier >= 2 ? '#9C5A5A' : '#A85050';
+
     body = `
-      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
-      <path d="M 24 39 L 30 49 L 36 39 L 36 41 L 31 50 L 30 51 L 29 50 L 24 41 Z" fill="#EFE6D5"/>
-      <path d="M 28 41 L 30 49 L 32 41 Z" fill="#9C5A5A"/>
-      <path d="M 28 41 L 30 43 L 32 41 L 30 42 Z" fill="#7A4040"/>
-      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
-      <ellipse cx="14" cy="40" rx="3" ry="1" fill="#7A8AA0" opacity="0.5"/>
-      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
-      <ellipse cx="46" cy="40" rx="3" ry="1" fill="#7A8AA0" opacity="0.5"/>
-      <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
-      <g transform="translate(38,52) rotate(-15)">
-        <rect x="0" y="0" width="14" height="9" rx="0.8" fill="#A8A09C" stroke="#5C544C" stroke-width="0.4"/>
-        <rect x="0.6" y="0.6" width="12.8" height="7" rx="0.4" fill="#3D352B"/>
-        <rect x="1.2" y="1.2" width="11.6" height="5.8" fill="#7A8AA0"/>
-        <rect x="2.5" y="2.8" width="3" height="0.5" fill="#EFE6D5"/>
-        <rect x="6.5" y="2.8" width="2" height="0.5" fill="#EFE6D5"/>
-        <rect x="9" y="2.8" width="3" height="0.5" fill="#EFE6D5"/>
-        <rect x="0" y="9" width="14" height="2" fill="#8A827A"/>
-      </g>
-      <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
-      <rect x="29" y="60" width="2" height="3" fill="#5C6B85"/>
-      <rect x="20" y="60" width="9" height="14" rx="1" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
-      <rect x="31" y="60" width="9" height="14" rx="1" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+      <defs>
+        <linearGradient id="suit-${lv}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${sLight}"/>
+          <stop offset="100%" stop-color="${sDark}"/>
+        </linearGradient>
+      </defs>
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="url(#suit-${lv})" stroke="${sDark}" stroke-width="0.5"/>
+      <path d="M 23 39 L 30 50 L 37 39" stroke="${sDark}" stroke-width="0.6" fill="none"/>
+      <path d="M 23 39 L 30 50 L 28 60 L 22 60 Z" fill="${sLight}" opacity="0.5"/>
+      <path d="M 37 39 L 30 50 L 32 60 L 38 60 Z" fill="${sLight}" opacity="0.5"/>
+      <path d="M 27 40 L 30 50 L 33 40 L 33 41.5 L 30.5 50.5 L 30 51.5 L 29.5 50.5 L 27 41.5 Z" fill="#FFFEF8"/>
+      <path d="M 28.3 41 L 30 49 L 31.7 41 Z" fill="${tieColor}"/>
+      <path d="M 28.3 41 L 30 42.5 L 31.7 41 L 30 41.8 Z" fill="#5C2020"/>
     `;
+
+    // 左腕（PC持ち or 書類）
+    body += `
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="url(#suit-${lv})" stroke="${sDark}" stroke-width="0.5"/>
+      <ellipse cx="14" cy="40.5" rx="3" ry="1" fill="${sLight}" opacity="0.6"/>
+      <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+    `;
+
+    // 右腕（ノートPC）
+    body += `
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="url(#suit-${lv})" stroke="${sDark}" stroke-width="0.5"/>
+      <ellipse cx="46" cy="40.5" rx="3" ry="1" fill="${sLight}" opacity="0.6"/>
+      <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <g transform="translate(38,52) rotate(-12)">
+        <rect x="0" y="0" width="14" height="9" rx="0.6" fill="#A8A09C" stroke="#3D352B" stroke-width="0.5"/>
+        <rect x="0.6" y="0.6" width="12.8" height="7" rx="0.3" fill="#1F1F1F"/>
+        <rect x="1.2" y="1.2" width="11.6" height="5.8" fill="#5C7A9C"/>
+        <rect x="1.2" y="1.2" width="11.6" height="2" fill="#7A9CC0" opacity="0.7"/>
+        <rect x="2.5" y="2.8" width="3" height="0.5" fill="#FFF"/>
+        <rect x="6.5" y="2.8" width="2" height="0.5" fill="#FFF"/>
+        <rect x="9" y="2.8" width="3" height="0.5" fill="#FFF"/>
+        <rect x="2.5" y="4.5" width="9" height="1" fill="#9CB0C8" opacity="0.5"/>
+        <rect x="0" y="9" width="14" height="2" fill="#7A726A"/>
+        <rect x="0" y="9" width="14" height="0.5" fill="#A8A09C"/>
+      </g>
+    `;
+
+    // tier別装飾
+    if (tier >= 3) {
+      // 胸ポケットのチーフ
+      body += `<rect x="34" y="42" width="2" height="2" fill="#FFFEF8" stroke="#5C544C" stroke-width="0.2"/>`;
+    }
+    if (tier >= 4) {
+      // タイピン（金）
+      body += `<rect x="29.5" y="44" width="1" height="1" fill="#FCD96A" stroke="#A88828" stroke-width="0.15"/>`;
+      // 社章（金バッジ）
+      body += `<circle cx="35" cy="42" r="0.7" fill="#FCD96A" stroke="#A88828" stroke-width="0.2"/>`;
+    }
+    if (tier >= 5) {
+      // ゴールド時計
+      body += `<rect x="9" y="55" width="3" height="2" fill="#FCD96A" stroke="#A88828" stroke-width="0.2" rx="0.3"/>`;
+    }
+
+    // 脚（スーツパンツ）
+    body += `
+      <rect x="29" y="60" width="2" height="3" fill="${sDark}"/>
+      <rect x="20" y="60" width="9" height="14" rx="0.8" fill="url(#suit-${lv})" stroke="${sDark}" stroke-width="0.5"/>
+      <rect x="31" y="60" width="9" height="14" rx="0.8" fill="url(#suit-${lv})" stroke="${sDark}" stroke-width="0.5"/>
+      <line x1="24.5" y1="60" x2="24.5" y2="74" stroke="${sDark}" stroke-width="0.3" opacity="0.4"/>
+      <line x1="35.5" y1="60" x2="35.5" y2="74" stroke="${sDark}" stroke-width="0.3" opacity="0.4"/>
+    `;
+
   } else if (dept === 'install') {
-    hair = `<path d="M 19 25 Q 19 17 30 15 Q 41 17 41 25 L 41 27 Q 38 23 30 24 Q 22 23 19 27 Z" fill="#5C4632" stroke="#3D2F22" stroke-width="0.4"/>
-      <path d="M 21 24 L 25 22 M 27 22 L 30 22 M 33 22 L 38 24" stroke="#3D2F22" stroke-width="0.3" fill="none"/>`;
+    // 作業服（テラコッタ系、tierで色変化）
+    const workColors = {
+      1: ['#C89878','#8A6048'],
+      2: ['#A87A5C','#6B4030'],
+      3: ['#9C7048','#5C3820'],
+      4: ['#3D5A4A','#1F3025'],
+      5: ['#2A4838','#0F1F18']
+    };
+    const [wLight, wDark] = workColors[tier];
+
     body = `
-      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
-      <rect x="13" y="44" width="34" height="1.5" fill="#EFE6D5" opacity="0.85"/>
-      <rect x="22" y="48" width="7" height="6" rx="0.5" fill="#8A6048" stroke="#5C402C" stroke-width="0.3"/>
-      <rect x="32" y="48" width="7" height="6" rx="0.5" fill="#8A6048" stroke="#5C402C" stroke-width="0.3"/>
-      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
-      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
+      <defs>
+        <linearGradient id="work-${lv}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${wLight}"/>
+          <stop offset="100%" stop-color="${wDark}"/>
+        </linearGradient>
+      </defs>
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="url(#work-${lv})" stroke="${wDark}" stroke-width="0.5"/>
+      <rect x="13" y="44" width="34" height="1.8" fill="#FFFEF8" opacity="0.85"/>
+      <rect x="13" y="45.5" width="34" height="0.5" fill="${wDark}" opacity="0.6"/>
+      <path d="M 22 39 L 22 44 M 38 39 L 38 44" stroke="${wDark}" stroke-width="0.5"/>
+      <rect x="22" y="48" width="7" height="6" rx="0.5" fill="${wDark}" stroke="${wDark}" stroke-width="0.3"/>
+      <rect x="22" y="48" width="7" height="1" fill="${wLight}" opacity="0.4"/>
+      <line x1="22" y1="48.7" x2="29" y2="48.7" stroke="${wDark}" stroke-width="0.3"/>
+      <rect x="32" y="48" width="7" height="6" rx="0.5" fill="${wDark}" stroke="${wDark}" stroke-width="0.3"/>
+      <rect x="32" y="48" width="7" height="1" fill="${wLight}" opacity="0.4"/>
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="url(#work-${lv})" stroke="${wDark}" stroke-width="0.5"/>
+      <ellipse cx="14" cy="40.5" rx="3" ry="1" fill="${wLight}" opacity="0.5"/>
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="url(#work-${lv})" stroke="${wDark}" stroke-width="0.5"/>
+      <ellipse cx="46" cy="40.5" rx="3" ry="1" fill="${wLight}" opacity="0.5"/>
       <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
       <g transform="translate(40,52) rotate(20)">
-        <ellipse cx="0" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
-        <circle cx="0" cy="0" r="1.2" fill="#5C4A38"/>
-        <rect x="0" y="-1.2" width="14" height="2.4" rx="0.3" fill="#A8A09C" stroke="#5C544C" stroke-width="0.4"/>
-        <ellipse cx="14" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
-        <circle cx="14" cy="0" r="1.2" fill="#5C4A38"/>
+        <ellipse cx="0" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#3D352B" stroke-width="0.4"/>
+        <circle cx="0" cy="0" r="1.2" fill="#3D352B"/>
+        <rect x="0" y="-1.3" width="14" height="2.6" rx="0.3" fill="#A8A09C" stroke="#3D352B" stroke-width="0.4"/>
+        <rect x="0" y="-1.3" width="14" height="0.8" fill="#C8C0B8"/>
+        <ellipse cx="14" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#3D352B" stroke-width="0.4"/>
+        <circle cx="14" cy="0" r="1.2" fill="#3D352B"/>
       </g>
       <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
-      <rect x="29" y="60" width="2" height="3" fill="#A87A5C"/>
-      <rect x="20" y="60" width="9" height="14" rx="1" fill="#9C9088" stroke="#5C544C" stroke-width="0.4"/>
-      <rect x="31" y="60" width="9" height="14" rx="1" fill="#9C9088" stroke="#5C544C" stroke-width="0.4"/>
     `;
+
+    // tier別装飾
+    if (tier >= 2) {
+      // ヘルメット（黄）
+      body += `
+        <ellipse cx="30" cy="20" rx="11" ry="6" fill="#E8A820" stroke="#A88828" stroke-width="0.5"/>
+        <ellipse cx="30" cy="18" rx="9" ry="4" fill="#FCD96A"/>
+        <rect x="19" y="20" width="22" height="2" fill="#A88828"/>
+        <rect x="28" y="13" width="4" height="2" fill="#A88828"/>
+      `;
+    }
+    if (tier >= 3) {
+      // 工具ベルトに追加
+      body += `
+        <rect x="22" y="55" width="4" height="3" fill="${wDark}" stroke="#1F1408" stroke-width="0.2"/>
+        <rect x="34" y="55" width="4" height="3" fill="${wDark}" stroke="#1F1408" stroke-width="0.2"/>
+      `;
+    }
+    if (tier >= 4) {
+      // ヘルメットにライト
+      body += `<rect x="28" y="14" width="4" height="2" fill="#FCD96A" stroke="#A88828" stroke-width="0.3"/>`;
+      // 安全ベスト（蛍光色）
+      body += `<rect x="13" y="40" width="34" height="3" fill="#FFEC78" opacity="0.7"/>`;
+    }
+    if (tier >= 5) {
+      // 高級ヘルメット（白＋赤帯）
+      body += `<rect x="19" y="20" width="22" height="1" fill="#A82020"/>`;
+    }
+
+    // 脚（作業ズボン・グレー）
+    body += `
+      <rect x="29" y="60" width="2" height="3" fill="${wDark}"/>
+      <rect x="20" y="60" width="9" height="14" rx="1" fill="#7A726A" stroke="#3D352B" stroke-width="0.5"/>
+      <rect x="31" y="60" width="9" height="14" rx="1" fill="#7A726A" stroke="#3D352B" stroke-width="0.5"/>
+      <ellipse cx="24" cy="61" rx="3" ry="0.8" fill="#9C948C" opacity="0.6"/>
+      <ellipse cx="35" cy="61" rx="3" ry="0.8" fill="#9C948C" opacity="0.6"/>
+    `;
+
   } else {
-    hair = `<path d="M 18 26 Q 18 13 30 12 Q 42 13 42 26 L 42 30 Q 42 26 39 25 L 33 25 Q 31 23 30 24 Q 29 23 27 25 L 21 25 Q 18 26 18 30 Z" fill="#2A1F18" stroke="#1A1208" stroke-width="0.4"/>`;
+    // メンテ部：白T+黒長ズボン
     body = `
-      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
-      <path d="M 24 39 L 27 44 L 30 41 L 33 44 L 36 39" stroke="#5C544C" stroke-width="0.5" fill="none"/>
-      <circle cx="30" cy="43" r="0.5" fill="#7A726A"/>
-      <circle cx="30" cy="46" r="0.5" fill="#7A726A"/>
-      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
-      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
+      <defs>
+        <linearGradient id="tee-${lv}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFFFFF"/>
+          <stop offset="100%" stop-color="#E8E4DA"/>
+        </linearGradient>
+        <linearGradient id="pants-${lv}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3A3834"/>
+          <stop offset="100%" stop-color="#1A1612"/>
+        </linearGradient>
+      </defs>
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="url(#tee-${lv})" stroke="#A09C8C" stroke-width="0.5"/>
+      <ellipse cx="30" cy="40" rx="3" ry="1.5" fill="none" stroke="#A09C8C" stroke-width="0.5"/>
+      <path d="M 27 41 Q 30 42.5 33 41" stroke="#C8C4B4" stroke-width="0.4" fill="none"/>
+      <path d="M 16 39 L 13 60" stroke="#C8C4B4" stroke-width="0.3" opacity="0.5"/>
+      <path d="M 44 39 L 47 60" stroke="#C8C4B4" stroke-width="0.3" opacity="0.5"/>
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="url(#tee-${lv})" stroke="#A09C8C" stroke-width="0.5"/>
+      <ellipse cx="14" cy="40.5" rx="3" ry="1" fill="#FFF" opacity="0.6"/>
+      <rect x="11" y="51" width="6" height="3" fill="url(#tee-${lv})" stroke="#A09C8C" stroke-width="0.3"/>
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="url(#tee-${lv})" stroke="#A09C8C" stroke-width="0.5"/>
+      <ellipse cx="46" cy="40.5" rx="3" ry="1" fill="#FFF" opacity="0.6"/>
+      <rect x="43" y="51" width="6" height="3" fill="url(#tee-${lv})" stroke="#A09C8C" stroke-width="0.3"/>
       <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
       <g transform="translate(43,55) rotate(35)">
-        <path d="M 0 0 L 8 -1 L 8 1 Z" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
-        <path d="M 0 0 L 8 1 L 8 -1 Z" fill="#9C948C" stroke="#5C544C" stroke-width="0.4"/>
-        <circle cx="0" cy="-1.5" r="1.5" fill="none" stroke="#8A5050" stroke-width="0.8"/>
-        <circle cx="0" cy="1.5" r="1.5" fill="none" stroke="#8A5050" stroke-width="0.8"/>
+        <path d="M 0 0 L 8 -1 L 8 1 Z" fill="#C8C0B8" stroke="#3D352B" stroke-width="0.4"/>
+        <path d="M 0 0 L 8 1 L 8 -1 Z" fill="#A8A09C" stroke="#3D352B" stroke-width="0.4"/>
+        <circle cx="0" cy="-1.5" r="1.5" fill="none" stroke="#A82020" stroke-width="0.8"/>
+        <circle cx="0" cy="1.5" r="1.5" fill="none" stroke="#A82020" stroke-width="0.8"/>
+        <circle cx="0" cy="0" r="0.4" fill="#3D352B"/>
       </g>
       <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
-      <rect x="29" y="60" width="2" height="3" fill="#8A6A4C"/>
-      <rect x="14" y="58" width="32" height="2.5" fill="#7A5A40" stroke="#5C402C" stroke-width="0.3"/>
-      <rect x="28.5" y="58.3" width="3" height="2" fill="#D4B868" stroke="#8A6048" stroke-width="0.3"/>
-      <rect x="20" y="60" width="9" height="14" rx="1" fill="#D4C0A0" stroke="#7A6048" stroke-width="0.4"/>
-      <rect x="31" y="60" width="9" height="14" rx="1" fill="#D4C0A0" stroke="#7A6048" stroke-width="0.4"/>
+    `;
+
+    // tier別装飾
+    if (tier >= 2) {
+      // 胸にAQUALINKロゴ
+      body += `
+        <rect x="25" y="44" width="10" height="3" fill="#1A5B7A" rx="0.3"/>
+        <text x="30" y="46.3" text-anchor="middle" font-size="2" fill="#FFF" font-weight="900" font-family="sans-serif">AQUA</text>
+      `;
+    }
+    if (tier >= 3) {
+      // エプロン（道具入り）
+      body += `
+        <rect x="20" y="48" width="20" height="12" fill="#5C4632" stroke="#3D2F22" stroke-width="0.4" opacity="0.85"/>
+        <rect x="22" y="50" width="5" height="4" fill="#3D2F22" stroke="#1F1408" stroke-width="0.3"/>
+        <rect x="33" y="50" width="5" height="4" fill="#3D2F22" stroke="#1F1408" stroke-width="0.3"/>
+        <rect x="23" y="51" width="3" height="0.6" fill="#A8A09C"/>
+      `;
+    }
+    if (tier >= 4) {
+      // 名前タグ・社章
+      body += `
+        <rect x="35" y="44" width="3" height="2" fill="#FCD96A" stroke="#A88828" stroke-width="0.2"/>
+        <rect x="35.3" y="44.3" width="2.4" height="0.5" fill="#A88828"/>
+      `;
+      // ベルトのキーホルダー
+      body += `<circle cx="40" cy="59" r="1" fill="#FCD96A" stroke="#A88828" stroke-width="0.2"/>`;
+    }
+    if (tier >= 5) {
+      // プロ用リストバンド
+      body += `<rect x="9" y="54" width="8" height="1.5" fill="#1A5B7A" stroke="#0A3B5A" stroke-width="0.2"/>`;
+    }
+
+    // 脚（黒い長ズボン）
+    body += `
+      <rect x="29" y="60" width="2" height="3" fill="#1A1612"/>
+      <rect x="20" y="60" width="9" height="14" rx="0.8" fill="url(#pants-${lv})" stroke="#0F0A06" stroke-width="0.5"/>
+      <rect x="31" y="60" width="9" height="14" rx="0.8" fill="url(#pants-${lv})" stroke="#0F0A06" stroke-width="0.5"/>
+      <line x1="24.5" y1="60" x2="24.5" y2="74" stroke="#000" stroke-width="0.3" opacity="0.5"/>
+      <line x1="35.5" y1="60" x2="35.5" y2="74" stroke="#000" stroke-width="0.3" opacity="0.5"/>
     `;
   }
 
-  if (dept === 'mainte') {
+  // 靴
+  let shoe = '';
+  if (dept === 'install') {
+    // 作業靴（茶色のしっかりした靴）
     shoe = `
-      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.4"/>
-      <rect x="19" y="74" width="11" height="1" fill="#7A5A40"/>
-      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.4"/>
-      <rect x="30" y="74" width="11" height="1" fill="#7A5A40"/>
+      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.5"/>
+      <rect x="19" y="74" width="11" height="1.2" fill="#7A5A40"/>
+      <rect x="19" y="77" width="11" height="0.8" fill="#3D2A1C"/>
+      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.5"/>
+      <rect x="30" y="74" width="11" height="1.2" fill="#7A5A40"/>
+      <rect x="30" y="77" width="11" height="0.8" fill="#3D2A1C"/>
+    `;
+  } else if (dept === 'mainte') {
+    // スニーカー（黒+白ソール）
+    shoe = `
+      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#1A1612" stroke="#0A0806" stroke-width="0.5"/>
+      <rect x="19" y="74" width="11" height="1" fill="#3D352B"/>
+      <rect x="19" y="77" width="11" height="0.9" fill="#FFFFFF" stroke="#A09C8C" stroke-width="0.2"/>
+      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#1A1612" stroke="#0A0806" stroke-width="0.5"/>
+      <rect x="30" y="74" width="11" height="1" fill="#3D352B"/>
+      <rect x="30" y="77" width="11" height="0.9" fill="#FFFFFF" stroke="#A09C8C" stroke-width="0.2"/>
     `;
   } else {
+    // 営業：革靴（黒・光沢）
     shoe = `
-      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#3D352B" stroke="#1A1612" stroke-width="0.4"/>
+      <rect x="19" y="74" width="11" height="4" rx="1" fill="#1A1208" stroke="#000000" stroke-width="0.5"/>
       <rect x="19" y="74" width="11" height="1" fill="#5C544C"/>
-      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#3D352B" stroke="#1A1612" stroke-width="0.4"/>
+      <ellipse cx="24" cy="75" rx="2.5" ry="0.5" fill="#5C544C" opacity="0.6"/>
+      <rect x="30" y="74" width="11" height="4" rx="1" fill="#1A1208" stroke="#000000" stroke-width="0.5"/>
       <rect x="30" y="74" width="11" height="1" fill="#5C544C"/>
+      <ellipse cx="35" cy="75" rx="2.5" ry="0.5" fill="#5C544C" opacity="0.6"/>
     `;
   }
 
-  if (lv >= 7) {
-    aura = `<circle cx="30" cy="44" r="32" fill="#FCE9C8" opacity="0.45"/>`;
+  // オーラ（tier 4以上）
+  let aura = '';
+  if (tier >= 5) {
+    aura = `<circle cx="30" cy="44" r="34" fill="#FCD96A" opacity="0.25"/><circle cx="30" cy="44" r="30" fill="#FCE9C8" opacity="0.4"/>`;
+  } else if (tier >= 4) {
+    aura = `<circle cx="30" cy="44" r="32" fill="#FCE9C8" opacity="0.4"/>`;
   }
 
-  return aura + head + hair + body + shoe;
+  return aura + shadow + skinGrad + head + hair + body + shoe;
 }
 
 function makeHqSvg(lv) {
-  const ground = `<rect x="0" y="84" width="80" height="6" fill="#5C544C"/><rect x="0" y="83" width="80" height="1.5" fill="#3A352F"/>`;
-
-  if (lv <= 1) {
-    return ground + `
-      <rect x="22" y="50" width="36" height="34" fill="#A8A088" stroke="#6B5A48" stroke-width="0.8" rx="1"/>
-      <rect x="22" y="50" width="36" height="3" fill="#7A7268"/>
-      <rect x="34" y="68" width="12" height="16" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
-      <rect x="34" y="68" width="12" height="2" fill="#7A7268"/>
-      <circle cx="42" cy="76" r="0.7" fill="#D4B868"/>
-      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
-        <rect x="26" y="56" width="4" height="4"/>
-        <rect x="32" y="56" width="4" height="4"/>
-        <rect x="44" y="56" width="4" height="4"/>
-        <rect x="50" y="56" width="4" height="4"/>
-        <rect x="26" y="62" width="4" height="4"/>
-        <rect x="32" y="62" width="4" height="4"/>
-        <rect x="44" y="62" width="4" height="4"/>
-        <rect x="50" y="62" width="4" height="4"/>
-      </g>
-      <rect x="28" y="46" width="24" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
-      <text x="40" y="49.4" text-anchor="middle" font-size="2.6" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
-    `;
-  }
-  if (lv <= 2) {
-    return ground + `
-      <rect x="20" y="42" width="40" height="42" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
-      <rect x="20" y="42" width="40" height="3" fill="#7A7268"/>
-      <rect x="20" y="81" width="40" height="3" fill="#7A7268"/>
-      <rect x="34" y="68" width="12" height="16" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
-      <rect x="34" y="68" width="12" height="2" fill="#7A7268"/>
-      <circle cx="42" cy="76" r="0.7" fill="#D4B868"/>
-      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
-        <rect x="24" y="48" width="4" height="4"/>
-        <rect x="30" y="48" width="4" height="4"/>
-        <rect x="46" y="48" width="4" height="4"/>
-        <rect x="52" y="48" width="4" height="4"/>
-        <rect x="24" y="54" width="4" height="4"/>
-        <rect x="30" y="54" width="4" height="4"/>
-        <rect x="46" y="54" width="4" height="4"/>
-        <rect x="52" y="54" width="4" height="4"/>
-        <rect x="24" y="60" width="4" height="4"/>
-        <rect x="30" y="60" width="4" height="4"/>
-        <rect x="46" y="60" width="4" height="4"/>
-        <rect x="52" y="60" width="4" height="4"/>
-      </g>
-      <rect x="26" y="38" width="28" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
-      <text x="40" y="41.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
-    `;
-  }
-  if (lv <= 3) {
-    return ground + `
-      <rect x="16" y="34" width="48" height="50" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
-      <rect x="16" y="34" width="48" height="3" fill="#6B6358"/>
-      <rect x="16" y="81" width="48" height="3" fill="#7A7268"/>
-      <rect x="35" y="66" width="10" height="18" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
-      <rect x="35" y="66" width="10" height="2" fill="#7A7268"/>
-      <circle cx="42" cy="75" r="0.8" fill="#D4B868"/>
-      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
-        <rect x="20" y="42" width="4" height="4"/><rect x="26" y="42" width="4" height="4"/><rect x="32" y="42" width="4" height="4"/><rect x="44" y="42" width="4" height="4"/><rect x="50" y="42" width="4" height="4"/><rect x="56" y="42" width="4" height="4"/>
-        <rect x="20" y="48" width="4" height="4"/><rect x="26" y="48" width="4" height="4"/><rect x="32" y="48" width="4" height="4"/><rect x="44" y="48" width="4" height="4"/><rect x="50" y="48" width="4" height="4"/><rect x="56" y="48" width="4" height="4"/>
-        <rect x="20" y="54" width="4" height="4"/><rect x="26" y="54" width="4" height="4"/><rect x="32" y="54" width="4" height="4"/><rect x="44" y="54" width="4" height="4"/><rect x="50" y="54" width="4" height="4"/><rect x="56" y="54" width="4" height="4"/>
-        <rect x="20" y="60" width="4" height="4"/><rect x="26" y="60" width="4" height="4"/><rect x="32" y="60" width="4" height="4"/><rect x="44" y="60" width="4" height="4"/><rect x="50" y="60" width="4" height="4"/><rect x="56" y="60" width="4" height="4"/>
-      </g>
-      <rect x="22" y="30" width="36" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
-      <text x="40" y="33.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
-    `;
-  }
-  if (lv <= 5) {
-    return ground + `
-      <rect x="14" y="26" width="52" height="58" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
-      <rect x="14" y="26" width="52" height="3" fill="#6B6358"/>
-      <rect x="14" y="81" width="52" height="3" fill="#7A7268"/>
-      <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
-      <rect x="34" y="66" width="12" height="2" fill="#5C544C"/>
-      <circle cx="43" cy="75" r="0.9" fill="#D4B868"/>
-      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
-        <rect x="18" y="34" width="4" height="4"/><rect x="24" y="34" width="4" height="4"/><rect x="30" y="34" width="4" height="4"/><rect x="46" y="34" width="4" height="4"/><rect x="52" y="34" width="4" height="4"/><rect x="58" y="34" width="4" height="4"/>
-        <rect x="18" y="40" width="4" height="4"/><rect x="24" y="40" width="4" height="4"/><rect x="30" y="40" width="4" height="4"/><rect x="46" y="40" width="4" height="4"/><rect x="52" y="40" width="4" height="4"/><rect x="58" y="40" width="4" height="4"/>
-        <rect x="18" y="46" width="4" height="4"/><rect x="24" y="46" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/><rect x="52" y="46" width="4" height="4"/><rect x="58" y="46" width="4" height="4"/>
-        <rect x="18" y="52" width="4" height="4"/><rect x="24" y="52" width="4" height="4"/><rect x="30" y="52" width="4" height="4"/><rect x="46" y="52" width="4" height="4"/><rect x="52" y="52" width="4" height="4"/><rect x="58" y="52" width="4" height="4"/>
-        <rect x="18" y="58" width="4" height="4"/><rect x="24" y="58" width="4" height="4"/><rect x="30" y="58" width="4" height="4"/><rect x="46" y="58" width="4" height="4"/><rect x="52" y="58" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/>
-      </g>
-      <rect x="20" y="22" width="40" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
-      <text x="40" y="25.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
-      <rect x="38" y="14" width="4" height="8" fill="#5C4A78"/>
-    `;
-  }
-  if (lv <= 7) {
-    return ground + `
-      <rect x="12" y="20" width="56" height="64" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
-      <rect x="12" y="20" width="56" height="3" fill="#6B6358"/>
-      <rect x="12" y="81" width="56" height="3" fill="#7A7268"/>
-      <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
-      <rect x="34" y="66" width="12" height="2" fill="#5C544C"/>
-      <rect x="34" y="66" width="6" height="18" fill="none" stroke="#5C544C" stroke-width="0.4"/>
-      <circle cx="43" cy="75" r="0.9" fill="#D4B868"/>
-      <g fill="#A8B8C9" stroke="#5C544C" stroke-width="0.3">
-        <rect x="16" y="28" width="4" height="4"/><rect x="22" y="28" width="4" height="4"/><rect x="28" y="28" width="4" height="4"/><rect x="48" y="28" width="4" height="4"/><rect x="54" y="28" width="4" height="4"/><rect x="60" y="28" width="4" height="4"/>
-        <rect x="16" y="34" width="4" height="4"/><rect x="22" y="34" width="4" height="4"/><rect x="28" y="34" width="4" height="4"/><rect x="48" y="34" width="4" height="4"/><rect x="54" y="34" width="4" height="4"/><rect x="60" y="34" width="4" height="4"/>
-        <rect x="16" y="40" width="4" height="4"/><rect x="22" y="40" width="4" height="4"/><rect x="28" y="40" width="4" height="4"/><rect x="48" y="40" width="4" height="4"/><rect x="54" y="40" width="4" height="4"/><rect x="60" y="40" width="4" height="4"/>
-        <rect x="16" y="46" width="4" height="4"/><rect x="22" y="46" width="4" height="4"/><rect x="28" y="46" width="4" height="4"/><rect x="48" y="46" width="4" height="4"/><rect x="54" y="46" width="4" height="4"/><rect x="60" y="46" width="4" height="4"/>
-        <rect x="16" y="52" width="4" height="4"/><rect x="22" y="52" width="4" height="4"/><rect x="28" y="52" width="4" height="4"/><rect x="48" y="52" width="4" height="4"/><rect x="54" y="52" width="4" height="4"/><rect x="60" y="52" width="4" height="4"/>
-        <rect x="16" y="58" width="4" height="4"/><rect x="22" y="58" width="4" height="4"/><rect x="28" y="58" width="4" height="4"/><rect x="48" y="58" width="4" height="4"/><rect x="54" y="58" width="4" height="4"/><rect x="60" y="58" width="4" height="4"/>
-      </g>
-      <rect x="18" y="16" width="44" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
-      <text x="40" y="19.5" text-anchor="middle" font-size="3.2" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
-      <rect x="38" y="6" width="4" height="10" fill="#5C4A78"/>
-      <circle cx="40" cy="6" r="1" fill="#D4B868"/>
-    `;
-  }
-  return ground + `
-    <rect x="8" y="14" width="64" height="70" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
-    <rect x="8" y="14" width="64" height="4" fill="#6B6358"/>
-    <rect x="8" y="81" width="64" height="3" fill="#7A7268"/>
-    <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
-    <rect x="34" y="66" width="12" height="2.5" fill="#5C544C"/>
-    <rect x="34" y="66" width="6" height="18" fill="none" stroke="#5C544C" stroke-width="0.4"/>
-    <circle cx="43" cy="75" r="1" fill="#D4B868"/>
-    <g fill="#7A8AA0" stroke="#3A4C5C" stroke-width="0.3">
-      <rect x="12" y="22" width="4" height="4"/><rect x="18" y="22" width="4" height="4"/><rect x="24" y="22" width="4" height="4"/><rect x="30" y="22" width="4" height="4"/><rect x="46" y="22" width="4" height="4"/><rect x="52" y="22" width="4" height="4"/><rect x="58" y="22" width="4" height="4"/><rect x="64" y="22" width="4" height="4"/>
-      <rect x="12" y="28" width="4" height="4"/><rect x="18" y="28" width="4" height="4"/><rect x="24" y="28" width="4" height="4"/><rect x="30" y="28" width="4" height="4"/><rect x="46" y="28" width="4" height="4"/><rect x="52" y="28" width="4" height="4"/><rect x="58" y="28" width="4" height="4"/><rect x="64" y="28" width="4" height="4"/>
-      <rect x="12" y="34" width="4" height="4"/><rect x="18" y="34" width="4" height="4"/><rect x="24" y="34" width="4" height="4"/><rect x="30" y="34" width="4" height="4"/><rect x="46" y="34" width="4" height="4"/><rect x="52" y="34" width="4" height="4"/><rect x="58" y="34" width="4" height="4"/><rect x="64" y="34" width="4" height="4"/>
-      <rect x="12" y="40" width="4" height="4"/><rect x="18" y="40" width="4" height="4"/><rect x="24" y="40" width="4" height="4"/><rect x="30" y="40" width="4" height="4"/><rect x="46" y="40" width="4" height="4"/><rect x="52" y="40" width="4" height="4"/><rect x="58" y="40" width="4" height="4"/><rect x="64" y="40" width="4" height="4"/>
-      <rect x="12" y="46" width="4" height="4"/><rect x="18" y="46" width="4" height="4"/><rect x="24" y="46" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/><rect x="52" y="46" width="4" height="4"/><rect x="58" y="46" width="4" height="4"/><rect x="64" y="46" width="4" height="4"/>
-      <rect x="12" y="52" width="4" height="4"/><rect x="18" y="52" width="4" height="4"/><rect x="24" y="52" width="4" height="4"/><rect x="30" y="52" width="4" height="4"/><rect x="46" y="52" width="4" height="4"/><rect x="52" y="52" width="4" height="4"/><rect x="58" y="52" width="4" height="4"/><rect x="64" y="52" width="4" height="4"/>
-      <rect x="12" y="58" width="4" height="4"/><rect x="18" y="58" width="4" height="4"/><rect x="24" y="58" width="4" height="4"/><rect x="30" y="58" width="4" height="4"/><rect x="46" y="58" width="4" height="4"/><rect x="52" y="58" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/><rect x="64" y="58" width="4" height="4"/>
+  const island = `
+    <g>
+      <ellipse cx="100" cy="155" rx="70" ry="10" fill="rgba(0,0,0,0.15)"/>
+      <path d="M 30 130 Q 40 165 60 175 Q 80 185 100 188 Q 120 185 140 175 Q 160 165 170 130 L 170 125 L 30 125 Z" fill="#7A4A2A" stroke="#5C3A1F" stroke-width="1.5"/>
+      <path d="M 35 130 L 40 145 M 50 132 L 53 152 M 65 132 L 68 165 M 85 132 L 88 175 M 110 132 L 113 178 M 135 132 L 138 168 M 155 132 L 158 145" stroke="#5C3A1F" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M 30 130 Q 50 110 100 110 Q 150 110 170 130 Z" fill="#5BA84C" stroke="#3D8A38" stroke-width="1.5"/>
+      <path d="M 30 128 Q 50 110 100 110 Q 150 110 170 128" fill="#7BC85C"/>
+      <ellipse cx="55" cy="118" rx="4" ry="2" fill="#3D8A38"/>
+      <ellipse cx="80" cy="115" rx="3" ry="1.5" fill="#3D8A38"/>
+      <ellipse cx="125" cy="116" rx="4" ry="2" fill="#3D8A38"/>
+      <ellipse cx="150" cy="120" rx="3" ry="1.5" fill="#3D8A38"/>
+      <path d="M 95 125 L 90 145 L 100 145 L 95 125 Z" fill="#7AC8E0" opacity="0.7"/>
+      <path d="M 88 145 Q 92 155 88 165 Q 92 170 96 165" stroke="#7AC8E0" stroke-width="1" fill="none" opacity="0.7"/>
     </g>
-    <rect x="14" y="10" width="52" height="4" fill="#5C4A78" stroke="#3A1F5C" stroke-width="0.4"/>
-    <text x="40" y="13.5" text-anchor="middle" font-size="3.2" fill="#FCD96A" font-weight="900" font-family="sans-serif">AQUALINK</text>
-    <rect x="38" y="0" width="4" height="10" fill="#5C4A78"/>
-    <circle cx="40" cy="0" r="1.2" fill="#D4B868"/>
   `;
+
+  let building = '';
+  if (lv <= 1) {
+    building = `
+      <g>
+        <rect x="70" y="55" width="60" height="55" fill="#8A8278" stroke="#3D352B" stroke-width="1.5"/>
+        <rect x="70" y="55" width="60" height="3" fill="#5C544C"/>
+        <rect x="78" y="62" width="10" height="10" fill="#1A1612"/>
+        <line x1="78" y1="62" x2="88" y2="72" stroke="#5C544C" stroke-width="0.5"/>
+        <rect x="92" y="62" width="10" height="10" fill="#1A1612"/>
+        <line x1="92" y1="62" x2="102" y2="72" stroke="#5C544C" stroke-width="0.5"/>
+        <rect x="106" y="62" width="10" height="10" fill="#1A1612"/>
+        <rect x="78" y="78" width="10" height="10" fill="#1A1612"/>
+        <rect x="92" y="78" width="10" height="10" fill="#3D352B" opacity="0.7"/>
+        <rect x="106" y="78" width="10" height="10" fill="#1A1612"/>
+        <rect x="92" y="92" width="14" height="18" fill="#3D2A1C" stroke="#1A1208" stroke-width="0.6"/>
+        <ellipse cx="99" cy="100" rx="3" ry="4" fill="#FCD96A" opacity="0.6"/>
+        <rect x="68" y="50" width="64" height="6" fill="#5C544C" stroke="#3D352B" stroke-width="1"/>
+        <rect x="86" y="46" width="28" height="6" fill="#7A8AA0" stroke="#3D2A1C" stroke-width="0.8"/>
+        <text x="100" y="51" text-anchor="middle" font-size="4" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+        <line x1="74" y1="80" x2="84" y2="92" stroke="#3D352B" stroke-width="0.4"/>
+        <line x1="120" y1="78" x2="128" y2="98" stroke="#3D352B" stroke-width="0.4"/>
+        <rect x="115" y="105" width="3" height="5" fill="#1A1612" opacity="0.5"/>
+      </g>
+    `;
+  } else if (lv <= 2) {
+    building = `
+      <g>
+        <rect x="68" y="40" width="64" height="70" fill="#E8DCC8" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="68" y="40" width="64" height="6" fill="#A85050"/>
+        <rect x="68" y="46" width="64" height="2" fill="#7A2020"/>
+        <g fill="#7A8AA0" stroke="#3D4A60" stroke-width="0.6">
+          <rect x="74" y="54" width="9" height="9"/>
+          <rect x="86" y="54" width="9" height="9"/>
+          <rect x="105" y="54" width="9" height="9"/>
+          <rect x="117" y="54" width="9" height="9"/>
+          <rect x="74" y="68" width="9" height="9"/>
+          <rect x="86" y="68" width="9" height="9"/>
+          <rect x="105" y="68" width="9" height="9"/>
+          <rect x="117" y="68" width="9" height="9"/>
+          <rect x="74" y="82" width="9" height="9"/>
+          <rect x="117" y="82" width="9" height="9"/>
+        </g>
+        <rect x="92" y="86" width="16" height="24" fill="#5C3A1F" stroke="#3D2010" stroke-width="0.8"/>
+        <rect x="92" y="86" width="16" height="2" fill="#9C7A5A"/>
+        <circle cx="104" cy="98" r="0.8" fill="#FCD96A"/>
+        <rect x="86" y="42" width="28" height="4" fill="#FFF8E1"/>
+        <text x="100" y="45.5" text-anchor="middle" font-size="3.5" fill="#5C3A1F" font-weight="900" font-family="sans-serif">AQUALINK</text>
+      </g>
+    `;
+  } else if (lv <= 3) {
+    building = `
+      <g>
+        <rect x="62" y="32" width="76" height="78" fill="#E8DCC8" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="62" y="32" width="76" height="6" fill="#7A8AA0"/>
+        <rect x="62" y="38" width="76" height="2" fill="#5C6B85"/>
+        <g fill="#A8C8E0" stroke="#5C6B85" stroke-width="0.6">
+          <rect x="68" y="46" width="8" height="9"/>
+          <rect x="79" y="46" width="8" height="9"/>
+          <rect x="94" y="46" width="8" height="9"/>
+          <rect x="113" y="46" width="8" height="9"/>
+          <rect x="124" y="46" width="8" height="9"/>
+          <rect x="68" y="59" width="8" height="9"/>
+          <rect x="79" y="59" width="8" height="9"/>
+          <rect x="94" y="59" width="8" height="9"/>
+          <rect x="113" y="59" width="8" height="9"/>
+          <rect x="124" y="59" width="8" height="9"/>
+          <rect x="68" y="72" width="8" height="9"/>
+          <rect x="79" y="72" width="8" height="9"/>
+          <rect x="94" y="72" width="8" height="9"/>
+          <rect x="113" y="72" width="8" height="9"/>
+          <rect x="124" y="72" width="8" height="9"/>
+          <rect x="68" y="85" width="8" height="9"/>
+          <rect x="79" y="85" width="8" height="9"/>
+          <rect x="113" y="85" width="8" height="9"/>
+          <rect x="124" y="85" width="8" height="9"/>
+        </g>
+        <rect x="92" y="89" width="16" height="21" fill="#5C3A1F" stroke="#3D2010" stroke-width="0.8"/>
+        <rect x="92" y="89" width="16" height="2" fill="#9C7A5A"/>
+        <circle cx="104" cy="100" r="0.8" fill="#FCD96A"/>
+        <rect x="80" y="34" width="40" height="4" fill="#FFF8E1"/>
+        <text x="100" y="37.5" text-anchor="middle" font-size="4" fill="#3D4A60" font-weight="900" font-family="sans-serif">AQUALINK</text>
+      </g>
+    `;
+  } else if (lv <= 4) {
+    building = `
+      <g>
+        <rect x="58" y="22" width="84" height="88" fill="#F5E8D0" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="58" y="22" width="84" height="8" fill="#D4B868" stroke="#A88828" stroke-width="0.6"/>
+        <polygon points="58,22 142,22 138,16 62,16" fill="#E8C868"/>
+        <rect x="58" y="30" width="84" height="3" fill="#A88828"/>
+        <rect x="58" y="106" width="84" height="4" fill="#D4B868"/>
+        <g fill="#7AC8E0" stroke="#3D8AA0" stroke-width="0.5">
+          <rect x="64" y="38" width="9" height="11"/>
+          <rect x="76" y="38" width="9" height="11"/>
+          <rect x="92" y="38" width="9" height="11"/>
+          <rect x="115" y="38" width="9" height="11"/>
+          <rect x="127" y="38" width="9" height="11"/>
+          <rect x="64" y="54" width="9" height="11"/>
+          <rect x="76" y="54" width="9" height="11"/>
+          <rect x="92" y="54" width="9" height="11"/>
+          <rect x="115" y="54" width="9" height="11"/>
+          <rect x="127" y="54" width="9" height="11"/>
+          <rect x="64" y="70" width="9" height="11"/>
+          <rect x="76" y="70" width="9" height="11"/>
+          <rect x="92" y="70" width="9" height="11"/>
+          <rect x="115" y="70" width="9" height="11"/>
+          <rect x="127" y="70" width="9" height="11"/>
+          <rect x="64" y="86" width="9" height="11"/>
+          <rect x="76" y="86" width="9" height="11"/>
+          <rect x="115" y="86" width="9" height="11"/>
+          <rect x="127" y="86" width="9" height="11"/>
+        </g>
+        <rect x="93" y="89" width="14" height="21" fill="#D4B868" stroke="#A88828" stroke-width="0.8"/>
+        <rect x="93" y="89" width="14" height="2" fill="#FCE9C8"/>
+        <circle cx="103" cy="100" r="0.8" fill="#A88828"/>
+        <rect x="80" y="22" width="40" height="6" fill="#FFF8E1" stroke="#A88828" stroke-width="0.4"/>
+        <text x="100" y="27" text-anchor="middle" font-size="4" fill="#5C3A1F" font-weight="900" font-family="sans-serif">AQUALINK</text>
+        <rect x="56" y="32" width="3" height="78" fill="#FFF8E1" stroke="#A88828" stroke-width="0.4"/>
+        <rect x="141" y="32" width="3" height="78" fill="#FFF8E1" stroke="#A88828" stroke-width="0.4"/>
+      </g>
+    `;
+  } else if (lv <= 5) {
+    building = `
+      <g>
+        <rect x="64" y="60" width="22" height="50" fill="#A8B8C9" stroke="#5C6B85" stroke-width="1"/>
+        <g fill="#7AC8E0" stroke="#3D6B85" stroke-width="0.4">
+          <rect x="67" y="64" width="5" height="6"/><rect x="74" y="64" width="5" height="6"/><rect x="81" y="64" width="5" height="6"/>
+          <rect x="67" y="73" width="5" height="6"/><rect x="74" y="73" width="5" height="6"/><rect x="81" y="73" width="5" height="6"/>
+          <rect x="67" y="82" width="5" height="6"/><rect x="74" y="82" width="5" height="6"/><rect x="81" y="82" width="5" height="6"/>
+          <rect x="67" y="91" width="5" height="6"/><rect x="74" y="91" width="5" height="6"/><rect x="81" y="91" width="5" height="6"/>
+          <rect x="67" y="100" width="5" height="6"/><rect x="74" y="100" width="5" height="6"/><rect x="81" y="100" width="5" height="6"/>
+        </g>
+        <rect x="114" y="68" width="22" height="42" fill="#A8B8C9" stroke="#5C6B85" stroke-width="1"/>
+        <g fill="#7AC8E0" stroke="#3D6B85" stroke-width="0.4">
+          <rect x="117" y="72" width="5" height="6"/><rect x="124" y="72" width="5" height="6"/><rect x="131" y="72" width="5" height="6"/>
+          <rect x="117" y="81" width="5" height="6"/><rect x="124" y="81" width="5" height="6"/><rect x="131" y="81" width="5" height="6"/>
+          <rect x="117" y="90" width="5" height="6"/><rect x="124" y="90" width="5" height="6"/><rect x="131" y="90" width="5" height="6"/>
+          <rect x="117" y="99" width="5" height="6"/><rect x="124" y="99" width="5" height="6"/><rect x="131" y="99" width="5" height="6"/>
+        </g>
+        <rect x="86" y="40" width="28" height="70" fill="#E8DCC8" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="86" y="40" width="28" height="6" fill="#7A8AA0"/>
+        <g fill="#7AC8E0" stroke="#3D6B85" stroke-width="0.4">
+          <rect x="89" y="50" width="5" height="6"/><rect x="96" y="50" width="5" height="6"/><rect x="103" y="50" width="5" height="6"/>
+          <rect x="89" y="59" width="5" height="6"/><rect x="96" y="59" width="5" height="6"/><rect x="103" y="59" width="5" height="6"/>
+          <rect x="89" y="68" width="5" height="6"/><rect x="96" y="68" width="5" height="6"/><rect x="103" y="68" width="5" height="6"/>
+          <rect x="89" y="77" width="5" height="6"/><rect x="96" y="77" width="5" height="6"/><rect x="103" y="77" width="5" height="6"/>
+          <rect x="89" y="86" width="5" height="6"/><rect x="103" y="86" width="5" height="6"/>
+        </g>
+        <rect x="93" y="92" width="14" height="18" fill="#5C3A1F" stroke="#3D2010" stroke-width="0.8"/>
+        <circle cx="103" cy="101" r="0.8" fill="#FCD96A"/>
+        <rect x="88" y="42" width="24" height="4" fill="#FFF8E1"/>
+        <text x="100" y="45.5" text-anchor="middle" font-size="3.5" fill="#3D4A60" font-weight="900" font-family="sans-serif">AQUALINK</text>
+      </g>
+    `;
+  } else if (lv <= 6) {
+    building = `
+      <g>
+        <rect x="60" y="50" width="22" height="60" fill="#C8C0AC" stroke="#7A6850" stroke-width="1"/>
+        <rect x="60" y="46" width="22" height="6" fill="#A8987C"/>
+        <rect x="65" y="46" width="12" height="6" rx="6" fill="#5C544C"/>
+        <text x="71" y="51" text-anchor="middle" font-size="4" fill="#FFF" font-weight="900">H</text>
+        <g fill="#7AC8E0" stroke="#3D6B85" stroke-width="0.4">
+          <rect x="63" y="56" width="5" height="6"/><rect x="70" y="56" width="5" height="6"/><rect x="77" y="56" width="2" height="6"/>
+          <rect x="63" y="65" width="5" height="6"/><rect x="70" y="65" width="5" height="6"/><rect x="77" y="65" width="2" height="6"/>
+          <rect x="63" y="74" width="5" height="6"/><rect x="70" y="74" width="5" height="6"/>
+          <rect x="63" y="83" width="5" height="6"/><rect x="70" y="83" width="5" height="6"/>
+          <rect x="63" y="92" width="5" height="6"/><rect x="70" y="92" width="5" height="6"/>
+          <rect x="63" y="101" width="5" height="6"/><rect x="70" y="101" width="5" height="6"/>
+        </g>
+        <rect x="118" y="55" width="22" height="55" fill="#C8C0AC" stroke="#7A6850" stroke-width="1"/>
+        <rect x="118" y="51" width="22" height="6" fill="#A8987C"/>
+        <ellipse cx="129" cy="48" rx="6" ry="2" fill="#7A2020"/>
+        <rect x="127" y="44" width="4" height="4" fill="#7A2020"/>
+        <line x1="129" y1="42" x2="135" y2="48" stroke="#5C544C" stroke-width="0.4"/>
+        <g fill="#7AC8E0" stroke="#3D6B85" stroke-width="0.4">
+          <rect x="121" y="61" width="5" height="6"/><rect x="128" y="61" width="5" height="6"/><rect x="135" y="61" width="3" height="6"/>
+          <rect x="121" y="70" width="5" height="6"/><rect x="128" y="70" width="5" height="6"/><rect x="135" y="70" width="3" height="6"/>
+          <rect x="121" y="79" width="5" height="6"/><rect x="128" y="79" width="5" height="6"/>
+          <rect x="121" y="88" width="5" height="6"/><rect x="128" y="88" width="5" height="6"/>
+          <rect x="121" y="97" width="5" height="6"/><rect x="128" y="97" width="5" height="6"/>
+        </g>
+        <rect x="84" y="44" width="32" height="66" fill="#E8DCC8" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="84" y="40" width="32" height="8" fill="#7A6890" stroke="#3D2A5C" stroke-width="0.6"/>
+        <rect x="86" y="42" width="28" height="4" fill="#9C8AB8"/>
+        <text x="100" y="46" text-anchor="middle" font-size="3.5" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+        <g fill="#FCD96A" stroke="#A88828" stroke-width="0.3">
+          <rect x="87" y="52" width="5" height="6"/><rect x="94" y="52" width="5" height="6"/><rect x="101" y="52" width="5" height="6"/><rect x="108" y="52" width="5" height="6"/>
+          <rect x="87" y="61" width="5" height="6"/><rect x="94" y="61" width="5" height="6"/><rect x="101" y="61" width="5" height="6"/><rect x="108" y="61" width="5" height="6"/>
+          <rect x="87" y="70" width="5" height="6"/><rect x="94" y="70" width="5" height="6"/><rect x="101" y="70" width="5" height="6"/><rect x="108" y="70" width="5" height="6"/>
+          <rect x="87" y="79" width="5" height="6"/><rect x="94" y="79" width="5" height="6"/><rect x="101" y="79" width="5" height="6"/><rect x="108" y="79" width="5" height="6"/>
+          <rect x="87" y="88" width="5" height="6"/><rect x="108" y="88" width="5" height="6"/>
+        </g>
+        <rect x="93" y="92" width="14" height="18" fill="#5C3A1F" stroke="#3D2010" stroke-width="0.8"/>
+        <circle cx="103" cy="101" r="0.8" fill="#FCD96A"/>
+      </g>
+    `;
+  } else if (lv <= 7) {
+    building = `
+      <g>
+        <defs>
+          <linearGradient id="rainbow1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#FF8AAA"/>
+            <stop offset="33%" stop-color="#FCD96A"/>
+            <stop offset="66%" stop-color="#7AC8E0"/>
+            <stop offset="100%" stop-color="#9C8AB8"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="60" rx="80" ry="35" fill="url(#rainbow1)" opacity="0.4"/>
+        <rect x="58" y="44" width="22" height="66" fill="#E8C0E0" stroke="#A86890" stroke-width="0.8"/>
+        <g fill="#FCD96A" stroke="#A88828" stroke-width="0.3">
+          <rect x="61" y="48" width="5" height="6"/><rect x="68" y="48" width="5" height="6"/><rect x="75" y="48" width="3" height="6"/>
+          <rect x="61" y="57" width="5" height="6"/><rect x="68" y="57" width="5" height="6"/><rect x="75" y="57" width="3" height="6"/>
+          <rect x="61" y="66" width="5" height="6"/><rect x="68" y="66" width="5" height="6"/>
+          <rect x="61" y="75" width="5" height="6"/><rect x="68" y="75" width="5" height="6"/>
+          <rect x="61" y="84" width="5" height="6"/><rect x="68" y="84" width="5" height="6"/>
+          <rect x="61" y="93" width="5" height="6"/><rect x="68" y="93" width="5" height="6"/>
+          <rect x="61" y="102" width="5" height="6"/><rect x="68" y="102" width="5" height="6"/>
+        </g>
+        <rect x="120" y="44" width="22" height="66" fill="#A8E0C8" stroke="#5C9078" stroke-width="0.8"/>
+        <g fill="#FCD96A" stroke="#A88828" stroke-width="0.3">
+          <rect x="123" y="48" width="5" height="6"/><rect x="130" y="48" width="5" height="6"/><rect x="137" y="48" width="3" height="6"/>
+          <rect x="123" y="57" width="5" height="6"/><rect x="130" y="57" width="5" height="6"/><rect x="137" y="57" width="3" height="6"/>
+          <rect x="123" y="66" width="5" height="6"/><rect x="130" y="66" width="5" height="6"/>
+          <rect x="123" y="75" width="5" height="6"/><rect x="130" y="75" width="5" height="6"/>
+          <rect x="123" y="84" width="5" height="6"/><rect x="130" y="84" width="5" height="6"/>
+          <rect x="123" y="93" width="5" height="6"/><rect x="130" y="93" width="5" height="6"/>
+          <rect x="123" y="102" width="5" height="6"/><rect x="130" y="102" width="5" height="6"/>
+        </g>
+        <rect x="82" y="32" width="36" height="78" fill="#FFF8E1" stroke="#5C3A1F" stroke-width="1.5"/>
+        <polygon points="80,32 120,32 116,24 84,24" fill="#D4B868" stroke="#A88828" stroke-width="0.8"/>
+        <polygon points="78,32 122,32 100,18" fill="#E8C868" stroke="#A88828" stroke-width="0.8"/>
+        <rect x="84" y="34" width="32" height="6" fill="#D4B868" stroke="#A88828" stroke-width="0.4"/>
+        <rect x="86" y="35" width="28" height="4" fill="#FFF8E1"/>
+        <text x="100" y="38.5" text-anchor="middle" font-size="3.5" fill="#A85050" font-weight="900" font-family="sans-serif">AQUALINK</text>
+        <circle cx="84" cy="22" r="2" fill="#FCD96A"/>
+        <circle cx="116" cy="22" r="2" fill="#FCD96A"/>
+        <g fill="url(#rainbow1)" stroke="#A88828" stroke-width="0.3">
+          <rect x="86" y="44" width="6" height="7"/><rect x="94" y="44" width="6" height="7"/><rect x="100" y="44" width="6" height="7"/><rect x="108" y="44" width="6" height="7"/>
+          <rect x="86" y="55" width="6" height="7"/><rect x="94" y="55" width="6" height="7"/><rect x="100" y="55" width="6" height="7"/><rect x="108" y="55" width="6" height="7"/>
+          <rect x="86" y="66" width="6" height="7"/><rect x="94" y="66" width="6" height="7"/><rect x="100" y="66" width="6" height="7"/><rect x="108" y="66" width="6" height="7"/>
+          <rect x="86" y="77" width="6" height="7"/><rect x="94" y="77" width="6" height="7"/><rect x="100" y="77" width="6" height="7"/><rect x="108" y="77" width="6" height="7"/>
+        </g>
+        <rect x="92" y="92" width="16" height="18" fill="#D4B868" stroke="#A88828" stroke-width="0.8"/>
+        <rect x="92" y="92" width="16" height="3" fill="#FCE9C8"/>
+        <polygon points="88,92 112,92 108,88 92,88" fill="#A88828"/>
+        <circle cx="103" cy="101" r="0.8" fill="#A85050"/>
+        <rect x="80" y="29" width="3" height="3" fill="#FCD96A"/>
+        <rect x="117" y="29" width="3" height="3" fill="#FCD96A"/>
+      </g>
+    `;
+  } else {
+    building = `
+      <g>
+        <defs>
+          <linearGradient id="rainbow2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FF8AAA"/>
+            <stop offset="25%" stop-color="#FCD96A"/>
+            <stop offset="50%" stop-color="#9CD888"/>
+            <stop offset="75%" stop-color="#7AC8E0"/>
+            <stop offset="100%" stop-color="#9C8AB8"/>
+          </linearGradient>
+          <linearGradient id="palace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFF8E1"/>
+            <stop offset="100%" stop-color="#E8DCC8"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="50" rx="90" ry="45" fill="url(#rainbow2)" opacity="0.5"/>
+        <rect x="78" y="20" width="44" height="90" fill="url(#palace)" stroke="#5C3A1F" stroke-width="1.5"/>
+        <rect x="76" y="20" width="48" height="6" fill="#D4B868" stroke="#A88828" stroke-width="0.6"/>
+        <polygon points="74,20 126,20 100,8" fill="#E8C868" stroke="#A88828" stroke-width="0.8"/>
+        <polygon points="100,8 96,2 104,2" fill="#FCD96A" stroke="#A88828" stroke-width="0.4"/>
+        <circle cx="100" cy="2" r="1.5" fill="#FCE9C8"/>
+        <ellipse cx="68" cy="48" rx="6" ry="22" fill="#5BA84C" stroke="#3D8A38" stroke-width="0.6" opacity="0.85"/>
+        <ellipse cx="132" cy="48" rx="6" ry="22" fill="#5BA84C" stroke="#3D8A38" stroke-width="0.6" opacity="0.85"/>
+        <ellipse cx="68" cy="65" rx="4" ry="3" fill="#FF8AAA" opacity="0.7"/>
+        <ellipse cx="132" cy="65" rx="4" ry="3" fill="#FF8AAA" opacity="0.7"/>
+        <rect x="76" y="26" width="48" height="3" fill="#A88828"/>
+        <rect x="80" y="35" width="40" height="6" fill="#FFF8E1" stroke="#A88828" stroke-width="0.5"/>
+        <rect x="78" y="34" width="44" height="2" fill="#D4B868"/>
+        <text x="100" y="40" text-anchor="middle" font-size="4.5" fill="#A85050" font-weight="900" font-family="sans-serif">AQUALINK</text>
+        <g fill="url(#rainbow2)" stroke="#A88828" stroke-width="0.3">
+          <rect x="82" y="46" width="7" height="9"/>
+          <rect x="92" y="46" width="7" height="9"/>
+          <rect x="101" y="46" width="7" height="9"/>
+          <rect x="111" y="46" width="7" height="9"/>
+          <rect x="82" y="58" width="7" height="9"/>
+          <rect x="92" y="58" width="7" height="9"/>
+          <rect x="101" y="58" width="7" height="9"/>
+          <rect x="111" y="58" width="7" height="9"/>
+          <rect x="82" y="70" width="7" height="9"/>
+          <rect x="92" y="70" width="7" height="9"/>
+          <rect x="101" y="70" width="7" height="9"/>
+          <rect x="111" y="70" width="7" height="9"/>
+          <rect x="82" y="82" width="7" height="9"/>
+          <rect x="92" y="82" width="7" height="9"/>
+          <rect x="101" y="82" width="7" height="9"/>
+          <rect x="111" y="82" width="7" height="9"/>
+        </g>
+        <polygon points="85,93 90,98 95,93" fill="#A88828"/>
+        <polygon points="95,93 100,98 105,93" fill="#A88828"/>
+        <polygon points="105,93 110,98 115,93" fill="#A88828"/>
+        <rect x="92" y="94" width="16" height="16" fill="#D4B868" stroke="#A88828" stroke-width="1"/>
+        <polygon points="92,94 100,88 108,94" fill="#E8C868" stroke="#A88828" stroke-width="0.8"/>
+        <rect x="92" y="94" width="16" height="3" fill="#FCE9C8"/>
+        <circle cx="103" cy="103" r="1" fill="#A85050"/>
+        <text x="100" y="108" text-anchor="middle" font-size="2.5" fill="#A85050" font-weight="900" font-family="sans-serif">★</text>
+        <circle cx="76" cy="22" r="1.5" fill="#FCD96A"/>
+        <circle cx="124" cy="22" r="1.5" fill="#FCD96A"/>
+        <circle cx="84" cy="20" r="1" fill="#FCD96A" opacity="0.8"/>
+        <circle cx="116" cy="20" r="1" fill="#FCD96A" opacity="0.8"/>
+      </g>
+    `;
+  }
+
+  return island + building;
 }
 
 function renderHome() {
@@ -1734,6 +2740,15 @@ function renderHome() {
     document.getElementById('npc-'+d+'-lv').textContent = lv;
   });
 
+  // 経営パラメータ
+  renderBizParams();
+  // 危機アラート
+  renderCrisisAlert();
+  // 会社ステータス
+  renderCompanyStats();
+  // 称号
+  renderBadges();
+
   const md = getMonthData(ST.current_month);
   const hqList = document.getElementById('hq-kgi-list');
   hqList.innerHTML = '';
@@ -1742,10 +2757,12 @@ function renderHome() {
     const pct = calcKpiPct(k, v);
     const status = v === undefined || v === '' ? '' : (pct >= 80 ? '' : pct >= 50 ? 'warn' : 'bad');
     const showVal = v !== undefined && v !== '' ? fmtVal(v, k.fmt) : '--';
+    const grade = (v !== undefined && v !== '') ? gradeKgi(v, k.target, k.invert) : null;
+    const gradeTag = grade ? `<span class="kgi-grade ${grade.grade}">${grade.grade}</span>` : '';
     hqList.innerHTML += `
       <div class="kgi-row ${status}">
         <div class="kgi-info">
-          <div class="kgi-lbl">${k.name}</div>
+          <div class="kgi-lbl">${k.name}${gradeTag}</div>
           <div class="kgi-val">
             <span class="kgi-num">${showVal}</span>
             <span class="kgi-target">/ ${fmtVal(k.target, k.fmt)}</span>
@@ -1775,6 +2792,165 @@ function renderHome() {
       `;
     });
   }
+}
+
+// 経営パラメータ描画
+function renderBizParams() {
+  const list = document.getElementById('biz-params-list');
+  if (!list) return;
+  list.innerHTML = `
+    <div class="biz-param-grid">
+      <div class="biz-param">
+        <div class="biz-param-icon" style="color:#D4A020;"><i class="ti ti-coin"></i></div>
+        <div class="biz-param-val">${ST.funds.toLocaleString()}</div>
+        <div class="biz-param-lbl">経営資金（万）</div>
+      </div>
+      <div class="biz-param">
+        <div class="biz-param-icon" style="color:#A85050;"><i class="ti ti-star"></i></div>
+        <div class="biz-param-val">${ST.reputation}</div>
+        <div class="biz-param-lbl">会社評判</div>
+      </div>
+      <div class="biz-param">
+        <div class="biz-param-icon" style="color:#5BA84C;"><i class="ti ti-mood-happy"></i></div>
+        <div class="biz-param-val">${ST.satisfaction}</div>
+        <div class="biz-param-lbl">社員満足度</div>
+      </div>
+    </div>
+  `;
+}
+
+// 経営危機アラート描画
+function renderCrisisAlert() {
+  const panel = document.getElementById('crisis-panel');
+  const list = document.getElementById('crisis-list');
+  if (!panel || !list) return;
+  const alerts = [];
+  const kgiNames = {
+    sales_net:'新規月額純増', sales_gross:'粗利率',
+    inst_complaint30:'30日以内クレーム', inst_costdiff:'仕入差額',
+    mt_cancel_amt:'解約金額', mt_purchase_pct:'純仕入割合',
+    mt_profit:'商品利益', hq_profit:'実質純増利益', hq_reward:'社員還元原資',
+  };
+  for (const [kgiId, count] of Object.entries(ST.monthly_kgi_status)) {
+    if (count >= 1) {
+      const crisis = getCrisisLevel(count);
+      if (crisis) {
+        alerts.push({kgi:kgiNames[kgiId] || kgiId, count, crisis});
+      }
+    }
+  }
+  if (alerts.length === 0) {
+    panel.style.display = 'none';
+    return;
+  }
+  panel.style.display = '';
+  list.innerHTML = alerts.map(a => `
+    <div class="crisis-card" style="background:${a.crisis.bg};border-color:${a.crisis.color};">
+      <div class="crisis-icon" style="color:${a.crisis.color};"><i class="ti ti-alert-triangle"></i></div>
+      <div class="crisis-info">
+        <div class="crisis-name" style="color:${a.crisis.color};">${a.kgi}</div>
+        <div class="crisis-desc">${a.count}ヶ月連続で目標未達。原因を特定して改善アクションを登録してください。</div>
+      </div>
+      <div class="crisis-tag" style="background:${a.crisis.color};color:#fff;">${a.crisis.label}</div>
+    </div>
+  `).join('');
+}
+
+// 会社ステータス描画
+function renderCompanyStats() {
+  const list = document.getElementById('company-stats-list');
+  if (!list) return;
+  const stats = [
+    {key:'sales_power', name:'売上力', color:'#5BA84C'},
+    {key:'profit_power', name:'利益力', color:'#D4A020'},
+    {key:'quality_power', name:'品質力', color:'#5B7AA8'},
+    {key:'site_power', name:'現場力', color:'#A85050'},
+    {key:'collect_power', name:'回収力', color:'#7AA85C'},
+    {key:'bond_power', name:'連携力', color:'#9C5AA8'},
+    {key:'reward_power', name:'還元力', color:'#A88828'},
+  ];
+  list.innerHTML = stats.map(s => {
+    const v = ST.stats[s.key] || 0;
+    return `
+      <div class="stat-row">
+        <div class="stat-name">${s.name}</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:${v}%;background:${s.color};"></div></div>
+        <div class="stat-val">${v}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 称号描画
+function renderBadges() {
+  const list = document.getElementById('badges-list');
+  if (!list) return;
+  list.innerHTML = `<div class="badges-grid">` +
+    COMPANY_BADGES.map(b => {
+      const unlocked = ST.badges.includes(b.id);
+      return `
+        <div class="badge-item ${unlocked ? 'unlocked' : 'locked'}" title="${b.desc}">
+          <div class="badge-icon"><i class="ti ${b.icon}"></i></div>
+          <div class="badge-name">${b.name}</div>
+        </div>
+      `;
+    }).join('') +
+    `</div>`;
+}
+
+// レポートページ描画
+function renderReport() {
+  const content = document.getElementById('report-content');
+  if (!content) return;
+  if (!ST.reports || ST.reports.length === 0) {
+    content.innerHTML = '<div class="empty-msg" style="margin:40px 14px;">月次レポートはまだありません<br>月次決算を確定すると自動生成されます</div>';
+    return;
+  }
+  content.innerHTML = ST.reports.map(r => renderReportCard(r)).join('');
+}
+
+function renderReportCard(r) {
+  const fundsClass = r.fundsDelta >= 0 ? 'delta-up' : 'delta-down';
+  const repClass = r.repDelta >= 0 ? 'delta-up' : 'delta-down';
+  const satClass = r.satDelta >= 0 ? 'delta-up' : 'delta-down';
+  const eventsHtml = (r.events || []).map(e => `
+    <div class="report-event ${e.type}">
+      <i class="ti ${e.icon || 'ti-info-circle'}"></i>
+      <div><b>${e.name}</b> — ${e.desc}</div>
+    </div>
+  `).join('');
+  const badgesHtml = (r.badges || []).map(b => `
+    <div class="report-event good">
+      <i class="ti ${b.icon}"></i>
+      <div><b>新称号</b>「${b.name}」を獲得！</div>
+    </div>
+  `).join('');
+  const kgiHtml = (r.kgiResults || []).map(k => `
+    <div class="report-row"><span>${k.name}</span><span><span class="kgi-grade ${k.grade}">${k.grade}</span> ${k.pct}%</span></div>
+  `).join('');
+  return `
+    <div class="report-card">
+      <div class="report-month">${fmtMonth(r.month)} 経営レポート</div>
+      <div style="text-align:center;">
+        <div style="font-size:10px;color:var(--ink3);">総合評価</div>
+        <div class="report-grade ${r.totalGrade}">${r.totalGrade}</div>
+        <div style="font-size:10px;color:var(--ink3);">平均スコア ${r.avgScore}</div>
+      </div>
+      <div class="report-section">
+        <div class="report-section-h">📊 KGI結果</div>
+        ${kgiHtml || '<div class="report-row">データなし</div>'}
+      </div>
+      <div class="report-section">
+        <div class="report-section-h">💰 経営パラメータ変動</div>
+        <div class="report-row ${fundsClass}"><span>経営資金</span><span>${r.fundsDelta >= 0 ? '+' : ''}${r.fundsDelta}</span></div>
+        <div class="report-row ${repClass}"><span>会社評判</span><span>${r.repDelta >= 0 ? '+' : ''}${r.repDelta}</span></div>
+        <div class="report-row ${satClass}"><span>社員満足度</span><span>${r.satDelta >= 0 ? '+' : ''}${r.satDelta}</span></div>
+        <div class="report-row delta-up"><span>獲得XP</span><span>+${r.xpGain || 0}</span></div>
+      </div>
+      ${eventsHtml ? `<div class="report-section"><div class="report-section-h">📰 発生イベント</div>${eventsHtml}</div>` : ''}
+      ${badgesHtml ? `<div class="report-section"><div class="report-section-h">🏆 獲得称号</div>${badgesHtml}</div>` : ''}
+    </div>
+  `;
 }
 
 function generateMissions() {
@@ -2062,11 +3238,18 @@ function commitMonth() {
     ST.history.sort();
   }
 
+  // 月次決算処理（パラメータ変動・イベント発生・称号判定・レポート生成）
+  const closeResult = processMonthlyClose(ST.input_month);
+
   save();
 
-  const totalXpGain = xpGain.sales + xpGain.install + xpGain.mainte;
+  const totalXpGain = xpGain.sales + xpGain.install + xpGain.mainte + (closeResult ? closeResult.xpGain : 0);
   let toastMsg = '+' + totalXpGain + ' XP もらった！';
-  if (bondMessages.length > 0) toastMsg += ' / ' + bondMessages[0];
+  if (closeResult && closeResult.badges.length > 0) {
+    toastMsg += ' 🏆 ' + closeResult.badges[0].name + ' 獲得！';
+  } else if (bondMessages.length > 0) {
+    toastMsg += ' / ' + bondMessages[0];
+  }
   showToast(toastMsg);
 
   if (levelUps.length > 0) {
@@ -2208,7 +3391,7 @@ function goPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
-  const navMap = {home:'bnav-home', input:'bnav-input', quest:'bnav-quest', history:'bnav-history', dept:'bnav-home'};
+  const navMap = {home:'bnav-home', input:'bnav-input', quest:'bnav-quest', history:'bnav-history', dept:'bnav-home', report:'bnav-home'};
   const navId = navMap[page];
   if (navId) document.getElementById(navId).classList.add('active');
 
@@ -2217,6 +3400,7 @@ function goPage(page) {
   if (page === 'input') renderInput();
   if (page === 'history') renderHistory();
   if (page === 'quest') renderQuest();
+  if (page === 'report') renderReport();
 }
 
 let curQuestTab = 'active';
