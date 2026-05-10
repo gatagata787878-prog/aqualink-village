@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="アクアリンク経営発展記">
+<meta name="theme-color" content="#D8D2C5">
+<title>アクアリンク経営発展記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --sky:#C9DDD8;
+  --sky2:#A8C4C0;
+  --grass:#B8C9A8;
+  --grass2:#9CB088;
+  --grass3:#7A8C66;
+  --cream:#EFE6D5;
+  --cream2:#E0D4BE;
+  --pink:#D4A8B5;
+  --pink2:#C9909C;
+  --pinkdk:#8A4858;
+  --blue:#A8B8C9;
+  --blue2:#7A8CA0;
+  --bluedk:#3A4C5C;
+  --green:#9CB088;
+  --green2:#7A8C66;
+  --greendk:#3A4C30;
+  --lavender:#9C8AB8;
+  --lavender2:#7A6890;
+  --lavenderdk:#5C4A78;
+  --yellow:#D4B868;
+  --yellow2:#A88E48;
+  --yellowdk:#5C4A20;
+  --beige:#D4C0A0;
+  --beige2:#B8A088;
+  --beigedk:#7A6048;
+  --woodlt:#C8A878;
+  --wood:#9C7A5A;
+  --wooddk:#7A5A3A;
+  --woodbg:#6B5A48;
+  --woodxd:#3D2F22;
+  --paper:#FFF8E8;
+  --paper2:#F5E8D0;
+  --ink:#3D352B;
+  --ink2:#5C4A38;
+  --ink3:#7A6A56;
+  --shadow:#8A7A66;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{
+  height:100%;overflow:hidden;background:var(--sky);
+  color:var(--ink);
+  font-family:'M PLUS Rounded 1c','Hiragino Maru Gothic ProN',sans-serif;
+}
+body{display:flex;flex-direction:column;}
+
+.hud{
+  background:var(--cream);
+  border-bottom:3px solid var(--woodbg);
+  padding:10px 14px;
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;z-index:20;
+  box-shadow:0 3px 0 var(--shadow);
+  position:relative;
+}
+.hud-title{
+  font-weight:900;font-size:13px;color:var(--woodbg);
+  flex:1;letter-spacing:.02em;
+}
+.hud-title:before{
+  content:"🏢";margin-right:5px;font-size:11px;
+}
+.hud-month{
+  font-weight:700;font-size:11px;
+  color:var(--ink2);background:var(--paper);
+  padding:5px 11px;border:2px solid var(--woodbg);
+  border-radius:99px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.hud-coin{
+  display:flex;align-items:center;gap:5px;
+  font-weight:700;font-size:12px;color:var(--ink2);
+  background:var(--paper);
+  padding:4px 10px;border:2px solid var(--woodbg);
+  border-radius:99px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.hud-coin-icon{
+  width:14px;height:14px;background:var(--yellow);
+  border:1.5px solid var(--yellow2);
+  border-radius:50%;flex-shrink:0;
+}
+
+.page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;position:relative;}
+.page.active{display:block;}
+.page::-webkit-scrollbar{width:0;}
+
+.village{
+  background:linear-gradient(to bottom,
+    #C0C5CA 0%, #C8CDD2 35%,
+    #D8D2C5 50%, #D0CCBE 60%,
+    #5C544C 65%, #5C544C 100%);
+  min-height:330px;
+  position:relative;
+  border-bottom:3px solid var(--woodbg);
+  padding:14px 12px 4px;
+  overflow:hidden;
+}
+.village:before{
+  content:"";position:absolute;
+  left:0;right:0;top:65%;height:2px;
+  background:#3A352F;
+  z-index:1;
+}
+.village:after{
+  content:"";position:absolute;
+  left:0;right:0;bottom:14px;height:1px;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 10px,#D4C8B0 10px,#D4C8B0 18px);
+  z-index:1;
+}
+.cloud{
+  position:absolute;background:#FAF6EE;border-radius:14px;
+  box-shadow:
+    -10px 4px 0 -2px #FAF6EE, 12px 4px 0 -2px #FAF6EE,
+    0 -6px 0 -3px #FAF6EE;
+  width:24px;height:10px;z-index:1;opacity:.7;
+}
+.sun{
+  position:absolute;top:14px;right:18px;
+  width:32px;height:32px;background:#E8DCC8;
+  border-radius:50%;border:2px solid #C8B898;
+  z-index:1;opacity:.5;
+}
+
+.skybuilding{
+  position:absolute;z-index:1;
+  background:#8A8278;
+  border:1px solid #5C544C;
+}
+.skybuilding-windows{
+  position:absolute;inset:3px 2px 2px 2px;
+  background-image:radial-gradient(#B0AFA8 1px, transparent 1.5px);
+  background-size:5px 5px;
+  opacity:.85;
+}
+
+.tokyo-station{
+  position:absolute;z-index:2;
+  bottom:35%;width:48px;
+}
+.tokyo-station svg{width:100%;height:auto;display:block;}
+
+.gingko{
+  position:absolute;z-index:2;
+  width:14px;height:32px;
+  bottom:14px;
+}
+.gingko svg{width:100%;height:100%;display:block;}
+
+.taxi{
+  position:absolute;z-index:2;
+  width:18px;height:8px;
+  bottom:7px;
+}
+.taxi svg{width:100%;height:100%;display:block;}
+
+.flower{display:none;}
+
+.hq-stage{
+  position:relative;width:160px;height:160px;
+  margin:0 auto 4px;z-index:3;
+}
+.hq-stage svg{width:100%;height:100%;display:block;
+  filter:drop-shadow(2px 4px 0 rgba(0,0,0,.12));
+}
+.hq-banner{
+  position:absolute;top:-2px;left:50%;transform:translateX(-50%);
+  background:var(--paper);color:var(--ink2);
+  font-weight:700;font-size:10px;
+  padding:4px 11px;border:2px solid var(--woodbg);
+  border-radius:99px;white-space:nowrap;z-index:4;
+  box-shadow:0 2px 0 var(--shadow);
+  max-width:90%;
+}
+.hq-banner i{font-size:11px;color:var(--yellow2);margin-right:3px;}
+
+.party-stage{
+  display:flex;justify-content:space-around;align-items:flex-end;
+  position:relative;z-index:3;padding:6px 4px 6px;
+}
+.npc{
+  position:relative;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  transition:transform .12s;
+}
+.npc:active{transform:translateY(-3px) scale(.97);}
+.npc svg{
+  width:78px;height:104px;display:block;
+  filter:drop-shadow(2px 3px 0 rgba(0,0,0,.15));
+}
+.npc-tag{
+  background:var(--paper);color:var(--ink2);
+  font-weight:700;font-size:11px;
+  padding:3px 10px;border:2px solid var(--woodbg);
+  border-radius:99px;
+  margin-top:3px;white-space:nowrap;
+  box-shadow:0 2px 0 var(--shadow);
+  display:flex;align-items:center;gap:5px;
+}
+.npc-tag .lv{
+  font-size:9px;color:var(--yellow2);font-weight:900;
+}
+
+.panel{
+  background:var(--paper);
+  border:2.5px solid var(--woodbg);
+  margin:12px;padding:0;
+  position:relative;
+  border-radius:18px;
+  box-shadow:0 4px 0 var(--shadow);
+  overflow:hidden;
+}
+.panel-h{
+  background:var(--cream);
+  color:var(--ink2);
+  font-weight:700;font-size:13px;
+  padding:8px 14px;
+  border-bottom:2px solid var(--woodbg);
+  letter-spacing:.03em;
+  display:flex;align-items:center;gap:7px;
+}
+.panel-h i{
+  font-size:15px;color:var(--woodbg);
+  background:var(--yellow);
+  padding:3px;border-radius:50%;
+  border:1.5px solid var(--yellow2);
+}
+.panel-body{padding:11px;}
+
+.kgi-row{
+  background:var(--paper2);
+  border:2px solid var(--woodbg);
+  padding:9px 12px;margin-bottom:6px;
+  display:flex;align-items:center;gap:10px;
+  border-radius:14px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.kgi-row:last-child{margin-bottom:0;}
+.kgi-row.warn{border-color:var(--yellow2);background:#F5E6C8;}
+.kgi-row.bad{border-color:var(--pink2);background:#F0DCDC;}
+.kgi-info{flex:1;min-width:0;}
+.kgi-lbl{
+  font-size:11px;color:var(--ink3);font-weight:500;
+}
+.kgi-val{
+  display:flex;align-items:baseline;gap:6px;margin-top:3px;
+}
+.kgi-num{
+  font-size:17px;font-weight:900;
+  color:var(--green2);line-height:1;
+}
+.kgi-row.warn .kgi-num{color:var(--yellow2);}
+.kgi-row.bad .kgi-num{color:var(--pinkdk);}
+.kgi-target{
+  font-size:10px;font-weight:500;color:var(--ink3);
+}
+.kgi-pct{
+  font-size:13px;font-weight:900;
+  color:var(--green2);min-width:40px;text-align:right;
+}
+.kgi-row.warn .kgi-pct{color:var(--yellow2);}
+.kgi-row.bad .kgi-pct{color:var(--pinkdk);}
+
+.mission{
+  background:var(--paper2);
+  border:2px solid var(--woodbg);
+  padding:9px 12px;margin-bottom:6px;
+  display:flex;align-items:flex-start;gap:10px;
+  border-radius:14px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.mission:last-child{margin-bottom:0;}
+.mission.warn{border-color:var(--yellow2);background:#F5E6C8;}
+.mission.bad{border-color:var(--pink2);background:#F0DCDC;}
+.mission-icon{
+  width:26px;height:26px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--ink2);
+  background:var(--yellow);border:1.5px solid var(--yellow2);
+  border-radius:50%;
+}
+.mission.bad .mission-icon{background:var(--pink2);color:#fff;border-color:var(--pinkdk);}
+.mission-body{flex:1;min-width:0;}
+.mission-name{
+  font-size:12px;font-weight:700;color:var(--ink);line-height:1.45;
+}
+.mission-sub{
+  font-size:11px;color:var(--ink3);margin-top:3px;line-height:1.55;font-weight:500;
+}
+.mission-xp{
+  font-size:10px;font-weight:900;
+  color:var(--green2);background:#E0EAD0;
+  padding:3px 8px;border:1.5px solid var(--green2);
+  border-radius:99px;flex-shrink:0;align-self:center;
+}
+
+.det-back{
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:700;color:var(--ink2);
+  background:var(--cream);
+  padding:9px 14px;border-bottom:3px solid var(--woodbg);
+  cursor:pointer;
+}
+.det-back i{
+  font-size:16px;color:var(--ink2);
+  background:var(--paper);
+  padding:3px;border-radius:50%;
+  border:1.5px solid var(--woodbg);
+}
+.det-back:active{background:var(--paper);}
+
+.det-stage{
+  background:linear-gradient(to bottom,
+    #C0C5CA 0%, #C8CDD2 35%,
+    #D8D2C5 55%, #5C544C 75%, #5C544C 100%);
+  padding:16px 12px 18px;text-align:center;
+  border-bottom:3px solid var(--woodbg);
+  position:relative;overflow:hidden;
+}
+.det-stage .cloud{top:18px;}
+.det-npc-svg{
+  width:140px;height:188px;display:block;margin:0 auto;
+  filter:drop-shadow(3px 4px 0 rgba(0,0,0,.18));
+  position:relative;z-index:2;
+}
+.det-name-banner{
+  background:var(--paper);color:var(--ink);
+  font-weight:900;font-size:15px;
+  padding:6px 16px;border:2.5px solid var(--woodbg);
+  border-radius:99px;
+  display:inline-block;margin-top:10px;
+  box-shadow:0 3px 0 var(--shadow);
+  position:relative;z-index:2;
+}
+.det-quote{
+  background:var(--paper);border:2px solid var(--woodbg);
+  padding:7px 14px;
+  font-size:11px;color:var(--ink2);font-weight:500;
+  display:inline-block;margin-top:9px;
+  border-radius:14px;
+  box-shadow:0 2px 0 var(--shadow);
+  position:relative;z-index:2;
+}
+.det-quote:before{content:"💬 ";}
+
+.det-lvl-row{
+  display:flex;align-items:center;gap:9px;
+  background:var(--cream);padding:10px 14px;
+  border-bottom:3px solid var(--woodbg);
+}
+.det-lvl-lbl{
+  font-size:10px;font-weight:900;color:var(--ink3);
+  background:var(--paper);
+  padding:4px 9px;border:1.5px solid var(--woodbg);
+  border-radius:99px;
+}
+.det-lvl-num{
+  font-size:18px;font-weight:900;color:var(--woodbg);
+  min-width:24px;text-align:center;
+}
+.det-xp-bar{
+  flex:1;height:14px;background:var(--cream2);
+  border:2px solid var(--woodbg);
+  border-radius:99px;
+  position:relative;overflow:hidden;
+}
+.det-xp-bar-fill{
+  height:100%;background:var(--green2);
+  transition:width .6s cubic-bezier(.4,0,.2,1);
+  border-radius:99px;
+}
+.det-xp-num{
+  font-size:11px;font-weight:700;
+  color:var(--ink2);
+}
+
+.kpi-cat-h{
+  font-size:11px;font-weight:700;
+  color:var(--woodbg);margin:9px 0 5px;letter-spacing:.04em;
+  display:flex;align-items:center;gap:6px;
+}
+.kpi-cat-h:first-child{margin-top:0;}
+.kpi-cat-h:before{
+  content:"";width:10px;height:10px;
+  background:var(--green2);
+  border-radius:50%;
+  display:inline-block;
+}
+.kpi-line{
+  display:flex;align-items:center;gap:9px;
+  background:var(--paper2);
+  border:1.5px solid var(--woodbg);
+  padding:8px 11px;margin-bottom:4px;
+  border-radius:11px;
+  cursor:pointer;
+}
+.kpi-line:active{background:var(--cream2);}
+.kpi-line:last-child{margin-bottom:0;}
+.kpi-line-name{
+  flex:1;font-size:11px;font-weight:500;color:var(--ink);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.kpi-line-bar{
+  flex:0 0 50px;height:8px;background:var(--cream2);
+  border:1px solid var(--woodbg);
+  border-radius:99px;position:relative;overflow:hidden;
+}
+.kpi-line-bar-fill{height:100%;transition:width .4s;border-radius:99px;}
+.kpi-line-val{
+  flex:0 0 46px;text-align:right;
+  font-size:11px;font-weight:700;color:var(--ink);line-height:1;
+}
+.kpi-line-arrow{flex:0 0 10px;color:var(--ink3);font-size:11px;}
+
+.mi-month-bar{
+  background:var(--cream);
+  display:flex;align-items:center;
+  border-bottom:3px solid var(--woodbg);
+}
+.mi-month-arrow{
+  background:var(--paper);color:var(--ink2);
+  border:none;padding:11px 18px;
+  font-size:14px;font-weight:900;
+  cursor:pointer;
+}
+.mi-month-arrow:active{background:var(--cream2);}
+.mi-month-name{
+  flex:1;text-align:center;
+  font-size:14px;font-weight:900;
+  color:var(--ink);
+  padding:11px;
+}
+.mi-month-name:before{content:"📅 ";}
+
+.mi-section{
+  background:var(--paper);border:2.5px solid var(--woodbg);
+  margin:12px;padding:0;
+  border-radius:18px;
+  box-shadow:0 4px 0 var(--shadow);
+  overflow:hidden;
+}
+.mi-section-h{
+  background:var(--cream);color:var(--ink);
+  font-weight:700;font-size:13px;
+  padding:8px 12px;border-bottom:2px solid var(--woodbg);
+  display:flex;align-items:center;gap:9px;
+}
+.mi-section-h .mi-color-tag{
+  width:18px;height:18px;
+  border:2px solid var(--woodbg);
+  border-radius:50%;flex-shrink:0;
+}
+.mi-section-body{padding:11px;}
+.mi-input-row{
+  background:var(--paper2);border:1.5px solid var(--woodbg);
+  padding:8px 11px;margin-bottom:5px;
+  border-radius:11px;
+  display:flex;align-items:center;gap:8px;
+}
+.mi-input-row:last-child{margin-bottom:0;}
+.mi-input-name{
+  flex:1;font-size:11px;font-weight:500;color:var(--ink);line-height:1.35;
+}
+.mi-input-prev{
+  font-size:9px;font-weight:700;
+  color:var(--ink3);flex-shrink:0;width:50px;text-align:right;
+}
+.mi-input-box{
+  background:#fff;border:2px solid var(--woodbg);
+  padding:5px 9px;width:80px;
+  font-size:13px;font-weight:700;
+  color:var(--ink);text-align:right;outline:none;
+  border-radius:8px;flex-shrink:0;
+  font-family:inherit;
+}
+.mi-input-box:focus{border-color:var(--green2);background:#FFFEF8;}
+.mi-input-unit{
+  font-size:11px;color:var(--ink3);flex-shrink:0;
+  min-width:18px;font-weight:500;
+}
+
+.mi-progress{
+  background:var(--cream);color:var(--ink);
+  padding:11px 14px;margin:12px;
+  border:2.5px solid var(--woodbg);
+  border-radius:18px;
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;
+  box-shadow:0 4px 0 var(--shadow);
+}
+.mi-progress i{
+  font-size:14px;color:var(--green2);
+  background:var(--paper);
+  padding:3px;border-radius:50%;
+  border:1.5px solid var(--green2);
+}
+.mi-progress-bar{
+  flex:1;height:11px;background:var(--cream2);
+  border:1.5px solid var(--woodbg);
+  border-radius:99px;
+  position:relative;overflow:hidden;
+}
+.mi-progress-bar-fill{
+  height:100%;background:var(--green2);
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+  border-radius:99px;
+}
+.mi-progress-num{font-size:11px;font-weight:900;color:var(--woodbg);}
+
+.hist-tabs{
+  display:flex;background:var(--cream);
+  border-bottom:3px solid var(--woodbg);
+  padding:6px 6px 0;gap:3px;
+}
+.hist-tab{
+  flex:1;background:transparent;border:none;
+  font-family:inherit;
+  font-size:12px;font-weight:700;
+  color:var(--ink3);padding:8px 4px;cursor:pointer;
+  border:2px solid transparent;
+  border-bottom:none;
+  border-radius:11px 11px 0 0;
+  margin-bottom:-3px;
+}
+.hist-tab.active{
+  background:var(--paper);color:var(--woodbg);
+  border-color:var(--woodbg);border-bottom:3px solid var(--paper);
+}
+
+.hist-stat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:7px;
+  padding:11px;background:var(--paper);
+  border-bottom:3px solid var(--woodbg);
+}
+.hist-stat{
+  background:var(--paper2);border:2px solid var(--woodbg);
+  padding:9px 6px;text-align:center;
+  border-radius:14px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.hist-stat-val{
+  font-size:14px;font-weight:900;color:var(--woodbg);
+}
+.hist-stat-lbl{font-size:10px;font-weight:500;color:var(--ink3);margin-top:3px;}
+
+.hist-list{padding:11px;}
+.hist-row{
+  background:var(--paper2);border:2px solid var(--woodbg);
+  padding:9px 12px;margin-bottom:5px;
+  border-radius:14px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 0 var(--shadow);
+}
+.hist-row-month{
+  font-size:11px;font-weight:900;
+  color:var(--ink2);width:50px;flex-shrink:0;
+}
+.hist-row-bar{
+  flex:1;height:14px;background:var(--cream2);
+  border:1px solid var(--woodbg);
+  border-radius:99px;
+  display:flex;overflow:hidden;
+}
+.hist-row-seg{height:100%;}
+.hist-row-num{
+  font-size:13px;font-weight:900;
+  color:var(--green2);width:54px;text-align:right;flex-shrink:0;
+}
+
+.hist-evo{
+  background:#F0DDE2;border:2px solid var(--pinkdk);
+  padding:9px 13px;margin:6px 0;
+  border-radius:14px;
+  display:flex;align-items:center;gap:9px;
+  font-size:12px;font-weight:700;color:var(--pinkdk);
+  box-shadow:0 2px 0 var(--shadow);
+}
+.hist-evo i{font-size:15px;color:var(--pinkdk);}
+
+.bnav{
+  background:var(--cream);
+  border-top:3px solid var(--woodbg);
+  display:flex;flex-shrink:0;
+  padding:5px 6px;gap:4px;
+}
+.bnav-btn{
+  flex:1;background:transparent;border:none;
+  padding:7px 4px 5px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--ink3);
+  font-family:inherit;
+  font-size:10px;font-weight:700;
+  border-radius:14px;
+}
+.bnav-btn i{font-size:21px;}
+.bnav-btn.active{
+  background:var(--paper);color:var(--woodbg);
+  border:2px solid var(--woodbg);
+  box-shadow:0 2px 0 var(--shadow);
+}
+
+.toast{
+  position:fixed;top:64px;left:50%;transform:translateX(-50%) translateY(-12px);
+  background:var(--paper);color:var(--ink);
+  padding:9px 18px;border:2.5px solid var(--woodbg);
+  border-radius:99px;
+  font-size:13px;font-weight:900;
+  opacity:0;pointer-events:none;
+  transition:all .3s;z-index:50;
+  box-shadow:0 4px 0 var(--shadow);
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast:before{content:"✨ ";color:var(--yellow2);}
+
+.evo-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;align-items:center;justify-content:center;
+  z-index:100;padding:18px;
+}
+.evo-overlay.show{display:flex;}
+.evo-box{
+  background:var(--paper);border:3px solid var(--woodbg);
+  padding:22px 20px;text-align:center;max-width:300px;
+  border-radius:24px;
+  box-shadow:0 6px 0 var(--shadow);
+  animation:evoPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes evoPop{
+  0%{transform:scale(.5);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
+.evo-box-h{
+  font-size:15px;font-weight:900;
+  color:var(--pinkdk);margin-bottom:11px;
+  letter-spacing:.04em;
+}
+.evo-box-h:before{content:"🎉 ";}
+.evo-box-h:after{content:" 🎉";}
+.evo-box-svg{width:120px;height:120px;display:block;margin:0 auto 11px;}
+.evo-box-msg{
+  font-size:13px;font-weight:500;
+  color:var(--ink2);line-height:1.7;margin-bottom:18px;
+}
+.evo-box-msg b{color:var(--pinkdk);font-weight:900;}
+.evo-btn{
+  background:var(--green2);color:#fff;
+  border:2.5px solid var(--woodbg);padding:11px 28px;
+  font-family:inherit;
+  font-size:13px;font-weight:900;
+  cursor:pointer;
+  border-radius:99px;
+  box-shadow:0 4px 0 var(--shadow);
+  letter-spacing:.04em;
+}
+.evo-btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--shadow);}
+
+.act-btn{
+  background:var(--green2);color:#fff;
+  border:2.5px solid var(--woodbg);
+  font-family:inherit;
+  font-size:13px;font-weight:900;
+  padding:12px 16px;cursor:pointer;
+  letter-spacing:.04em;
+  border-radius:99px;
+  box-shadow:0 4px 0 var(--shadow);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;
+}
+.act-btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--shadow);}
+.act-btn i{font-size:15px;}
+.act-btn.alt{background:var(--woodbg);}
+.act-btn.warn{background:var(--yellow2);}
+
+.det-actions{padding:0 12px 14px;display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.home-actions{padding:0 12px 16px;}
+
+.empty-msg{
+  text-align:center;
+  font-size:12px;font-weight:500;color:var(--ink3);
+  padding:24px 12px;line-height:1.7;
+}
+.empty-msg:before{content:"🌱 ";font-size:18px;display:block;margin-bottom:6px;}
+
+.title-badge{
+  background:var(--paper);color:var(--lavenderdk);
+  font-weight:700;font-size:10px;
+  padding:2px 8px;border:1.5px solid var(--lavenderdk);
+  border-radius:99px;margin-left:6px;
+  display:inline-block;
+}
+
+.quest-card{
+  background:var(--paper2);border:2px solid var(--woodbg);
+  padding:11px 13px;margin-bottom:7px;
+  border-radius:14px;
+  box-shadow:0 3px 0 var(--shadow);
+}
+.quest-card.warn{border-color:var(--yellow2);background:#F5E6C8;}
+.quest-card.bad{border-color:var(--pink2);background:#F0DCDC;}
+.quest-card.done{background:#E0EAD0;border-color:var(--green2);opacity:.85;}
+.quest-card.review{background:#E6DCEF;border-color:var(--lavenderdk);}
+.quest-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:7px;
+}
+.quest-head-icon{
+  width:26px;height:26px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#fff;
+  background:var(--pink2);border:1.5px solid var(--pinkdk);
+  border-radius:50%;
+}
+.quest-card.warn .quest-head-icon{background:var(--yellow);color:var(--ink2);border-color:var(--yellow2);}
+.quest-card.done .quest-head-icon{background:var(--green2);}
+.quest-card.review .quest-head-icon{background:var(--lavender);border-color:var(--lavenderdk);}
+.quest-title{
+  flex:1;font-size:13px;font-weight:900;color:var(--ink);
+  line-height:1.35;
+}
+.quest-xp{
+  font-size:10px;font-weight:900;
+  color:var(--green2);background:#E0EAD0;
+  padding:3px 8px;border:1.5px solid var(--green2);
+  border-radius:99px;flex-shrink:0;
+}
+.quest-trigger{
+  font-size:11px;color:var(--ink3);
+  margin-bottom:7px;line-height:1.5;font-weight:500;
+}
+.quest-checks{
+  background:#fff;border:1.5px solid var(--woodbg);
+  border-radius:10px;padding:8px 11px;margin-bottom:7px;
+}
+.quest-checks-h{
+  font-size:10px;font-weight:700;color:var(--woodbg);
+  margin-bottom:5px;letter-spacing:.04em;
+}
+.quest-checks-h:before{content:"✓ ";color:var(--green2);font-weight:900;}
+.quest-checks-list{
+  font-size:11px;color:var(--ink2);line-height:1.7;font-weight:500;
+}
+.quest-checks-list li{
+  margin-left:14px;list-style:disc;
+  margin-bottom:1px;
+}
+
+.quest-form{
+  background:#fff;border:1.5px solid var(--woodbg);
+  border-radius:10px;padding:9px 11px;
+  margin-top:8px;
+}
+.quest-form-row{
+  display:flex;align-items:center;gap:7px;
+  padding:5px 0;border-bottom:1px dashed var(--cream2);
+}
+.quest-form-row:last-child{border-bottom:none;}
+.quest-form-lbl{
+  font-size:10px;font-weight:700;color:var(--ink3);
+  width:62px;flex-shrink:0;
+}
+.quest-form-input{
+  flex:1;background:var(--paper2);
+  border:1.5px solid var(--woodbg);
+  padding:5px 9px;font-family:inherit;
+  font-size:11px;color:var(--ink);font-weight:500;
+  border-radius:7px;outline:none;
+}
+.quest-form-input:focus{border-color:var(--green2);background:#fff;}
+.quest-form-buttons{
+  display:flex;gap:6px;margin-top:8px;
+}
+.q-btn{
+  flex:1;background:var(--green2);color:#fff;
+  border:2px solid var(--woodbg);border-radius:99px;
+  font-family:inherit;font-size:11px;font-weight:700;
+  padding:7px 10px;cursor:pointer;
+  box-shadow:0 2px 0 var(--shadow);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.q-btn i{font-size:12px;}
+.q-btn:active{transform:translateY(1px);box-shadow:0 1px 0 var(--shadow);}
+.q-btn.alt{background:var(--woodbg);}
+.q-btn.success{background:var(--lavender2);}
+.q-btn.danger{background:var(--pink2);color:var(--pinkdk);border-color:var(--pinkdk);}
+
+.quest-status-tag{
+  display:inline-block;
+  font-size:10px;font-weight:900;
+  padding:2px 8px;border-radius:99px;
+  margin-left:6px;
+}
+.quest-status-tag.open{background:var(--pink);color:var(--pinkdk);}
+.quest-status-tag.done{background:#D6EAB8;color:var(--greendk);}
+.quest-status-tag.review{background:#E0D4EE;color:var(--lavenderdk);}
+
+.bond-bonus{
+  background:#F0E8DC;border:2.5px solid var(--lavenderdk);
+  padding:11px 13px;margin:0 0 8px;
+  border-radius:14px;
+  box-shadow:0 3px 0 var(--shadow);
+  position:relative;
+}
+.bond-bonus.unlocked{
+  background:#E6DCEF;
+}
+.bond-bonus.unlocked:before{
+  content:"✨";position:absolute;top:-8px;right:-4px;
+  font-size:16px;
+}
+.bond-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;
+}
+.bond-icons{display:flex;gap:-4px;flex-shrink:0;}
+.bond-icon-circle{
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid var(--woodbg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;color:#fff;
+  margin-left:-6px;
+}
+.bond-icon-circle:first-child{margin-left:0;}
+.bond-name{
+  flex:1;font-size:12px;font-weight:900;color:var(--ink);
+}
+.bond-xp{
+  font-size:10px;font-weight:900;
+  color:var(--lavenderdk);background:var(--paper);
+  padding:3px 8px;border:1.5px solid var(--lavenderdk);
+  border-radius:99px;flex-shrink:0;
+}
+.bond-conds{font-size:11px;color:var(--ink3);font-weight:500;line-height:1.6;}
+.bond-cond{
+  display:flex;align-items:center;gap:6px;margin-top:3px;
+}
+.bond-cond-icon{
+  width:14px;height:14px;flex-shrink:0;
+  border-radius:50%;border:1.5px solid var(--woodbg);
+  background:var(--cream2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:900;color:var(--ink3);
+}
+.bond-cond.met .bond-cond-icon{background:var(--green2);color:#fff;border-color:var(--greendk);}
+.bond-cond.met{color:var(--ink);}
+.bond-title-claim{
+  margin-top:7px;text-align:center;
+  background:var(--lavender);color:#fff;
+  padding:5px 10px;border-radius:99px;
+  font-size:11px;font-weight:900;
+  border:1.5px solid var(--lavenderdk);
+}
+.bond-title-claim:before{content:"🏆 ";}
+
+.det-titles{
+  background:var(--paper);
+  padding:9px 12px;
+  border-bottom:3px solid var(--woodbg);
+  display:flex;align-items:center;gap:7px;
+  flex-wrap:wrap;
+}
+.det-titles-lbl{
+  font-size:10px;font-weight:700;color:var(--ink3);
+  flex-shrink:0;
+}
+.det-title-tag{
+  background:var(--lavender);color:#fff;
+  font-size:10px;font-weight:700;
+  padding:3px 9px;border:1.5px solid var(--lavenderdk);
+  border-radius:99px;
+}
+.det-title-tag.empty{
+  background:var(--cream2);color:var(--ink3);
+  border-color:var(--woodbg);
+}
+
+.quest-tabs{
+  display:flex;background:var(--cream);
+  border-bottom:3px solid var(--woodbg);
+  padding:6px 6px 0;gap:3px;
+}
+.quest-tab{
+  flex:1;background:transparent;border:none;
+  font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--ink3);padding:8px 4px;cursor:pointer;
+  border:2px solid transparent;border-bottom:none;
+  border-radius:11px 11px 0 0;margin-bottom:-3px;
+}
+.quest-tab.active{
+  background:var(--paper);color:var(--woodbg);
+  border-color:var(--woodbg);border-bottom:3px solid var(--paper);
+}
+.quest-tab .badge-count{
+  background:var(--pink2);color:#fff;
+  font-size:9px;padding:1px 5px;border-radius:99px;
+  margin-left:4px;font-weight:900;
+}
+</style>
+</head>
+<body>
+
+<div class="hud">
+  <div class="hud-title">アクアリンク経営発展記</div>
+  <div class="hud-month" id="hud-month">2026.05</div>
+  <div class="hud-coin">
+    <div class="hud-coin-icon"></div>
+    <span id="hud-coin">0</span><span style="font-size:9px;font-weight:500;color:var(--ink3);margin-left:2px;">XP</span>
+  </div>
+</div>
+
+<div class="page active" id="page-home">
+  <div class="village">
+    <div class="sun"></div>
+    <div class="cloud" style="top:24px;left:24px;"></div>
+    <div class="cloud" style="top:42px;left:200px;"></div>
+
+    <div class="skybuilding" style="left:0;top:32%;width:42px;height:33%;">
+      <div class="skybuilding-windows"></div>
+    </div>
+    <div class="skybuilding" style="left:48px;top:24%;width:48px;height:41%;background:#7A7268;">
+      <div class="skybuilding-windows"></div>
+    </div>
+    <div class="skybuilding" style="right:0;top:34%;width:36px;height:31%;background:#9C9588;">
+      <div class="skybuilding-windows"></div>
+    </div>
+
+    <div class="tokyo-station" style="right:18px;bottom:35%;">
+      <svg viewBox="0 0 60 50" preserveAspectRatio="xMidYEnd meet">
+        <rect x="2" y="22" width="56" height="28" fill="#9C5848" stroke="#5C2A20" stroke-width="0.6"/>
+        <polygon points="0,22 60,22 30,10" fill="#7A4030" stroke="#5C2A20" stroke-width="0.6"/>
+        <rect x="28" y="14" width="4" height="8" fill="#5C2A20"/>
+        <g fill="#D4C8B0" stroke="#5C2A20" stroke-width="0.4">
+          <rect x="6" y="26" width="4" height="5"/><rect x="13" y="26" width="4" height="5"/>
+          <rect x="22" y="26" width="4" height="5"/><rect x="34" y="26" width="4" height="5"/>
+          <rect x="43" y="26" width="4" height="5"/><rect x="50" y="26" width="4" height="5"/>
+          <rect x="6" y="34" width="4" height="5"/><rect x="13" y="34" width="4" height="5"/>
+          <rect x="22" y="34" width="4" height="5"/><rect x="34" y="34" width="4" height="5"/>
+          <rect x="43" y="34" width="4" height="5"/><rect x="50" y="34" width="4" height="5"/>
+        </g>
+        <rect x="27" y="42" width="6" height="8" fill="#3D2A1C"/>
+      </svg>
+    </div>
+
+    <div class="hq-stage">
+      <div class="hq-banner" id="hq-banner"><i class="ti ti-building"></i>本社 Lv.1</div>
+      <svg id="hq-svg" viewBox="0 0 80 90"></svg>
+    </div>
+
+    <div class="gingko" style="left:8%;bottom:14px;">
+      <svg viewBox="0 0 14 32"><rect x="6" y="14" width="2" height="18" fill="#5C3A2C"/><ellipse cx="7" cy="13" rx="6" ry="8" fill="#A8A878"/><ellipse cx="5" cy="10" rx="3" ry="4" fill="#9C9C68"/></svg>
+    </div>
+    <div class="gingko" style="right:8%;bottom:14px;">
+      <svg viewBox="0 0 14 32"><rect x="6" y="14" width="2" height="18" fill="#5C3A2C"/><ellipse cx="7" cy="13" rx="6" ry="8" fill="#A8A878"/><ellipse cx="9" cy="10" rx="3" ry="4" fill="#9C9C68"/></svg>
+    </div>
+
+    <div class="taxi" style="left:30%;bottom:7px;">
+      <svg viewBox="0 0 18 8"><rect x="0" y="2" width="18" height="4" rx="0.6" fill="#3D352B"/><rect x="3" y="0.5" width="11" height="2.5" fill="#5C544C"/><circle cx="4" cy="6.5" r="1.2" fill="#1A1612"/><circle cx="14" cy="6.5" r="1.2" fill="#1A1612"/></svg>
+    </div>
+    <div class="taxi" style="right:24%;bottom:7px;">
+      <svg viewBox="0 0 18 8"><rect x="0" y="2" width="18" height="4" rx="0.6" fill="#5C544C"/><rect x="3" y="0.5" width="11" height="2.5" fill="#7A7268"/><circle cx="4" cy="6.5" r="1.2" fill="#1A1612"/><circle cx="14" cy="6.5" r="1.2" fill="#1A1612"/></svg>
+    </div>
+
+    <div class="party-stage">
+      <div class="npc" onclick="openDept('sales')">
+        <svg id="npc-sales-svg" viewBox="0 0 60 80"></svg>
+        <div class="npc-tag">営業部 <span class="lv">Lv.<span id="npc-sales-lv">1</span></span></div>
+      </div>
+      <div class="npc" onclick="openDept('install')">
+        <svg id="npc-install-svg" viewBox="0 0 60 80"></svg>
+        <div class="npc-tag">設置部 <span class="lv">Lv.<span id="npc-install-lv">1</span></span></div>
+      </div>
+      <div class="npc" onclick="openDept('mainte')">
+        <svg id="npc-mainte-svg" viewBox="0 0 60 80"></svg>
+        <div class="npc-tag">メンテ部 <span class="lv">Lv.<span id="npc-mainte-lv">1</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><i class="ti ti-flag-3"></i>会社KGI（最終目標）</div>
+    <div class="panel-body" id="hq-kgi-list"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><i class="ti ti-bulb"></i>今月の経営課題</div>
+    <div class="panel-body" id="mission-list"></div>
+  </div>
+
+  <div class="home-actions">
+    <button class="act-btn" onclick="goPage('input')"><i class="ti ti-clipboard-check"></i>今月の経営会議を始める</button>
+  </div>
+</div>
+
+<div class="page" id="page-dept">
+  <div class="det-back" onclick="goPage('home')"><i class="ti ti-arrow-left"></i>会社トップへ</div>
+
+  <div class="det-stage">
+    <div class="cloud" style="top:18px;left:14px;"></div>
+    <div class="cloud" style="top:30px;right:24px;"></div>
+    <div class="skybuilding" style="left:0;top:34%;width:30px;height:35%;"><div class="skybuilding-windows"></div></div>
+    <div class="skybuilding" style="right:0;top:38%;width:28px;height:31%;background:#9C9588;"><div class="skybuilding-windows"></div></div>
+    <svg id="det-npc-svg" class="det-npc-svg" viewBox="0 0 60 80"></svg>
+    <div class="det-name-banner" id="det-name">営業部</div>
+    <div class="det-quote" id="det-quote">数字で語り、感覚では語らない</div>
+  </div>
+
+  <div class="det-lvl-row">
+    <div class="det-lvl-lbl">LV</div>
+    <div class="det-lvl-num" id="det-lv">1</div>
+    <div class="det-xp-bar"><div class="det-xp-bar-fill" id="det-xp-fill" style="width:0%"></div></div>
+    <div class="det-xp-num" id="det-xp">0/100</div>
+  </div>
+
+  <div class="det-titles">
+    <div class="det-titles-lbl">称号</div>
+    <span class="det-title-tag" id="det-rank-title">見習い</span>
+    <span class="det-titles-lbl" style="margin-left:auto;">獲得バッジ</span>
+    <span id="det-badge-count" class="det-title-tag empty">0個</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><i class="ti ti-flag-3"></i>部門KGI（最終目標）</div>
+    <div class="panel-body" id="det-kgi-list"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><i class="ti ti-target"></i>中間指標（KPI）</div>
+    <div class="panel-body" id="det-kpi-list"></div>
+  </div>
+
+  <div class="det-actions">
+    <button class="act-btn" onclick="goPage('input')"><i class="ti ti-clipboard-check"></i>月次決算を入力する</button>
+    <button class="act-btn alt" onclick="goPage('history')"><i class="ti ti-chart-line"></i>経営推移を見る</button>
+  </div>
+</div>
+
+<div class="page" id="page-input">
+  <div class="det-back" onclick="goPage('home')"><i class="ti ti-arrow-left"></i>会社トップへ</div>
+
+  <div class="mi-month-bar">
+    <button class="mi-month-arrow" onclick="changeInputMonth(-1)">◀</button>
+    <div class="mi-month-name" id="input-month">2026.05</div>
+    <button class="mi-month-arrow" onclick="changeInputMonth(1)">▶</button>
+  </div>
+
+  <div id="input-sections"></div>
+
+  <div class="mi-progress">
+    <i class="ti ti-checks"></i>
+    <span>入力進捗</span>
+    <div class="mi-progress-bar"><div class="mi-progress-bar-fill" id="input-progress-fill" style="width:0%"></div></div>
+    <span class="mi-progress-num" id="input-progress-num">0/0</span>
+  </div>
+
+  <div style="padding:0 12px 16px;">
+    <button class="act-btn" onclick="commitMonth()"><i class="ti ti-device-floppy"></i>月次決算を確定する</button>
+  </div>
+</div>
+
+<div class="page" id="page-history">
+  <div class="hist-tabs" id="hist-tabs">
+    <button class="hist-tab active" data-target="hq" onclick="switchHistTab('hq')">本社</button>
+    <button class="hist-tab" data-target="sales" onclick="switchHistTab('sales')">営業</button>
+    <button class="hist-tab" data-target="install" onclick="switchHistTab('install')">設置</button>
+    <button class="hist-tab" data-target="mainte" onclick="switchHistTab('mainte')">メンテ</button>
+  </div>
+
+  <div class="hist-stat-grid">
+    <div class="hist-stat"><div class="hist-stat-val" id="hist-stat-1">--</div><div class="hist-stat-lbl">入力月数</div></div>
+    <div class="hist-stat"><div class="hist-stat-val" id="hist-stat-2">--</div><div class="hist-stat-lbl">最高値</div></div>
+    <div class="hist-stat"><div class="hist-stat-val" id="hist-stat-3">--</div><div class="hist-stat-lbl">直近平均</div></div>
+  </div>
+
+  <div class="hist-list" id="hist-list"></div>
+</div>
+
+<div class="page" id="page-quest">
+  <div class="quest-tabs">
+    <button class="quest-tab active" id="qtab-active" onclick="switchQuestTab('active')">進行中<span class="badge-count" id="qtab-active-count">0</span></button>
+    <button class="quest-tab" id="qtab-review" onclick="switchQuestTab('review')">翌月確認<span class="badge-count" id="qtab-review-count">0</span></button>
+    <button class="quest-tab" id="qtab-bond" onclick="switchQuestTab('bond')">連携</button>
+    <button class="quest-tab" id="qtab-done" onclick="switchQuestTab('done')">達成済</button>
+  </div>
+  <div id="quest-content" style="padding:11px;"></div>
+</div>
+
+<div class="bnav">
+  <button class="bnav-btn active" id="bnav-home" onclick="goPage('home')">
+    <i class="ti ti-building"></i>会社
+  </button>
+  <button class="bnav-btn" id="bnav-input" onclick="goPage('input')">
+    <i class="ti ti-edit"></i>入力
+  </button>
+  <button class="bnav-btn" id="bnav-quest" onclick="goPage('quest')">
+    <i class="ti ti-sword"></i>クエスト
+  </button>
+  <button class="bnav-btn" id="bnav-history" onclick="goPage('history')">
+    <i class="ti ti-chart-line"></i>履歴
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="evo-overlay" id="evo-overlay">
+  <div class="evo-box">
+    <div class="evo-box-h" id="evo-title">レベルアップ！</div>
+    <svg id="evo-svg" class="evo-box-svg" viewBox="0 0 60 80"></svg>
+    <div class="evo-box-msg" id="evo-msg"></div>
+    <button class="evo-btn" onclick="closeEvo()">つづける</button>
+  </div>
+</div>
+
+<script>
+
+const DEPTS = {
+  sales: {
+    name: '営業部',
+    quote: '数字で語り、感覚では語らない',
+    color: '#7A8AA0',
+    kgi: [
+      {id:'sales_net', name:'新規月額純増', unit:'円', target:500000, fmt:'currency'},
+      {id:'sales_gross', name:'粗利率', unit:'%', target:45, fmt:'pct'},
+    ],
+    kpi: [
+      {cat:'量', items:[
+        {id:'sales_inq', name:'新規問い合わせ数', unit:'件', target:80},
+        {id:'sales_meet', name:'商談数', unit:'件', target:50},
+      ]},
+      {cat:'質', items:[
+        {id:'sales_won', name:'受注件数', unit:'件', target:20},
+        {id:'sales_won_amt', name:'受注金額', unit:'円', target:8000000, fmt:'currency'},
+        {id:'sales_close', name:'成約率', unit:'%', target:35, fmt:'pct'},
+      ]},
+      {cat:'利益', items:[
+        {id:'sales_disc', name:'値引き率', unit:'%', target:5, fmt:'pct', invert:true},
+        {id:'sales_costdiff', name:'見積実績差額', unit:'円', target:0, fmt:'currency'},
+      ]},
+      {cat:'後工程', items:[
+        {id:'sales_complaint3m', name:'3ヶ月以内クレーム', unit:'件', target:0, invert:true},
+      ]},
+    ],
+  },
+  install: {
+    name: '設置部',
+    quote: '約束通り、見積通り、高品質に',
+    color: '#A87A5C',
+    kgi: [
+      {id:'inst_complaint30', name:'30日以内クレーム', unit:'件', target:0, invert:true},
+      {id:'inst_costdiff', name:'仕入差額', unit:'円', target:0, fmt:'currency'},
+    ],
+    kpi: [
+      {cat:'量', items:[
+        {id:'inst_done', name:'月間設置完了件数', unit:'件', target:25},
+      ]},
+      {cat:'回収', items:[
+        {id:'inst_contract', name:'契約書回収率', unit:'%', target:100, fmt:'pct'},
+      ]},
+      {cat:'効率・利益', items:[
+        {id:'inst_addorder', name:'追加発注件数', unit:'件', target:0, invert:true},
+      ]},
+      {cat:'品質', items:[
+        {id:'inst_revisit', name:'再訪問件数', unit:'件', target:0, invert:true},
+        {id:'inst_photo', name:'完成写真提出率', unit:'%', target:100, fmt:'pct'},
+        {id:'inst_satisfy', name:'お客様満足度', unit:'点', target:90},
+      ]},
+      {cat:'連携', items:[
+        {id:'inst_handback', name:'メンテからの指摘数', unit:'件', target:0, invert:true},
+      ]},
+    ],
+  },
+  mainte: {
+    name: 'メンテ部',
+    quote: '解約を防ぎ、現場を守る',
+    color: '#6B6862',
+    kgi: [
+      {id:'mt_cancel_amt', name:'解約金額', unit:'円', target:200000, fmt:'currency', invert:true},
+      {id:'mt_purchase_pct', name:'純仕入割合', unit:'%', target:7.5, fmt:'pct', invert:true},
+      {id:'mt_profit', name:'商品利益', unit:'円', target:1500000, fmt:'currency'},
+    ],
+    kpi: [
+      {cat:'担当規模', items:[
+        {id:'mt_count', name:'担当件数', unit:'件', target:200},
+      ]},
+      {cat:'解約', items:[
+        {id:'mt_cancel_cnt', name:'解約件数', unit:'件', target:5, invert:true},
+        {id:'mt_quality_cancel', name:'品質解約数', unit:'件', target:0, invert:true},
+        {id:'mt_pause', name:'停止件数', unit:'件', target:3, invert:true},
+      ]},
+      {cat:'品質・回収', items:[
+        {id:'mt_complaint', name:'クレーム件数', unit:'件', target:2, invert:true},
+        {id:'mt_unpaid2m', name:'未納2ヶ月以上', unit:'件', target:8, invert:true},
+        {id:'mt_unpaid3m', name:'未納3ヶ月以上', unit:'件', target:0, invert:true},
+      ]},
+      {cat:'追加売上', items:[
+        {id:'mt_goods_sales', name:'商品売上', unit:'円', target:2500000, fmt:'currency'},
+        {id:'mt_renewal', name:'リニューアル提案件数', unit:'件', target:10},
+      ]},
+    ],
+  },
+};
+
+const HQ_KGI = [
+  {id:'hq_profit', name:'実質純増利益', unit:'円', target:10000000, fmt:'currency'},
+  {id:'hq_payback', name:'社員還元原資', unit:'円', target:2000000, fmt:'currency'},
+];
+
+const RANK_TITLES = [
+  '見習い', '基礎習得', '数字を見る者', '改善実行者', '部門の主力',
+  '仕組み化できる者', '部門リーダー', '他部門連携者', '経営視点の責任者', 'アクアリンクの英雄'
+];
+
+const HQ_RANK_TITLES = [
+  '創業期の会社', '小さな専門会社', '現場で頑張る会社', '数字を見始めた会社', '部門管理が始まった会社',
+  '改善が回り始めた会社', '利益が残る会社', '社員に還元できる会社', '次世代に承継できる会社', '100年続くアクアリンク'
+];
+
+const QUEST_TEMPLATES = [
+  {
+    id:'sales_q1', dept:'sales',
+    triggerKpi:'sales_inq', triggerCondition:'low',
+    title:'問い合わせの森を広げろ',
+    trigger:'新規問い合わせ数が目標未達',
+    checks:['広告からの問い合わせは減っていないか','紹介は発生しているか','既存顧客からの反響はあるか','LPやSNS導線に問題はないか'],
+  },
+  {
+    id:'sales_q2', dept:'sales',
+    triggerKpi:'sales_close', triggerCondition:'low',
+    title:'商談への橋をかけろ',
+    trigger:'問い合わせはあるが成約率が低い',
+    checks:['返信速度はどうか','初回対応文は適切か','ヒアリング内容','見込み度の判定','商談化できなかった理由'],
+  },
+  {
+    id:'sales_q3', dept:'sales',
+    triggerKpi:'sales_gross', triggerCondition:'low',
+    title:'利益を守る契約を取れ',
+    trigger:'受注はあるが粗利率が低い・値引き率が高い',
+    checks:['値引き理由','見積時の原価精度','追加部材の発生理由','過剰サービスになっていないか'],
+  },
+  {
+    id:'sales_q4', dept:'sales',
+    triggerKpi:'sales_complaint3m', triggerCondition:'high',
+    title:'後工程に優しい営業になれ',
+    trigger:'設置後3ヶ月以内クレームが発生',
+    checks:['現場条件を正しく伝えたか','電源・水場・搬入経路を確認したか','顧客への説明が過剰でないか','設置部が困る情報不足はないか'],
+  },
+  {
+    id:'inst_q1', dept:'install',
+    triggerKpi:'inst_complaint30', triggerCondition:'high',
+    title:'30日以内クレームを止めろ',
+    trigger:'設置後30日以内のクレームが発生',
+    checks:['施工ミスか','現場確認不足か','顧客説明不足か','設置後確認不足か','部材問題か'],
+  },
+  {
+    id:'inst_q2', dept:'install',
+    triggerKpi:'inst_revisit', triggerCondition:'high',
+    title:'手戻りをなくせ',
+    trigger:'再訪問件数が多い',
+    checks:['現場確認不足','部材準備不足','施工ミス','顧客説明不足','設置後確認不足'],
+  },
+  {
+    id:'inst_q3', dept:'install',
+    triggerKpi:'inst_costdiff', triggerCondition:'low',
+    title:'見積通りに作れ',
+    trigger:'見積仕入と実際仕入の差額が悪い',
+    checks:['見積時の部材漏れ','施工中の追加部材','原価計算ミス','現場条件の見落とし','営業見積と設置実態のズレ'],
+  },
+  {
+    id:'inst_q4', dept:'install',
+    triggerKpi:'inst_handback', triggerCondition:'high',
+    title:'メンテしやすい水槽を作れ',
+    trigger:'メンテ部からの引継ぎ不備指摘が多い',
+    checks:['器具の配置','メンテスペース','配線','水換え導線','ろ過槽の扱いやすさ','顧客説明内容'],
+  },
+  {
+    id:'inst_q5', dept:'install',
+    triggerKpi:'inst_contract', triggerCondition:'low',
+    title:'契約書回収を徹底せよ',
+    trigger:'契約書回収率が低い',
+    checks:['設置完了時の回収フロー','顧客への説明不足','押印の確認漏れ','回収期限の管理'],
+  },
+  {
+    id:'mt_q1', dept:'mainte',
+    triggerKpi:'mt_cancel_amt', triggerCondition:'high',
+    title:'解約の芽を摘め',
+    trigger:'解約件数が多い・解約金額が大きい',
+    checks:['防げた解約か','お客様都合解約か','担当者別に偏りはあるか','水槽タイプ別に偏りはあるか','事前にサインはなかったか'],
+  },
+  {
+    id:'mt_q2', dept:'mainte',
+    triggerKpi:'mt_complaint', triggerCondition:'high',
+    title:'クレームの濁りを取れ',
+    trigger:'クレーム件数が多い',
+    checks:['作業品質','接客','訪問頻度','連絡不足','顧客期待値とのズレ'],
+  },
+  {
+    id:'mt_q3', dept:'mainte',
+    triggerKpi:'mt_purchase_pct', triggerCondition:'high',
+    title:'仕入のムダを減らせ',
+    trigger:'純仕入割合が7.5%を超える',
+    checks:['売上につながらない仕入がないか','不要な在庫がないか','生体・消耗品のロスが多くないか','担当者ごとの仕入傾向'],
+  },
+  {
+    id:'mt_q4', dept:'mainte',
+    triggerKpi:'mt_renewal', triggerCondition:'low',
+    title:'既存顧客から利益を作れ',
+    trigger:'リニューアル提案件数が少ない',
+    checks:['提案できるタイミングを逃していないか','現場担当者だけで止まっていないか','決裁者に価値が伝わっているか','リニューアル提案の型があるか'],
+  },
+];
+
+const BONDS = [
+  {
+    id:'bond_sales_install',
+    name:'営業 × 設置',
+    icon1:'営', icon2:'設', color1:'#5C6B85', color2:'#A87A5C',
+    title:'約束を守る受注',
+    levels:[
+      {id:'b1', name:'営業の3ヶ月以内クレーム0件', xp:100, check:(md)=> md.sales_complaint3m !== undefined && md.sales_complaint3m !== '' && Number(md.sales_complaint3m) === 0},
+      {id:'b2', name:'かつ設置の契約書回収率95%以上', xp:150, check:(md)=> md.sales_complaint3m !== undefined && Number(md.sales_complaint3m) === 0 && Number(md.inst_contract||0) >= 95},
+      {id:'b3', name:'かつ30日以内クレーム0件', xp:200, check:(md)=> Number(md.sales_complaint3m||1) === 0 && Number(md.inst_contract||0) >= 95 && md.inst_complaint30 !== undefined && md.inst_complaint30 !== '' && Number(md.inst_complaint30) === 0},
+    ],
+  },
+  {
+    id:'bond_install_mainte',
+    name:'設置 × メンテ',
+    icon1:'設', icon2:'メ', color1:'#A87A5C', color2:'#4A4844',
+    title:'メンテしやすい設置',
+    levels:[
+      {id:'b1', name:'メンテからの指摘0件', xp:100, check:(md)=> md.inst_handback !== undefined && md.inst_handback !== '' && Number(md.inst_handback) === 0},
+      {id:'b2', name:'初回メンテ評価が高い', xp:150, check:(md)=> Number(md.inst_satisfy||0) >= 90},
+      {id:'b3', name:'30日以内クレーム0件', xp:200, check:(md)=> md.inst_complaint30 !== undefined && md.inst_complaint30 !== '' && Number(md.inst_complaint30) === 0},
+    ],
+  },
+  {
+    id:'bond_mainte_sales',
+    name:'メンテ × 営業',
+    icon1:'メ', icon2:'営', color1:'#4A4844', color2:'#5C6B85',
+    title:'既存顧客から未来を作る',
+    levels:[
+      {id:'b1', name:'リニューアル提案件数達成', xp:100, check:(md)=> Number(md.mt_renewal||0) >= 10},
+      {id:'b2', name:'解約金額を抑える', xp:100, check:(md)=> Number(md.mt_cancel_amt||0) > 0 && Number(md.mt_cancel_amt||0) <= 200000},
+      {id:'b3', name:'かつ営業の新規月額純増達成', xp:200, check:(md)=> Number(md.mt_renewal||0) >= 10 && Number(md.sales_net||0) >= 500000},
+    ],
+  },
+  {
+    id:'bond_all',
+    name:'全社連携',
+    icon1:'全', icon2:'★', color1:'#7A6890', color2:'#D4B868',
+    title:'アクアリンク経営発展記',
+    levels:[
+      {id:'b1', name:'新規月額純増達成', xp:200, check:(md)=> Number(md.sales_net||0) >= 500000},
+      {id:'b2', name:'品質解約0件', xp:200, check:(md)=> Number(md.mt_quality_cancel||0) === 0 && md.mt_quality_cancel !== undefined && md.mt_quality_cancel !== ''},
+      {id:'b3', name:'純仕入割合7.5%以下', xp:200, check:(md)=> Number(md.mt_purchase_pct||0) > 0 && Number(md.mt_purchase_pct||0) <= 7.5},
+      {id:'b4', name:'商品利益達成', xp:200, check:(md)=> Number(md.mt_profit||0) >= 1500000},
+      {id:'b5', name:'社員還元原資増加', xp:500, check:(md)=> Number(md.hq_payback||0) >= 2000000},
+    ],
+  },
+];
+
+let ST = {
+  current_month: '2026-05',
+  input_month: '2026-05',
+  data: {},
+  xp: { sales:0, install:0, mainte:0 },
+  history: [],
+  quests: [],
+  bonds_claimed: {},
+  badges: [],
+};
+
+try {
+  const saved = localStorage.getItem('aqualink_v3');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    ST = Object.assign(ST, parsed);
+    if (!ST.quests) ST.quests = [];
+    if (!ST.bonds_claimed) ST.bonds_claimed = {};
+    if (!ST.badges) ST.badges = [];
+  }
+} catch(e) {}
+
+function save() {
+  try { localStorage.setItem('aqualink_v3', JSON.stringify(ST)); } catch(e) {}
+}
+
+function getCurrentMonth() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+}
+
+function fmtMonth(m) {
+  return m.replace('-', '.');
+}
+
+function getMonthData(month) {
+  return ST.data[month] || {};
+}
+
+function setMonthValue(month, key, val) {
+  if (!ST.data[month]) ST.data[month] = {};
+  ST.data[month][key] = val;
+}
+
+function fmtVal(v, fmt) {
+  if (v === undefined || v === null || v === '') return '--';
+  if (fmt === 'currency') {
+    const n = Number(v);
+    if (n >= 1000000) return '+' + (n/1000000).toFixed(1) + 'M';
+    if (n >= 1000) return Math.round(n/1000) + 'K';
+    return Math.round(n).toLocaleString();
+  }
+  if (fmt === 'pct') return Number(v).toFixed(1) + '%';
+  return Math.round(Number(v)).toLocaleString();
+}
+
+function calcKpiPct(item, val) {
+  if (val === undefined || val === '' || val === null) return 0;
+  const v = Number(val);
+  const target = item.target;
+  if (target === 0) {
+    if (item.invert) return v === 0 ? 100 : Math.max(0, 100 - v * 10);
+    return v > 0 ? 100 : 0;
+  }
+  if (item.invert) {
+    return Math.max(0, Math.min(100, Math.round((1 - v / (target * 2)) * 100)));
+  }
+  return Math.max(0, Math.min(100, Math.round((v / target) * 100)));
+}
+
+function levelFromXp(xp) {
+  if (xp < 100) return 1;
+  if (xp < 250) return 2;
+  if (xp < 500) return 3;
+  if (xp < 900) return 4;
+  if (xp < 1500) return 5;
+  if (xp < 2300) return 6;
+  if (xp < 3300) return 7;
+  if (xp < 4500) return 8;
+  if (xp < 6000) return 9;
+  return 10;
+}
+
+function xpRange(xp) {
+  const thresholds = [0,100,250,500,900,1500,2300,3300,4500,6000,9000];
+  const lv = levelFromXp(xp);
+  return { cur: xp - thresholds[lv-1], max: thresholds[lv] - thresholds[lv-1] };
+}
+
+function hqLevel() {
+  const totalXp = ST.xp.sales + ST.xp.install + ST.xp.mainte;
+  if (totalXp < 200) return 1;
+  if (totalXp < 600) return 2;
+  if (totalXp < 1500) return 3;
+  if (totalXp < 3000) return 4;
+  if (totalXp < 5000) return 5;
+  if (totalXp < 8000) return 6;
+  if (totalXp < 12000) return 7;
+  return 8;
+}
+
+function makeNpcSvg(dept, lv) {
+  const head = `
+    <ellipse cx="30" cy="78" rx="14" ry="2" fill="rgba(0,0,0,0.18)"/>
+    <rect x="26" y="20" width="8" height="3" rx="0.5" fill="#D4B89C"/>
+    <rect x="26" y="20" width="8" height="1" fill="#E8C8A8"/>
+    <rect x="20" y="23" width="20" height="14" rx="2" fill="#E8CCA8" stroke="#A07858" stroke-width="0.5"/>
+    <ellipse cx="25" cy="29" rx="1.5" ry="1.8" fill="#3D352B"/>
+    <circle cx="25.3" cy="28.6" r="0.4" fill="#fff"/>
+    <ellipse cx="35" cy="29" rx="1.5" ry="1.8" fill="#3D352B"/>
+    <circle cx="35.3" cy="28.6" r="0.4" fill="#fff"/>
+    <path d="M 27 33 Q 30 35 33 33" stroke="#7A5A48" stroke-width="0.6" fill="none" stroke-linecap="round"/>
+    <rect x="27" y="37" width="6" height="2.5" fill="#E8CCA8"/>
+  `;
+
+  let hair = '', body = '', shoe = '', aura = '';
+
+  if (dept === 'sales') {
+    hair = `<path d="M 19 24 Q 19 16 30 14 Q 41 16 41 24 L 41 28 Q 38 22 30 23 Q 22 22 19 28 Z" fill="#3D2F22" stroke="#2A1F18" stroke-width="0.4"/>`;
+    body = `
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+      <path d="M 24 39 L 30 49 L 36 39 L 36 41 L 31 50 L 30 51 L 29 50 L 24 41 Z" fill="#EFE6D5"/>
+      <path d="M 28 41 L 30 49 L 32 41 Z" fill="#9C5A5A"/>
+      <path d="M 28 41 L 30 43 L 32 41 L 30 42 Z" fill="#7A4040"/>
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+      <ellipse cx="14" cy="40" rx="3" ry="1" fill="#7A8AA0" opacity="0.5"/>
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+      <ellipse cx="46" cy="40" rx="3" ry="1" fill="#7A8AA0" opacity="0.5"/>
+      <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <g transform="translate(38,52) rotate(-15)">
+        <rect x="0" y="0" width="14" height="9" rx="0.8" fill="#A8A09C" stroke="#5C544C" stroke-width="0.4"/>
+        <rect x="0.6" y="0.6" width="12.8" height="7" rx="0.4" fill="#3D352B"/>
+        <rect x="1.2" y="1.2" width="11.6" height="5.8" fill="#7A8AA0"/>
+        <rect x="2.5" y="2.8" width="3" height="0.5" fill="#EFE6D5"/>
+        <rect x="6.5" y="2.8" width="2" height="0.5" fill="#EFE6D5"/>
+        <rect x="9" y="2.8" width="3" height="0.5" fill="#EFE6D5"/>
+        <rect x="0" y="9" width="14" height="2" fill="#8A827A"/>
+      </g>
+      <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <rect x="29" y="60" width="2" height="3" fill="#5C6B85"/>
+      <rect x="20" y="60" width="9" height="14" rx="1" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+      <rect x="31" y="60" width="9" height="14" rx="1" fill="#5C6B85" stroke="#2A3548" stroke-width="0.4"/>
+    `;
+  } else if (dept === 'install') {
+    hair = `<path d="M 19 25 Q 19 17 30 15 Q 41 17 41 25 L 41 27 Q 38 23 30 24 Q 22 23 19 27 Z" fill="#5C4632" stroke="#3D2F22" stroke-width="0.4"/>
+      <path d="M 21 24 L 25 22 M 27 22 L 30 22 M 33 22 L 38 24" stroke="#3D2F22" stroke-width="0.3" fill="none"/>`;
+    body = `
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
+      <rect x="13" y="44" width="34" height="1.5" fill="#EFE6D5" opacity="0.85"/>
+      <rect x="22" y="48" width="7" height="6" rx="0.5" fill="#8A6048" stroke="#5C402C" stroke-width="0.3"/>
+      <rect x="32" y="48" width="7" height="6" rx="0.5" fill="#8A6048" stroke="#5C402C" stroke-width="0.3"/>
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#A87A5C" stroke="#5C402C" stroke-width="0.4"/>
+      <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <g transform="translate(40,52) rotate(20)">
+        <ellipse cx="0" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
+        <circle cx="0" cy="0" r="1.2" fill="#5C4A38"/>
+        <rect x="0" y="-1.2" width="14" height="2.4" rx="0.3" fill="#A8A09C" stroke="#5C544C" stroke-width="0.4"/>
+        <ellipse cx="14" cy="0" rx="3" ry="2.5" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
+        <circle cx="14" cy="0" r="1.2" fill="#5C4A38"/>
+      </g>
+      <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <rect x="29" y="60" width="2" height="3" fill="#A87A5C"/>
+      <rect x="20" y="60" width="9" height="14" rx="1" fill="#9C9088" stroke="#5C544C" stroke-width="0.4"/>
+      <rect x="31" y="60" width="9" height="14" rx="1" fill="#9C9088" stroke="#5C544C" stroke-width="0.4"/>
+    `;
+  } else {
+    hair = `<path d="M 18 26 Q 18 13 30 12 Q 42 13 42 26 L 42 30 Q 42 26 39 25 L 33 25 Q 31 23 30 24 Q 29 23 27 25 L 21 25 Q 18 26 18 30 Z" fill="#2A1F18" stroke="#1A1208" stroke-width="0.4"/>`;
+    body = `
+      <path d="M 16 39 L 44 39 L 47 60 L 13 60 Z" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
+      <path d="M 24 39 L 27 44 L 30 41 L 33 44 L 36 39" stroke="#5C544C" stroke-width="0.5" fill="none"/>
+      <circle cx="30" cy="43" r="0.5" fill="#7A726A"/>
+      <circle cx="30" cy="46" r="0.5" fill="#7A726A"/>
+      <rect x="11" y="40" width="6" height="14" rx="1.5" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
+      <rect x="43" y="40" width="6" height="14" rx="1.5" fill="#4A4844" stroke="#1A1612" stroke-width="0.4"/>
+      <rect x="10" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <g transform="translate(43,55) rotate(35)">
+        <path d="M 0 0 L 8 -1 L 8 1 Z" fill="#B8B0A8" stroke="#5C544C" stroke-width="0.4"/>
+        <path d="M 0 0 L 8 1 L 8 -1 Z" fill="#9C948C" stroke="#5C544C" stroke-width="0.4"/>
+        <circle cx="0" cy="-1.5" r="1.5" fill="none" stroke="#8A5050" stroke-width="0.8"/>
+        <circle cx="0" cy="1.5" r="1.5" fill="none" stroke="#8A5050" stroke-width="0.8"/>
+      </g>
+      <rect x="46" y="53" width="6" height="3.5" rx="0.8" fill="#D4B89C" stroke="#A07858" stroke-width="0.4"/>
+      <rect x="29" y="60" width="2" height="3" fill="#8A6A4C"/>
+      <rect x="14" y="58" width="32" height="2.5" fill="#7A5A40" stroke="#5C402C" stroke-width="0.3"/>
+      <rect x="28.5" y="58.3" width="3" height="2" fill="#D4B868" stroke="#8A6048" stroke-width="0.3"/>
+      <rect x="20" y="60" width="9" height="14" rx="1" fill="#D4C0A0" stroke="#7A6048" stroke-width="0.4"/>
+      <rect x="31" y="60" width="9" height="14" rx="1" fill="#D4C0A0" stroke="#7A6048" stroke-width="0.4"/>
+    `;
+  }
+
+  if (dept === 'mainte') {
+    shoe = `
+      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.4"/>
+      <rect x="19" y="74" width="11" height="1" fill="#7A5A40"/>
+      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#5C402C" stroke="#3D2A1C" stroke-width="0.4"/>
+      <rect x="30" y="74" width="11" height="1" fill="#7A5A40"/>
+    `;
+  } else {
+    shoe = `
+      <rect x="19" y="74" width="11" height="4" rx="0.6" fill="#3D352B" stroke="#1A1612" stroke-width="0.4"/>
+      <rect x="19" y="74" width="11" height="1" fill="#5C544C"/>
+      <rect x="30" y="74" width="11" height="4" rx="0.6" fill="#3D352B" stroke="#1A1612" stroke-width="0.4"/>
+      <rect x="30" y="74" width="11" height="1" fill="#5C544C"/>
+    `;
+  }
+
+  if (lv >= 7) {
+    aura = `<circle cx="30" cy="44" r="32" fill="#FCE9C8" opacity="0.45"/>`;
+  }
+
+  return aura + head + hair + body + shoe;
+}
+
+function makeHqSvg(lv) {
+  const ground = `<rect x="0" y="84" width="80" height="6" fill="#5C544C"/><rect x="0" y="83" width="80" height="1.5" fill="#3A352F"/>`;
+
+  if (lv <= 1) {
+    return ground + `
+      <rect x="22" y="50" width="36" height="34" fill="#A8A088" stroke="#6B5A48" stroke-width="0.8" rx="1"/>
+      <rect x="22" y="50" width="36" height="3" fill="#7A7268"/>
+      <rect x="34" y="68" width="12" height="16" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
+      <rect x="34" y="68" width="12" height="2" fill="#7A7268"/>
+      <circle cx="42" cy="76" r="0.7" fill="#D4B868"/>
+      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
+        <rect x="26" y="56" width="4" height="4"/>
+        <rect x="32" y="56" width="4" height="4"/>
+        <rect x="44" y="56" width="4" height="4"/>
+        <rect x="50" y="56" width="4" height="4"/>
+        <rect x="26" y="62" width="4" height="4"/>
+        <rect x="32" y="62" width="4" height="4"/>
+        <rect x="44" y="62" width="4" height="4"/>
+        <rect x="50" y="62" width="4" height="4"/>
+      </g>
+      <rect x="28" y="46" width="24" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
+      <text x="40" y="49.4" text-anchor="middle" font-size="2.6" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+    `;
+  }
+  if (lv <= 2) {
+    return ground + `
+      <rect x="20" y="42" width="40" height="42" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
+      <rect x="20" y="42" width="40" height="3" fill="#7A7268"/>
+      <rect x="20" y="81" width="40" height="3" fill="#7A7268"/>
+      <rect x="34" y="68" width="12" height="16" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
+      <rect x="34" y="68" width="12" height="2" fill="#7A7268"/>
+      <circle cx="42" cy="76" r="0.7" fill="#D4B868"/>
+      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
+        <rect x="24" y="48" width="4" height="4"/>
+        <rect x="30" y="48" width="4" height="4"/>
+        <rect x="46" y="48" width="4" height="4"/>
+        <rect x="52" y="48" width="4" height="4"/>
+        <rect x="24" y="54" width="4" height="4"/>
+        <rect x="30" y="54" width="4" height="4"/>
+        <rect x="46" y="54" width="4" height="4"/>
+        <rect x="52" y="54" width="4" height="4"/>
+        <rect x="24" y="60" width="4" height="4"/>
+        <rect x="30" y="60" width="4" height="4"/>
+        <rect x="46" y="60" width="4" height="4"/>
+        <rect x="52" y="60" width="4" height="4"/>
+      </g>
+      <rect x="26" y="38" width="28" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
+      <text x="40" y="41.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+    `;
+  }
+  if (lv <= 3) {
+    return ground + `
+      <rect x="16" y="34" width="48" height="50" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
+      <rect x="16" y="34" width="48" height="3" fill="#6B6358"/>
+      <rect x="16" y="81" width="48" height="3" fill="#7A7268"/>
+      <rect x="35" y="66" width="10" height="18" fill="#5C544C" stroke="#3D352B" stroke-width="0.6"/>
+      <rect x="35" y="66" width="10" height="2" fill="#7A7268"/>
+      <circle cx="42" cy="75" r="0.8" fill="#D4B868"/>
+      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
+        <rect x="20" y="42" width="4" height="4"/><rect x="26" y="42" width="4" height="4"/><rect x="32" y="42" width="4" height="4"/><rect x="44" y="42" width="4" height="4"/><rect x="50" y="42" width="4" height="4"/><rect x="56" y="42" width="4" height="4"/>
+        <rect x="20" y="48" width="4" height="4"/><rect x="26" y="48" width="4" height="4"/><rect x="32" y="48" width="4" height="4"/><rect x="44" y="48" width="4" height="4"/><rect x="50" y="48" width="4" height="4"/><rect x="56" y="48" width="4" height="4"/>
+        <rect x="20" y="54" width="4" height="4"/><rect x="26" y="54" width="4" height="4"/><rect x="32" y="54" width="4" height="4"/><rect x="44" y="54" width="4" height="4"/><rect x="50" y="54" width="4" height="4"/><rect x="56" y="54" width="4" height="4"/>
+        <rect x="20" y="60" width="4" height="4"/><rect x="26" y="60" width="4" height="4"/><rect x="32" y="60" width="4" height="4"/><rect x="44" y="60" width="4" height="4"/><rect x="50" y="60" width="4" height="4"/><rect x="56" y="60" width="4" height="4"/>
+      </g>
+      <rect x="22" y="30" width="36" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
+      <text x="40" y="33.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+    `;
+  }
+  if (lv <= 5) {
+    return ground + `
+      <rect x="14" y="26" width="52" height="58" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
+      <rect x="14" y="26" width="52" height="3" fill="#6B6358"/>
+      <rect x="14" y="81" width="52" height="3" fill="#7A7268"/>
+      <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
+      <rect x="34" y="66" width="12" height="2" fill="#5C544C"/>
+      <circle cx="43" cy="75" r="0.9" fill="#D4B868"/>
+      <g fill="#B0AFA8" stroke="#7A7268" stroke-width="0.3">
+        <rect x="18" y="34" width="4" height="4"/><rect x="24" y="34" width="4" height="4"/><rect x="30" y="34" width="4" height="4"/><rect x="46" y="34" width="4" height="4"/><rect x="52" y="34" width="4" height="4"/><rect x="58" y="34" width="4" height="4"/>
+        <rect x="18" y="40" width="4" height="4"/><rect x="24" y="40" width="4" height="4"/><rect x="30" y="40" width="4" height="4"/><rect x="46" y="40" width="4" height="4"/><rect x="52" y="40" width="4" height="4"/><rect x="58" y="40" width="4" height="4"/>
+        <rect x="18" y="46" width="4" height="4"/><rect x="24" y="46" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/><rect x="52" y="46" width="4" height="4"/><rect x="58" y="46" width="4" height="4"/>
+        <rect x="18" y="52" width="4" height="4"/><rect x="24" y="52" width="4" height="4"/><rect x="30" y="52" width="4" height="4"/><rect x="46" y="52" width="4" height="4"/><rect x="52" y="52" width="4" height="4"/><rect x="58" y="52" width="4" height="4"/>
+        <rect x="18" y="58" width="4" height="4"/><rect x="24" y="58" width="4" height="4"/><rect x="30" y="58" width="4" height="4"/><rect x="46" y="58" width="4" height="4"/><rect x="52" y="58" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/>
+      </g>
+      <rect x="20" y="22" width="40" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
+      <text x="40" y="25.5" text-anchor="middle" font-size="3" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+      <rect x="38" y="14" width="4" height="8" fill="#5C4A78"/>
+    `;
+  }
+  if (lv <= 7) {
+    return ground + `
+      <rect x="12" y="20" width="56" height="64" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
+      <rect x="12" y="20" width="56" height="3" fill="#6B6358"/>
+      <rect x="12" y="81" width="56" height="3" fill="#7A7268"/>
+      <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
+      <rect x="34" y="66" width="12" height="2" fill="#5C544C"/>
+      <rect x="34" y="66" width="6" height="18" fill="none" stroke="#5C544C" stroke-width="0.4"/>
+      <circle cx="43" cy="75" r="0.9" fill="#D4B868"/>
+      <g fill="#A8B8C9" stroke="#5C544C" stroke-width="0.3">
+        <rect x="16" y="28" width="4" height="4"/><rect x="22" y="28" width="4" height="4"/><rect x="28" y="28" width="4" height="4"/><rect x="48" y="28" width="4" height="4"/><rect x="54" y="28" width="4" height="4"/><rect x="60" y="28" width="4" height="4"/>
+        <rect x="16" y="34" width="4" height="4"/><rect x="22" y="34" width="4" height="4"/><rect x="28" y="34" width="4" height="4"/><rect x="48" y="34" width="4" height="4"/><rect x="54" y="34" width="4" height="4"/><rect x="60" y="34" width="4" height="4"/>
+        <rect x="16" y="40" width="4" height="4"/><rect x="22" y="40" width="4" height="4"/><rect x="28" y="40" width="4" height="4"/><rect x="48" y="40" width="4" height="4"/><rect x="54" y="40" width="4" height="4"/><rect x="60" y="40" width="4" height="4"/>
+        <rect x="16" y="46" width="4" height="4"/><rect x="22" y="46" width="4" height="4"/><rect x="28" y="46" width="4" height="4"/><rect x="48" y="46" width="4" height="4"/><rect x="54" y="46" width="4" height="4"/><rect x="60" y="46" width="4" height="4"/>
+        <rect x="16" y="52" width="4" height="4"/><rect x="22" y="52" width="4" height="4"/><rect x="28" y="52" width="4" height="4"/><rect x="48" y="52" width="4" height="4"/><rect x="54" y="52" width="4" height="4"/><rect x="60" y="52" width="4" height="4"/>
+        <rect x="16" y="58" width="4" height="4"/><rect x="22" y="58" width="4" height="4"/><rect x="28" y="58" width="4" height="4"/><rect x="48" y="58" width="4" height="4"/><rect x="54" y="58" width="4" height="4"/><rect x="60" y="58" width="4" height="4"/>
+      </g>
+      <rect x="18" y="16" width="44" height="4" fill="#7A6890" stroke="#5C4A78" stroke-width="0.4"/>
+      <text x="40" y="19.5" text-anchor="middle" font-size="3.2" fill="#FFF" font-weight="900" font-family="sans-serif">AQUALINK</text>
+      <rect x="38" y="6" width="4" height="10" fill="#5C4A78"/>
+      <circle cx="40" cy="6" r="1" fill="#D4B868"/>
+    `;
+  }
+  return ground + `
+    <rect x="8" y="14" width="64" height="70" fill="#9C9588" stroke="#5C544C" stroke-width="0.8" rx="1"/>
+    <rect x="8" y="14" width="64" height="4" fill="#6B6358"/>
+    <rect x="8" y="81" width="64" height="3" fill="#7A7268"/>
+    <rect x="34" y="66" width="12" height="18" fill="#3D352B" stroke="#1A1612" stroke-width="0.6"/>
+    <rect x="34" y="66" width="12" height="2.5" fill="#5C544C"/>
+    <rect x="34" y="66" width="6" height="18" fill="none" stroke="#5C544C" stroke-width="0.4"/>
+    <circle cx="43" cy="75" r="1" fill="#D4B868"/>
+    <g fill="#7A8AA0" stroke="#3A4C5C" stroke-width="0.3">
+      <rect x="12" y="22" width="4" height="4"/><rect x="18" y="22" width="4" height="4"/><rect x="24" y="22" width="4" height="4"/><rect x="30" y="22" width="4" height="4"/><rect x="46" y="22" width="4" height="4"/><rect x="52" y="22" width="4" height="4"/><rect x="58" y="22" width="4" height="4"/><rect x="64" y="22" width="4" height="4"/>
+      <rect x="12" y="28" width="4" height="4"/><rect x="18" y="28" width="4" height="4"/><rect x="24" y="28" width="4" height="4"/><rect x="30" y="28" width="4" height="4"/><rect x="46" y="28" width="4" height="4"/><rect x="52" y="28" width="4" height="4"/><rect x="58" y="28" width="4" height="4"/><rect x="64" y="28" width="4" height="4"/>
+      <rect x="12" y="34" width="4" height="4"/><rect x="18" y="34" width="4" height="4"/><rect x="24" y="34" width="4" height="4"/><rect x="30" y="34" width="4" height="4"/><rect x="46" y="34" width="4" height="4"/><rect x="52" y="34" width="4" height="4"/><rect x="58" y="34" width="4" height="4"/><rect x="64" y="34" width="4" height="4"/>
+      <rect x="12" y="40" width="4" height="4"/><rect x="18" y="40" width="4" height="4"/><rect x="24" y="40" width="4" height="4"/><rect x="30" y="40" width="4" height="4"/><rect x="46" y="40" width="4" height="4"/><rect x="52" y="40" width="4" height="4"/><rect x="58" y="40" width="4" height="4"/><rect x="64" y="40" width="4" height="4"/>
+      <rect x="12" y="46" width="4" height="4"/><rect x="18" y="46" width="4" height="4"/><rect x="24" y="46" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/><rect x="52" y="46" width="4" height="4"/><rect x="58" y="46" width="4" height="4"/><rect x="64" y="46" width="4" height="4"/>
+      <rect x="12" y="52" width="4" height="4"/><rect x="18" y="52" width="4" height="4"/><rect x="24" y="52" width="4" height="4"/><rect x="30" y="52" width="4" height="4"/><rect x="46" y="52" width="4" height="4"/><rect x="52" y="52" width="4" height="4"/><rect x="58" y="52" width="4" height="4"/><rect x="64" y="52" width="4" height="4"/>
+      <rect x="12" y="58" width="4" height="4"/><rect x="18" y="58" width="4" height="4"/><rect x="24" y="58" width="4" height="4"/><rect x="30" y="58" width="4" height="4"/><rect x="46" y="58" width="4" height="4"/><rect x="52" y="58" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/><rect x="64" y="58" width="4" height="4"/>
+    </g>
+    <rect x="14" y="10" width="52" height="4" fill="#5C4A78" stroke="#3A1F5C" stroke-width="0.4"/>
+    <text x="40" y="13.5" text-anchor="middle" font-size="3.2" fill="#FCD96A" font-weight="900" font-family="sans-serif">AQUALINK</text>
+    <rect x="38" y="0" width="4" height="10" fill="#5C4A78"/>
+    <circle cx="40" cy="0" r="1.2" fill="#D4B868"/>
+  `;
+}
+
+function renderHome() {
+  document.getElementById('hud-month').textContent = fmtMonth(ST.current_month);
+  const totalXp = ST.xp.sales + ST.xp.install + ST.xp.mainte;
+  document.getElementById('hud-coin').textContent = totalXp.toLocaleString();
+
+  const hqLv = hqLevel();
+  document.getElementById('hq-banner').innerHTML = '<i class="ti ti-building"></i>Lv.' + hqLv + ' ' + (HQ_RANK_TITLES[hqLv-1] || HQ_RANK_TITLES[0]);
+  document.getElementById('hq-svg').innerHTML = makeHqSvg(hqLv);
+
+  ['sales','install','mainte'].forEach(d => {
+    const lv = levelFromXp(ST.xp[d]);
+    document.getElementById('npc-'+d+'-svg').innerHTML = makeNpcSvg(d, lv);
+    document.getElementById('npc-'+d+'-lv').textContent = lv;
+  });
+
+  const md = getMonthData(ST.current_month);
+  const hqList = document.getElementById('hq-kgi-list');
+  hqList.innerHTML = '';
+  HQ_KGI.forEach(k => {
+    const v = md[k.id];
+    const pct = calcKpiPct(k, v);
+    const status = v === undefined || v === '' ? '' : (pct >= 80 ? '' : pct >= 50 ? 'warn' : 'bad');
+    const showVal = v !== undefined && v !== '' ? fmtVal(v, k.fmt) : '--';
+    hqList.innerHTML += `
+      <div class="kgi-row ${status}">
+        <div class="kgi-info">
+          <div class="kgi-lbl">${k.name}</div>
+          <div class="kgi-val">
+            <span class="kgi-num">${showVal}</span>
+            <span class="kgi-target">/ ${fmtVal(k.target, k.fmt)}</span>
+          </div>
+        </div>
+        <div class="kgi-pct">${v !== undefined && v !== '' ? pct + '%' : '-'}</div>
+      </div>
+    `;
+  });
+
+  const missionList = document.getElementById('mission-list');
+  missionList.innerHTML = '';
+  const missions = generateMissions();
+  if (missions.length === 0) {
+    missionList.innerHTML = '<div class="empty-msg">今月の経営課題はまだありません<br>月次決算を入力すると改善ヒントが届きます</div>';
+  } else {
+    missions.forEach(m => {
+      missionList.innerHTML += `
+        <div class="mission ${m.type}">
+          <div class="mission-icon"><i class="ti ti-${m.icon}"></i></div>
+          <div class="mission-body">
+            <div class="mission-name">${m.name}</div>
+            <div class="mission-sub">${m.sub}</div>
+          </div>
+          <div class="mission-xp">+${m.xp} XP</div>
+        </div>
+      `;
+    });
+  }
+}
+
+function generateMissions() {
+  const md = getMonthData(ST.current_month);
+  const missions = [];
+  Object.keys(DEPTS).forEach(deptKey => {
+    const dept = DEPTS[deptKey];
+    dept.kgi.concat(dept.kpi.flatMap(c=>c.items)).forEach(item => {
+      const v = md[item.id];
+      if (v === undefined || v === '') return;
+      const pct = calcKpiPct(item, v);
+      if (pct < 50) {
+        missions.push({
+          type: 'bad',
+          icon: 'alert-triangle',
+          name: dept.name + ' / ' + item.name,
+          sub: '目標から大きく離れているので、改善が必要です',
+          xp: 50,
+        });
+      } else if (pct < 70) {
+        missions.push({
+          type: 'warn',
+          icon: 'alert-circle',
+          name: dept.name + ' / ' + item.name,
+          sub: '目標まであと少し。原因を見つけましょう',
+          xp: 30,
+        });
+      }
+    });
+  });
+  return missions.slice(0, 5);
+}
+
+let curDept = 'sales';
+
+function openDept(d) {
+  curDept = d;
+  goPage('dept');
+  renderDept();
+}
+
+function renderDept() {
+  const dept = DEPTS[curDept];
+  const lv = levelFromXp(ST.xp[curDept]);
+  const xpInfo = xpRange(ST.xp[curDept]);
+
+  document.getElementById('det-npc-svg').innerHTML = makeNpcSvg(curDept, lv);
+  document.getElementById('det-name').textContent = dept.name;
+  document.getElementById('det-quote').textContent = dept.quote;
+  document.getElementById('det-lv').textContent = lv;
+  document.getElementById('det-xp').textContent = xpInfo.cur + '/' + xpInfo.max;
+  const xpPct = xpInfo.max > 0 ? Math.round(xpInfo.cur / xpInfo.max * 100) : 100;
+  document.getElementById('det-xp-fill').style.width = xpPct + '%';
+
+  document.getElementById('det-rank-title').textContent = RANK_TITLES[lv-1] || RANK_TITLES[0];
+  const deptBadges = ST.badges.filter(b => b.dept === curDept).length;
+  document.getElementById('det-badge-count').textContent = deptBadges + '個';
+  document.getElementById('det-badge-count').classList.toggle('empty', deptBadges === 0);
+
+  const md = getMonthData(ST.current_month);
+  const kgiList = document.getElementById('det-kgi-list');
+  kgiList.innerHTML = '';
+  dept.kgi.forEach(k => {
+    const v = md[k.id];
+    const pct = calcKpiPct(k, v);
+    const status = v === undefined || v === '' ? '' : (pct >= 80 ? '' : pct >= 50 ? 'warn' : 'bad');
+    const showVal = v !== undefined && v !== '' ? fmtVal(v, k.fmt) : '--';
+    kgiList.innerHTML += `
+      <div class="kgi-row ${status}">
+        <div class="kgi-info">
+          <div class="kgi-lbl">${k.name}</div>
+          <div class="kgi-val">
+            <span class="kgi-num">${showVal}</span>
+            <span class="kgi-target">/ ${fmtVal(k.target, k.fmt)}</span>
+          </div>
+        </div>
+        <div class="kgi-pct">${v !== undefined && v !== '' ? pct + '%' : '-'}</div>
+      </div>
+    `;
+  });
+
+  const kpiList = document.getElementById('det-kpi-list');
+  kpiList.innerHTML = '';
+  dept.kpi.forEach(cat => {
+    kpiList.innerHTML += `<div class="kpi-cat-h">${cat.cat}</div>`;
+    cat.items.forEach(item => {
+      const v = md[item.id];
+      const pct = calcKpiPct(item, v);
+      const showVal = v !== undefined && v !== '' ? fmtVal(v, item.fmt) : '--';
+      const barColor = pct >= 70 ? '#9CB088' : pct >= 50 ? '#D4B868' : '#C9909C';
+      kpiList.innerHTML += `
+        <div class="kpi-line">
+          <span class="kpi-line-name">${item.name}</span>
+          <div class="kpi-line-bar"><div class="kpi-line-bar-fill" style="width:${pct}%;background:${barColor};"></div></div>
+          <span class="kpi-line-val">${showVal}</span>
+          <span class="kpi-line-arrow">›</span>
+        </div>
+      `;
+    });
+  });
+}
+
+function renderInput() {
+  document.getElementById('input-month').textContent = fmtMonth(ST.input_month);
+  const md = getMonthData(ST.input_month);
+  const prevMonth = prevMonthOf(ST.input_month);
+  const prevMd = getMonthData(prevMonth);
+  const sections = document.getElementById('input-sections');
+  sections.innerHTML = '';
+
+  const hqSec = document.createElement('div');
+  hqSec.className = 'mi-section';
+  hqSec.innerHTML = `
+    <div class="mi-section-h">
+      <div class="mi-color-tag" style="background:#9CB088;"></div>
+      本社（全社の数字）
+    </div>
+    <div class="mi-section-body" id="mi-hq"></div>
+  `;
+  sections.appendChild(hqSec);
+  const hqBody = document.getElementById('mi-hq');
+  HQ_KGI.forEach(k => {
+    const v = md[k.id];
+    const prevV = prevMd[k.id];
+    hqBody.innerHTML += `
+      <div class="mi-input-row">
+        <span class="mi-input-name">${k.name}</span>
+        <span class="mi-input-prev">${prevV !== undefined && prevV !== '' ? '前月 ' + fmtVal(prevV, k.fmt) : '前月 --'}</span>
+        <input class="mi-input-box" type="number" data-key="${k.id}" value="${v !== undefined ? v : ''}" placeholder="0" step="any">
+        <span class="mi-input-unit">${k.unit}</span>
+      </div>
+    `;
+  });
+
+  Object.keys(DEPTS).forEach(deptKey => {
+    const dept = DEPTS[deptKey];
+    const sec = document.createElement('div');
+    sec.className = 'mi-section';
+    sec.innerHTML = `
+      <div class="mi-section-h">
+        <div class="mi-color-tag" style="background:${dept.color};"></div>
+        ${dept.name}
+      </div>
+      <div class="mi-section-body" id="mi-${deptKey}"></div>
+    `;
+    sections.appendChild(sec);
+    const body = document.getElementById('mi-'+deptKey);
+    const allItems = dept.kgi.concat(dept.kpi.flatMap(c=>c.items));
+    allItems.forEach(item => {
+      const v = md[item.id];
+      const prevV = prevMd[item.id];
+      body.innerHTML += `
+        <div class="mi-input-row">
+          <span class="mi-input-name">${item.name}</span>
+          <span class="mi-input-prev">${prevV !== undefined && prevV !== '' ? '前月 ' + fmtVal(prevV, item.fmt) : '前月 --'}</span>
+          <input class="mi-input-box" type="number" data-key="${item.id}" value="${v !== undefined ? v : ''}" placeholder="0" step="any">
+          <span class="mi-input-unit">${item.unit}</span>
+        </div>
+      `;
+    });
+  });
+
+  document.querySelectorAll('.mi-input-box').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const key = inp.dataset.key;
+      const val = inp.value === '' ? '' : Number(inp.value);
+      setMonthValue(ST.input_month, key, val);
+      save();
+      updateInputProgress();
+    });
+  });
+
+  updateInputProgress();
+}
+
+function updateInputProgress() {
+  const md = getMonthData(ST.input_month);
+  let total = 0, filled = 0;
+  HQ_KGI.forEach(k => { total++; if (md[k.id] !== undefined && md[k.id] !== '') filled++; });
+  Object.keys(DEPTS).forEach(deptKey => {
+    DEPTS[deptKey].kgi.concat(DEPTS[deptKey].kpi.flatMap(c=>c.items)).forEach(item => {
+      total++;
+      if (md[item.id] !== undefined && md[item.id] !== '') filled++;
+    });
+  });
+  const pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  document.getElementById('input-progress-fill').style.width = pct + '%';
+  document.getElementById('input-progress-num').textContent = filled + '/' + total;
+}
+
+function prevMonthOf(m) {
+  const [y, mm] = m.split('-').map(Number);
+  if (mm === 1) return (y-1) + '-12';
+  return y + '-' + String(mm-1).padStart(2,'0');
+}
+
+function nextMonthOf(m) {
+  const [y, mm] = m.split('-').map(Number);
+  if (mm === 12) return (y+1) + '-01';
+  return y + '-' + String(mm+1).padStart(2,'0');
+}
+
+function changeInputMonth(dir) {
+  if (dir > 0) ST.input_month = nextMonthOf(ST.input_month);
+  else ST.input_month = prevMonthOf(ST.input_month);
+  save();
+  renderInput();
+}
+
+function commitMonth() {
+  const md = getMonthData(ST.input_month);
+  let xpGain = { sales:0, install:0, mainte:0 };
+  let levelUps = [];
+  let bondMessages = [];
+
+  Object.keys(DEPTS).forEach(deptKey => {
+    const dept = DEPTS[deptKey];
+    const allItems = dept.kgi.concat(dept.kpi.flatMap(c=>c.items));
+    allItems.forEach(item => {
+      const v = md[item.id];
+      if (v === undefined || v === '') return;
+      xpGain[deptKey] += 5;
+      const pct = calcKpiPct(item, v);
+      if (pct >= 100) xpGain[deptKey] += 50;
+      else if (pct >= 80) xpGain[deptKey] += 30;
+      else if (pct >= 60) xpGain[deptKey] += 10;
+      else if (pct >= 40) xpGain[deptKey] += 5;
+    });
+  });
+
+  generateQuestsFromData(md, ST.input_month);
+
+  BONDS.forEach(bond => {
+    const claimedKey = bond.id + '__' + ST.input_month;
+    if (ST.bonds_claimed[claimedKey]) return;
+    let bondXp = 0;
+    let metCount = 0;
+    bond.levels.forEach(lv => {
+      if (lv.check(md)) {
+        bondXp += lv.xp;
+        metCount++;
+      }
+    });
+    if (bondXp > 0) {
+      ST.bonds_claimed[claimedKey] = { xp:bondXp, met:metCount, total:bond.levels.length };
+      const splitXp = Math.round(bondXp / 3);
+      xpGain.sales += splitXp;
+      xpGain.install += splitXp;
+      xpGain.mainte += splitXp;
+      if (metCount === bond.levels.length) {
+        bondMessages.push('🏆 ' + bond.title + ' 獲得！');
+        if (!ST.badges.find(b => b.id === bond.id)) {
+          ST.badges.push({id:bond.id, name:bond.title, dept:'bond', month:ST.input_month});
+        }
+      }
+    }
+  });
+
+  const oldLevels = {
+    sales: levelFromXp(ST.xp.sales),
+    install: levelFromXp(ST.xp.install),
+    mainte: levelFromXp(ST.xp.mainte),
+    hq: hqLevel(),
+  };
+
+  ST.xp.sales += xpGain.sales;
+  ST.xp.install += xpGain.install;
+  ST.xp.mainte += xpGain.mainte;
+  ST.current_month = ST.input_month;
+
+  const newLevels = {
+    sales: levelFromXp(ST.xp.sales),
+    install: levelFromXp(ST.xp.install),
+    mainte: levelFromXp(ST.xp.mainte),
+    hq: hqLevel(),
+  };
+
+  ['sales','install','mainte'].forEach(d => {
+    if (newLevels[d] > oldLevels[d]) levelUps.push({type:d, lv:newLevels[d]});
+  });
+  if (newLevels.hq > oldLevels.hq) levelUps.push({type:'hq', lv:newLevels.hq});
+
+  if (!ST.history.includes(ST.input_month)) {
+    ST.history.push(ST.input_month);
+    ST.history.sort();
+  }
+
+  save();
+
+  const totalXpGain = xpGain.sales + xpGain.install + xpGain.mainte;
+  let toastMsg = '+' + totalXpGain + ' XP もらった！';
+  if (bondMessages.length > 0) toastMsg += ' / ' + bondMessages[0];
+  showToast(toastMsg);
+
+  if (levelUps.length > 0) {
+    setTimeout(() => showLevelUp(levelUps[0]), 700);
+  } else {
+    setTimeout(() => goPage('home'), 1000);
+  }
+}
+
+function generateQuestsFromData(md, month) {
+  QUEST_TEMPLATES.forEach(qt => {
+    const v = md[qt.triggerKpi];
+    if (v === undefined || v === '') return;
+    const dept = DEPTS[qt.dept];
+    const item = dept.kgi.concat(dept.kpi.flatMap(c=>c.items)).find(i => i.id === qt.triggerKpi);
+    if (!item) return;
+    const pct = calcKpiPct(item, v);
+    let triggered = false;
+    if (qt.triggerCondition === 'low' && pct < 60) triggered = true;
+    if (qt.triggerCondition === 'high' && pct < 50) triggered = true;
+    if (!triggered) return;
+
+    const existsKey = qt.id + '__' + month;
+    if (ST.quests.find(q => q.key === existsKey)) return;
+    ST.quests.push({
+      key: existsKey,
+      template_id: qt.id,
+      dept: qt.dept,
+      month: month,
+      title: qt.title,
+      trigger: qt.trigger,
+      checks: qt.checks,
+      who: '',
+      what: '',
+      due: '',
+      status: 'open',
+      created: month,
+    });
+  });
+}
+
+function showLevelUp(lu) {
+  const overlay = document.getElementById('evo-overlay');
+  const title = document.getElementById('evo-title');
+  const svg = document.getElementById('evo-svg');
+  const msg = document.getElementById('evo-msg');
+
+  if (lu.type === 'hq') {
+    title.textContent = '会社が発展した！';
+    svg.setAttribute('viewBox','0 0 80 90');
+    svg.innerHTML = makeHqSvg(lu.lv);
+    msg.innerHTML = `アクアリンクが <b>Lv.${lu.lv}</b> に進化したよ！<br>会社がもっと立派になった`;
+  } else {
+    const dept = DEPTS[lu.type];
+    title.textContent = dept.name + ' Lv.' + lu.lv + '！';
+    svg.setAttribute('viewBox','0 0 60 80');
+    svg.innerHTML = makeNpcSvg(lu.type, lu.lv);
+    msg.innerHTML = `${dept.name}のメンバーが <b>Lv.${lu.lv}</b> に成長したよ`;
+  }
+
+  overlay.classList.add('show');
+}
+
+function closeEvo() {
+  document.getElementById('evo-overlay').classList.remove('show');
+  goPage('home');
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+let curHistTab = 'hq';
+function switchHistTab(target) {
+  curHistTab = target;
+  document.querySelectorAll('.hist-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.target === target);
+  });
+  renderHistory();
+}
+
+function renderHistory() {
+  const months = ST.history.slice().sort();
+  const list = document.getElementById('hist-list');
+  list.innerHTML = '';
+
+  if (months.length === 0) {
+    list.innerHTML = '<div class="empty-msg">まだ履歴がありません<br>月次入力を確定すると<br>ここに記録されます</div>';
+    document.getElementById('hist-stat-1').textContent = '0';
+    document.getElementById('hist-stat-2').textContent = '--';
+    document.getElementById('hist-stat-3').textContent = '--';
+    return;
+  }
+
+  let getKey, getColor, fmtFn;
+  if (curHistTab === 'hq') {
+    getKey = m => Number(getMonthData(m).hq_profit || 0);
+    getColor = '#9CB088';
+    fmtFn = v => v >= 1000000 ? '+' + (v/1000000).toFixed(1) + 'M' : Math.round(v/1000) + 'K';
+  } else {
+    const dept = DEPTS[curHistTab];
+    getKey = m => Number(getMonthData(m)[dept.kgi[0].id] || 0);
+    getColor = dept.color;
+    fmtFn = v => {
+      const k = dept.kgi[0];
+      if (k.fmt === 'currency') return v >= 1000000 ? (v/1000000).toFixed(1) + 'M' : Math.round(v/1000) + 'K';
+      if (k.fmt === 'pct') return v.toFixed(1) + '%';
+      return Math.round(v).toLocaleString();
+    };
+  }
+
+  const values = months.map(m => ({m, v: getKey(m)}));
+  const max = Math.max(...values.map(x => x.v), 1);
+  const recent = values.slice(-3);
+  const avgRecent = recent.reduce((s,x)=>s+x.v,0) / Math.max(recent.length,1);
+
+  document.getElementById('hist-stat-1').textContent = months.length;
+  document.getElementById('hist-stat-2').textContent = fmtFn(max);
+  document.getElementById('hist-stat-3').textContent = fmtFn(avgRecent);
+
+  values.forEach(({m,v}) => {
+    const pct = max > 0 ? Math.round(v/max * 100) : 0;
+    list.innerHTML += `
+      <div class="hist-row">
+        <span class="hist-row-month">${fmtMonth(m)}</span>
+        <div class="hist-row-bar"><div class="hist-row-seg" style="width:${pct}%;background:${getColor};"></div></div>
+        <span class="hist-row-num">${fmtFn(v)}</span>
+      </div>
+    `;
+  });
+}
+
+function goPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  const navMap = {home:'bnav-home', input:'bnav-input', quest:'bnav-quest', history:'bnav-history', dept:'bnav-home'};
+  const navId = navMap[page];
+  if (navId) document.getElementById(navId).classList.add('active');
+
+  if (page === 'home') renderHome();
+  if (page === 'dept') renderDept();
+  if (page === 'input') renderInput();
+  if (page === 'history') renderHistory();
+  if (page === 'quest') renderQuest();
+}
+
+let curQuestTab = 'active';
+function switchQuestTab(tab) {
+  curQuestTab = tab;
+  document.querySelectorAll('.quest-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('qtab-' + tab).classList.add('active');
+  renderQuest();
+}
+
+function renderQuest() {
+  const activeQuests = ST.quests.filter(q => q.status === 'open');
+  const reviewQuests = ST.quests.filter(q => q.status === 'review_pending');
+  const doneQuests = ST.quests.filter(q => q.status === 'done');
+
+  document.getElementById('qtab-active-count').textContent = activeQuests.length;
+  document.getElementById('qtab-review-count').textContent = reviewQuests.length;
+
+  const content = document.getElementById('quest-content');
+  content.innerHTML = '';
+
+  if (curQuestTab === 'active') {
+    if (activeQuests.length === 0) {
+      content.innerHTML = '<div class="empty-msg">進行中のクエストはありません<br>月次決算を確定すると<br>未達項目から自動でクエストが生まれます</div>';
+    } else {
+      activeQuests.forEach(q => content.appendChild(makeQuestCard(q, 'active')));
+    }
+  } else if (curQuestTab === 'review') {
+    if (reviewQuests.length === 0) {
+      content.innerHTML = '<div class="empty-msg">翌月確認待ちのクエストはありません<br>クエストを完了して<br>翌月の月次決算を入力すると<br>ここに表示されます</div>';
+    } else {
+      reviewQuests.forEach(q => content.appendChild(makeQuestCard(q, 'review')));
+    }
+  } else if (curQuestTab === 'bond') {
+    renderBonds(content);
+  } else if (curQuestTab === 'done') {
+    if (doneQuests.length === 0) {
+      content.innerHTML = '<div class="empty-msg">達成済クエストはまだありません</div>';
+    } else {
+      doneQuests.slice().reverse().forEach(q => content.appendChild(makeQuestCard(q, 'done')));
+    }
+  }
+}
+
+function makeQuestCard(q, mode) {
+  const card = document.createElement('div');
+  const dept = DEPTS[q.dept];
+  let cls = 'quest-card';
+  if (mode === 'review') cls += ' review';
+  else if (mode === 'done') cls += ' done';
+  else cls += ' bad';
+  card.className = cls;
+
+  const checkList = q.checks.map(c => '<li>'+c+'</li>').join('');
+  let formHtml = '';
+  let actionsHtml = '';
+
+  if (mode === 'active') {
+    formHtml = `
+      <div class="quest-form">
+        <div class="quest-form-row">
+          <span class="quest-form-lbl">改善内容</span>
+          <input class="quest-form-input" data-qkey="${q.key}" data-field="what" value="${q.what||''}" placeholder="何をやるか">
+        </div>
+        <div class="quest-form-row">
+          <span class="quest-form-lbl">担当者</span>
+          <input class="quest-form-input" data-qkey="${q.key}" data-field="who" value="${q.who||''}" placeholder="誰がやるか">
+        </div>
+        <div class="quest-form-row">
+          <span class="quest-form-lbl">期限</span>
+          <input class="quest-form-input" data-qkey="${q.key}" data-field="due" value="${q.due||''}" placeholder="いつまでに">
+        </div>
+      </div>
+      <div class="quest-form-buttons">
+        <button class="q-btn alt" onclick="closeQuest('${q.key}')"><i class="ti ti-x"></i>閉じる</button>
+        <button class="q-btn" onclick="moveToReview('${q.key}')"><i class="ti ti-check"></i>翌月確認に送る</button>
+      </div>
+    `;
+  } else if (mode === 'review') {
+    formHtml = `
+      <div class="quest-checks">
+        <div class="quest-checks-h">改善内容</div>
+        <div class="quest-checks-list" style="font-size:11px;">
+          ${q.what ? '・' + q.what + '<br>' : ''}
+          ${q.who ? '担当：' + q.who + '<br>' : ''}
+          ${q.due ? '期限：' + q.due : ''}
+        </div>
+      </div>
+      <div class="quest-form-buttons">
+        <button class="q-btn danger" onclick="reviewQuest('${q.key}', false)"><i class="ti ti-x"></i>改善できなかった</button>
+        <button class="q-btn success" onclick="reviewQuest('${q.key}', true)"><i class="ti ti-trophy"></i>改善した！+100XP</button>
+      </div>
+    `;
+  } else if (mode === 'done') {
+    actionsHtml = `<span class="quest-status-tag done">達成 (${q.completed_month||q.month})</span>`;
+  }
+
+  card.innerHTML = `
+    <div class="quest-head">
+      <div class="quest-head-icon"><i class="ti ti-${mode==='done'?'trophy':mode==='review'?'eye':'flag'}"></i></div>
+      <div class="quest-title">${dept.name} / ${q.title}${actionsHtml}</div>
+      <div class="quest-xp">+50〜100 XP</div>
+    </div>
+    <div class="quest-trigger">📌 ${q.trigger}（${fmtMonth(q.month)}）</div>
+    ${mode!=='done' ? `<div class="quest-checks">
+      <div class="quest-checks-h">確認すること</div>
+      <ul class="quest-checks-list">${checkList}</ul>
+    </div>`:''}
+    ${formHtml}
+  `;
+
+  setTimeout(() => {
+    card.querySelectorAll('.quest-form-input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        const qkey = inp.dataset.qkey;
+        const field = inp.dataset.field;
+        const quest = ST.quests.find(q => q.key === qkey);
+        if (quest) { quest[field] = inp.value; save(); }
+      });
+    });
+  }, 0);
+
+  return card;
+}
+
+function closeQuest(key) {
+  const q = ST.quests.find(x => x.key === key);
+  if (!q) return;
+  if (!confirm('このクエストを閉じますか？')) return;
+  ST.quests = ST.quests.filter(x => x.key !== key);
+  save();
+  renderQuest();
+}
+
+function moveToReview(key) {
+  const q = ST.quests.find(x => x.key === key);
+  if (!q) return;
+  if (!q.what || !q.who || !q.due) {
+    showToast('改善内容・担当・期限を入れてください');
+    return;
+  }
+  q.status = 'review_pending';
+  let bonus = 30 + 50 + 30;
+  ST.xp[q.dept] += bonus;
+  save();
+  showToast('+' + bonus + ' XP / 翌月確認へ');
+  renderQuest();
+}
+
+function reviewQuest(key, success) {
+  const q = ST.quests.find(x => x.key === key);
+  if (!q) return;
+  q.status = 'done';
+  q.completed_month = ST.current_month;
+  q.success = success;
+  if (success) {
+    ST.xp[q.dept] += 150;
+    showToast('+150 XP / 改善達成！');
+    if (!ST.badges.find(b => b.id === 'quest_master_' + q.dept) && ST.quests.filter(x => x.dept === q.dept && x.status === 'done' && x.success).length >= 3) {
+      ST.badges.push({id:'quest_master_'+q.dept, name:DEPTS[q.dept].name+' 改善マスター', dept:q.dept, month:ST.current_month});
+    }
+  } else {
+    ST.xp[q.dept] += 30;
+    showToast('+30 XP / 次回がんばろう');
+  }
+  save();
+  renderQuest();
+}
+
+function renderBonds(content) {
+  const md = getMonthData(ST.current_month);
+  if (!md || Object.keys(md).length === 0) {
+    content.innerHTML = '<div class="empty-msg">今月の月次決算を確定すると<br>連携ボーナスの達成度が見えます</div>';
+    return;
+  }
+  BONDS.forEach(bond => {
+    const card = document.createElement('div');
+    const totalMet = bond.levels.filter(lv => lv.check(md)).length;
+    const allMet = totalMet === bond.levels.length;
+    card.className = 'bond-bonus' + (allMet ? ' unlocked' : '');
+
+    const condsHtml = bond.levels.map(lv => {
+      const met = lv.check(md);
+      return `<div class="bond-cond ${met?'met':''}">
+        <span class="bond-cond-icon">${met?'✓':'·'}</span>
+        <span>${lv.name} (+${lv.xp})</span>
+      </div>`;
+    }).join('');
+
+    const totalXp = bond.levels.reduce((s,lv)=>s+lv.xp,0);
+    card.innerHTML = `
+      <div class="bond-head">
+        <div class="bond-icons">
+          <div class="bond-icon-circle" style="background:${bond.color1};">${bond.icon1}</div>
+          <div class="bond-icon-circle" style="background:${bond.color2};">${bond.icon2}</div>
+        </div>
+        <div class="bond-name">${bond.name}</div>
+        <div class="bond-xp">最大+${totalXp}</div>
+      </div>
+      <div class="bond-conds">${condsHtml}</div>
+      ${allMet ? `<div class="bond-title-claim">${bond.title}</div>` : ''}
+    `;
+    content.appendChild(card);
+  });
+}
+
+ST.current_month = ST.current_month || getCurrentMonth();
+ST.input_month = ST.input_month || ST.current_month;
+renderHome();
+
+</script>
+
+</body>
+</html>
